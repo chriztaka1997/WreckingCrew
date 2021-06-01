@@ -6,8 +6,8 @@ using UnityEngine;
 public class BallMB : MonoBehaviour
 {
     public GameObject anchor;
-    private BallMB anchorBallRef;
-    public Rigidbody2D thisRigidbody;
+    protected BallMB anchorBallRef;
+    public Rigidbody2D thisRigidbody { get; protected set; }
 
     public float fixedZ;
     public float chainLengthSet;
@@ -22,7 +22,7 @@ public class BallMB : MonoBehaviour
     public Transform anchorTransform => anchor.transform;
 
 
-    public void Start()
+    public virtual void Start()
     {
         thisRigidbody = gameObject.GetComponent<Rigidbody2D>();
 
@@ -33,12 +33,26 @@ public class BallMB : MonoBehaviour
         anchorBallRef = anchor.GetComponent<BallMB>();
     }
 
-    public void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         UpdateForces();
     }
 
-    public void UpdateForces()
+    protected void AddForceTowardsAnchor(float magnitude)
+    {
+        if (magnitude > maxForce) magnitude = maxForce;
+
+        Vector2 chainForce = (anchorTransform.position - thisTransform.position).normalized * magnitude;
+
+        thisRigidbody.AddForce(chainForce);
+
+        if (anchorBallRef != null)
+        {
+            anchorBallRef.thisRigidbody.AddForce(-chainForce);
+        }
+    }
+
+    public virtual void UpdateForces()
     {
         float chainLengthNow = Vector2.Distance(anchorTransform.position, thisTransform.position);
 
@@ -54,17 +68,6 @@ public class BallMB : MonoBehaviour
         }
 
         float chainForceMag = chainLengthDiff * chainModulus; // Force in (mass * len / sec^2)
-        if (chainForceMag > maxForce) chainForceMag = maxForce;
-
-        Vector2 chainForce = anchorTransform.position - thisTransform.position;
-        chainForce.Normalize();
-        chainForce *= chainForceMag;
-
-        thisRigidbody.AddForce(chainForce);
-
-        if (anchorBallRef != null)
-        {
-            anchorBallRef.thisRigidbody.AddForce(-chainForce);
-        }
+        AddForceTowardsAnchor(chainForceMag);
     }
 }

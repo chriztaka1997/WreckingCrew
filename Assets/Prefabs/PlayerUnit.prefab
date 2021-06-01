@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 3126958324920799379}
   - component: {fileID: 3126958324920799388}
   - component: {fileID: 3126958324920799389}
-  - component: {fileID: 3126958324920799390}
+  - component: {fileID: 4933284503687143809}
   - component: {fileID: 3126958324920799377}
   m_Layer: 0
   m_Name: Ball
@@ -251,7 +251,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3126958324920799390
+--- !u!114 &4933284503687143809
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -260,17 +260,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 3126958324920799391}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cba0ce2705ad443eb9427d5c6aa279d, type: 3}
+  m_Script: {fileID: 11500000, guid: 07b231cc3daad46c5ac16419f5fd9710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   anchor: {fileID: 3126958322957143019}
-  thisRigidbody: {fileID: 0}
   fixedZ: 0
-  chainLengthSet: 2
-  chainModulus: 200
-  maxForce: 100
+  chainLengthSet: 1.5
+  chainModulus: 800
+  maxForce: 800
   groundFrictionForce: 10
   groundedVelocity: 5
+  state: 0
+  returnForceMag: 40
+  lengthReturnedRatio: 1.5
+  throwChainLengthSet: 8
+  throwKey: 122
 --- !u!58 &3126958324920799377
 CircleCollider2D:
   m_ObjectHideFlags: 0
