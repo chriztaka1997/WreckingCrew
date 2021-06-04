@@ -7,9 +7,7 @@ public class BallThrowMB : BallMB
 {
     public BallState state;
     public float returnForceMag;
-    public float lengthReturnedRatio; // at this ratio, the ball is returned
     public float throwChainLengthSet;
-    public KeyCode throwKey;
 
     public override void Start()
     {
@@ -22,32 +20,12 @@ public class BallThrowMB : BallMB
         switch (state)
         {
             case BallState.normal:
-                if (Input.GetKey(throwKey))
-                {
-                    state = BallState.thrown;
-                    break;
-                }
                 base.UpdateForces();
                 break;
             case BallState.thrown:
-                if (!Input.GetKey(throwKey))
-                {
-                    state = BallState.returning;
-                    // only keep velocity in target direction
-                    Vector2 towardsAnchor = (anchorTransform.position - thisTransform.position).normalized;
-                    thisRigidbody.velocity = towardsAnchor * Vector2.Dot(thisRigidbody.velocity, towardsAnchor);
-                    AddReturnForce();
-                    break;
-                }
                 AddThrownForce();
                 break;
             case BallState.returning:
-                if ((anchorTransform.position - thisTransform.position).magnitude <= chainLengthSet * lengthReturnedRatio)
-                {
-                    state = BallState.normal;
-                    base.UpdateForces();
-                    break;
-                }
                 AddReturnForce();
                 break;
         }
