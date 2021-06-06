@@ -22,6 +22,8 @@ public class BallThrowMB : BallMB
             case BallState.normal:
                 base.UpdateForces();
                 break;
+            case BallState.external:
+                break;
             case BallState.thrown:
                 AddThrownForce();
                 break;
@@ -36,25 +38,20 @@ public class BallThrowMB : BallMB
         float chainLengthNow = Vector2.Distance(anchorTransform.position, thisTransform.position);
 
         float chainLengthDiff = (chainLengthNow - throwChainLengthSet);
-        if (chainLengthDiff < 0f)
-        {
-            chainLengthDiff = 0f;
-            if (thisRigidbody.velocity.magnitude <= groundedVelocity)
-            {
-                Vector2 looseDragForce = thisRigidbody.velocity.normalized * -groundFrictionForce;
-                thisRigidbody.AddForce(looseDragForce);
-            }
-        }
+        if (chainLengthDiff < 0f) chainLengthDiff = 0f;
 
         float chainForceMag = chainLengthDiff * chainModulus; // Force in (mass * len / sec^2)
         AddForceTowardsAnchor(chainForceMag);
     }
+
+    public void AddExternSpinForce() => base.UpdateForces();
 
     public void AddReturnForce() => AddForceTowardsAnchor(returnForceMag);
 
     public enum BallState
     {
         normal, // like normal ball
+        external, // no forces, implied velocity control externally
         thrown, // no chain force
         returning, // on the way back to player with constant force
     }

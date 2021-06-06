@@ -13,6 +13,7 @@ public class PlayerMB : MonoBehaviour
     public float throwAngleWiggle; // degrees either way
     public float lengthReturnedRatio; // at this ratio, the ball is returned
     public float minSpinSpd;
+    public bool aimTypeDirect; // true means aimed directly at cursor
 
     public ActionState actionState;
 
@@ -91,7 +92,8 @@ public class PlayerMB : MonoBehaviour
     public bool ThrowAngleCorrect()
     {
         float targetAng = spinDirCCW ? 90.0f : -90.0f;
-        float angle = targetAng - Vector2.SignedAngle(pBallTransform.position - thisTransform.position, targetPos - thisTransform.position);
+        Vector2 throwTrajectory = aimTypeDirect ? targetPos - pBallTransform.position : targetPos - thisTransform.position;
+        float angle = targetAng - Vector2.SignedAngle(pBallTransform.position - thisTransform.position, throwTrajectory);
         return Mathf.Abs(angle) <= throwAngleWiggle;
     }
 
@@ -109,8 +111,10 @@ public class PlayerMB : MonoBehaviour
 
     public void InitThrow()
     {
-        Vector2 throwVec = (targetPos - thisTransform.position).normalized * spinSpd;
+        Vector2 throwTrajectory = aimTypeDirect ? targetPos - pBallTransform.position : targetPos - thisTransform.position;
+        Vector2 throwVec = throwTrajectory.normalized * spinSpd;
         pBallRigidbody.velocity = throwVec;
+        pBallRigidbody.angularVelocity = 0;
     }
 
     public void SpinBall(float dt)
@@ -120,6 +124,8 @@ public class PlayerMB : MonoBehaviour
         Vector2 spinVel = tangentCCW * spinSpd;
         if (!spinDirCCW) spinVel = -spinVel;
         pBallRigidbody.velocity = spinVel;
+
+        primaryBall.AddExternSpinForce();
     }
 
     public void UpdateAction(float dt)
@@ -130,6 +136,7 @@ public class PlayerMB : MonoBehaviour
                 if (Input.GetKeyDown(throwChargeKey))
                 {
                     actionState = ActionState.throwCharge;
+                    primaryBall.state = BallThrowMB.BallState.external;
                     InitThrowCharge();
                     break;
                 }
