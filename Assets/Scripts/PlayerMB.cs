@@ -19,7 +19,7 @@ public class PlayerMB : MonoBehaviour
 
     public MoveType moveType;
 
-    public KeyCode throwChargeKey, throwFreeKey;
+    public KeyManager throwChargeKey, throwFreeKey;
 
     const float kbdDist = 1.0f;
     private bool spinDirCCW;
@@ -40,6 +40,9 @@ public class PlayerMB : MonoBehaviour
 
     public void FixedUpdate()
     {
+        throwChargeKey.Update();
+        throwFreeKey.Update();
+
         switch (moveType)
         {
             case MoveType.Mouse:
@@ -133,21 +136,21 @@ public class PlayerMB : MonoBehaviour
         switch (actionState)
         {
             case ActionState.normal:
-                if (Input.GetKeyDown(throwChargeKey))
+                if (throwChargeKey.GetKeyDown)
                 {
                     actionState = ActionState.throwCharge;
                     primaryBall.state = BallThrowMB.BallState.external;
                     InitThrowCharge();
                     break;
                 }
-                if (Input.GetKeyDown(throwFreeKey))
+                if (throwFreeKey.GetKeyDown)
                 {
                     actionState = ActionState.thrown;
                     primaryBall.state = BallThrowMB.BallState.thrown;
                 }
                 break;
             case ActionState.throwCharge:
-                if (!Input.GetKey(throwChargeKey))
+                if (!throwChargeKey.GetKey)
                 {
                     if (ThrowAngleCorrect())
                     {
@@ -172,7 +175,7 @@ public class PlayerMB : MonoBehaviour
 
             case ActionState.thrown:
                 //if (Vector2.Dot(pBallRigidbody.velocity, (thisTransform.position - pBallTransform.position).normalized) >= 10.0f)
-                if (Input.GetKey(throwChargeKey))
+                if (throwChargeKey.GetKey)
                 {
                     actionState = ActionState.returning;
                     primaryBall.state = BallThrowMB.BallState.returning;

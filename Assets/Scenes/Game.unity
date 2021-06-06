@@ -561,8 +561,24 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
+      propertyPath: throwFreeKey.code
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
       propertyPath: lengthReturnedRatio
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
+      propertyPath: throwChargeKey.code
+      value: 122
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
+      propertyPath: throwFreeKeyUpdate.code
+      value: 122
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
+      propertyPath: throwChargeKeyUpdate.code
+      value: 122
       objectReference: {fileID: 0}
     - target: {fileID: 3126958323139317928, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
       propertyPath: m_RootOrder
