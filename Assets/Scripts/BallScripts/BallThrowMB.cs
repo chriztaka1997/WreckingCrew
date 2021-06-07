@@ -10,8 +10,8 @@ public class BallThrowMB : BallMB
     public float throwChainLengthSet;
 
 
-    public bool aimTypeDirect; // true means aimed directly at cursor
-    public float throwAngleWiggle; // degrees either way
+    //public bool aimTypeDirect; // true means aimed directly at cursor
+    //public float throwAngleWiggle; // degrees either way
     public float lengthReturnedRatio; // at this ratio, the ball is returned
     public float minSpinSpd;
     private bool spinDirCCW;
@@ -56,7 +56,7 @@ public class BallThrowMB : BallMB
 
     public void AddReturnForce() => AddForceTowardsAnchor(returnForceMag);
 
-    public bool ThrowAngleCorrect(Vector3 targetPos)
+    public bool ThrowAngleCorrect(Vector3 targetPos, float throwAngleWiggle, bool aimTypeDirect)
     {
         float targetAng = spinDirCCW ? 90.0f : -90.0f;
         Vector2 throwTrajectory = aimTypeDirect ? targetPos - thisTransform.position : targetPos - anchorTransform.position;
@@ -76,7 +76,7 @@ public class BallThrowMB : BallMB
         spinDirCCW = spinCcwAmount >= 0;
     }
 
-    public void InitThrow(Vector3 targetPos)
+    public void InitThrow(Vector3 targetPos, bool aimTypeDirect)
     {
         Vector2 throwTrajectory = aimTypeDirect ? targetPos - thisTransform.position : targetPos - anchorTransform.position;
         Vector2 throwVec = throwTrajectory.normalized * spinSpd;
