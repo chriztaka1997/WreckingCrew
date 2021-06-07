@@ -10,10 +10,6 @@ public class PlayerMB : MonoBehaviour
     public Vector3 targetPos;
     public float fixedZ;
     public float maxSpeed; // units per sec
-    public float throwAngleWiggle; // degrees either way
-    public float lengthReturnedRatio; // at this ratio, the ball is returned
-    public float minSpinSpd;
-    public bool aimTypeDirect; // true means aimed directly at cursor
 
     public ActionState actionState;
 
@@ -22,8 +18,6 @@ public class PlayerMB : MonoBehaviour
     public KeyManager throwChargeKey, throwFreeKey;
 
     const float kbdDist = 1.0f;
-    private bool spinDirCCW;
-    private float spinDist, spinSpd;
 
     public Transform thisTransform => gameObject.transform;
     public Transform pBallTransform => primaryBall.transform;
@@ -92,44 +86,7 @@ public class PlayerMB : MonoBehaviour
         }
     }
 
-    public bool ThrowAngleCorrect()
-    {
-        float targetAng = spinDirCCW ? 90.0f : -90.0f;
-        Vector2 throwTrajectory = aimTypeDirect ? targetPos - pBallTransform.position : targetPos - thisTransform.position;
-        float angle = targetAng - Vector2.SignedAngle(pBallTransform.position - thisTransform.position, throwTrajectory);
-        return Mathf.Abs(angle) <= throwAngleWiggle;
-    }
-
-    public void InitThrowCharge()
-    {
-        Vector2 playerToBall = pBallTransform.position - thisTransform.position;
-        spinDist = playerToBall.magnitude;
-        Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
-        float spinCcwAmount = Vector2.Dot(pBallRigidbody.velocity, tangentCCW);
-        Vector2 spinVel = spinCcwAmount * tangentCCW;
-        spinSpd = spinVel.magnitude;
-        if (spinSpd < minSpinSpd) spinSpd = minSpinSpd;
-        spinDirCCW = spinCcwAmount >= 0;
-    }
-
-    public void InitThrow()
-    {
-        Vector2 throwTrajectory = aimTypeDirect ? targetPos - pBallTransform.position : targetPos - thisTransform.position;
-        Vector2 throwVec = throwTrajectory.normalized * spinSpd;
-        pBallRigidbody.velocity = throwVec;
-        pBallRigidbody.angularVelocity = 0;
-    }
-
-    public void SpinBall(float dt)
-    {
-        Vector2 playerToBall = pBallTransform.position - thisTransform.position;
-        Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
-        Vector2 spinVel = tangentCCW * spinSpd;
-        if (!spinDirCCW) spinVel = -spinVel;
-        pBallRigidbody.velocity = spinVel;
-
-        primaryBall.AddExternSpinForce();
-    }
+    
 
     public void UpdateAction(float dt)
     {
@@ -140,7 +97,7 @@ public class PlayerMB : MonoBehaviour
                 {
                     actionState = ActionState.throwCharge;
                     primaryBall.state = BallThrowMB.BallState.external;
-                    InitThrowCharge();
+                    primaryBall.InitThrowCharge();
                     break;
                 }
                 if (throwFreeKey.GetKeyDown)
@@ -152,11 +109,11 @@ public class PlayerMB : MonoBehaviour
             case ActionState.throwCharge:
                 if (!throwChargeKey.GetKey)
                 {
-                    if (ThrowAngleCorrect())
+                    if (primaryBall.ThrowAngleCorrect(targetPos))
                     {
                         actionState = ActionState.thrown;
                         primaryBall.state = BallThrowMB.BallState.thrown;
-                        InitThrow();
+                        primaryBall.InitThrow(targetPos);
                     }
                     else
                     {
@@ -165,11 +122,11 @@ public class PlayerMB : MonoBehaviour
                 }
                 break;
             case ActionState.throwPreRelease:
-                if (ThrowAngleCorrect())
+                if (primaryBall.ThrowAngleCorrect(targetPos))
                 {
                     actionState = ActionState.thrown;
                     primaryBall.state = BallThrowMB.BallState.thrown;
-                    InitThrow();
+                    primaryBall.InitThrow(targetPos);
                 }
                 break;
 
@@ -182,7 +139,7 @@ public class PlayerMB : MonoBehaviour
                 }
                 break;
             case ActionState.returning:
-                if ((thisTransform.position - pBallTransform.position).magnitude <= primaryBall.chainLengthSet * lengthReturnedRatio)
+                if (primaryBall.IsReturnedDistance())
                 {
                     actionState = ActionState.normal;
                     primaryBall.state = BallThrowMB.BallState.normal;
@@ -197,7 +154,7 @@ public class PlayerMB : MonoBehaviour
                 break;
             case ActionState.throwCharge:
             case ActionState.throwPreRelease:
-                SpinBall(dt);
+                primaryBall.SpinBall(dt);
                 break;
             case ActionState.thrown:
             case ActionState.returning:

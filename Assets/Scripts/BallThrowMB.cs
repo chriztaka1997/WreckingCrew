@@ -9,6 +9,14 @@ public class BallThrowMB : BallMB
     public float returnForceMag;
     public float throwChainLengthSet;
 
+
+    public bool aimTypeDirect; // true means aimed directly at cursor
+    public float throwAngleWiggle; // degrees either way
+    public float lengthReturnedRatio; // at this ratio, the ball is returned
+    public float minSpinSpd;
+    private bool spinDirCCW;
+    private float spinSpd;
+
     public override void Start()
     {
         base.Start();
@@ -47,6 +55,50 @@ public class BallThrowMB : BallMB
     public void AddExternSpinForce() => base.UpdateForces();
 
     public void AddReturnForce() => AddForceTowardsAnchor(returnForceMag);
+
+    public bool ThrowAngleCorrect(Vector3 targetPos)
+    {
+        float targetAng = spinDirCCW ? 90.0f : -90.0f;
+        Vector2 throwTrajectory = aimTypeDirect ? targetPos - thisTransform.position : targetPos - anchorTransform.position;
+        float angle = targetAng - Vector2.SignedAngle(thisTransform.position - anchorTransform.position, throwTrajectory);
+        return Mathf.Abs(angle) <= throwAngleWiggle;
+    }
+
+    public void InitThrowCharge()
+    {
+        Vector2 playerToBall = thisTransform.position - anchorTransform.position;
+        //spinDist = playerToBall.magnitude;
+        Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
+        float spinCcwAmount = Vector2.Dot(thisRigidbody.velocity, tangentCCW);
+        Vector2 spinVel = spinCcwAmount * tangentCCW;
+        spinSpd = spinVel.magnitude;
+        if (spinSpd < minSpinSpd) spinSpd = minSpinSpd;
+        spinDirCCW = spinCcwAmount >= 0;
+    }
+
+    public void InitThrow(Vector3 targetPos)
+    {
+        Vector2 throwTrajectory = aimTypeDirect ? targetPos - thisTransform.position : targetPos - anchorTransform.position;
+        Vector2 throwVec = throwTrajectory.normalized * spinSpd;
+        thisRigidbody.velocity = throwVec;
+        thisRigidbody.angularVelocity = 0;
+    }
+
+    public void SpinBall(float dt)
+    {
+        Vector2 playerToBall = thisTransform.position - anchorTransform.position;
+        Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
+        Vector2 spinVel = tangentCCW * spinSpd;
+        if (!spinDirCCW) spinVel = -spinVel;
+        thisRigidbody.velocity = spinVel;
+
+        AddExternSpinForce();
+    }
+
+    public bool IsReturnedDistance()
+    {
+        return (anchorTransform.position - thisTransform.position).magnitude <= chainLengthSet * lengthReturnedRatio;
+    }
 
     public enum BallState
     {
