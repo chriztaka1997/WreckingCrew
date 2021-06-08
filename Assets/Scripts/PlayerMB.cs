@@ -26,6 +26,7 @@ public class PlayerMB : MonoBehaviour
 
     public KeyManager throwKey;
 
+    public Rigidbody2D  thisRigidbody { get; protected set; }
     const float kbdDist = 1.0f;
 
     public Transform thisTransform => gameObject.transform;
@@ -34,11 +35,15 @@ public class PlayerMB : MonoBehaviour
     {
         SetEquipBall(startBallEquipName);
 
+        
+        thisRigidbody = gameObject.GetComponent<Rigidbody2D>();
+
         Vector3 newPos = thisTransform.position;
         newPos.z = fixedZ;
         thisTransform.position = newPos;
 
         actionState = ActionState.normal;
+
     }
 
     public void FixedUpdate()
@@ -96,14 +101,14 @@ public class PlayerMB : MonoBehaviour
         float maxDist = maxSpeed * dt;
         if (Vector2.Distance(targetPos, thisTransform.position) <= maxDist)
         {
-            thisTransform.position = targetPos;
+            thisRigidbody.MovePosition(targetPos);
         }
         else
         {
             Vector3 changeVec = targetPos - thisTransform.position;
             changeVec.Normalize();
             changeVec *= maxDist;
-            thisTransform.position = thisTransform.position + changeVec;
+            thisRigidbody.MovePosition(thisTransform.position + changeVec);
         }
     }
 
