@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class PlayerMB : MonoBehaviour
 {
     public BallEquipMB ballEquip;
@@ -192,3 +196,28 @@ public class PlayerMB : MonoBehaviour
 }
 
 
+[CustomEditor(typeof(PlayerMB))]
+public class PlayerMB_Editor : Editor
+{
+    public PlayerMB targetRef => (PlayerMB)target;
+
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        EditorGUILayout.LabelField("Editor");
+
+        if (GUILayout.Button("Set ball to single"))
+        {
+            targetRef.SetEquipBall("BallEQ_Single");
+        }
+        if (GUILayout.Button("Set ball to triple spread"))
+        {
+            targetRef.SetEquipBall("BallEQ_TripleSpread");
+        }
+        if (GUILayout.Button("Set ball to triple rapid"))
+        {
+            targetRef.SetEquipBall("BallEQ_TripleRapid");
+        }
+    }
+}
