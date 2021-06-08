@@ -9,6 +9,7 @@ public class PrefabPaletteMB : MonoBehaviour
     public static PrefabPaletteMB instance { get; private set; }
 
     public List<NamedBallEquip> ballEQ_Prefabs;
+    public BallThrowMB ballThrowPF;
 
     public void Awake()
     {

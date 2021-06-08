@@ -7,6 +7,8 @@ public class PlayerMB : MonoBehaviour
 {
     public BallEquipMB ballEquip;
 
+    public string startBallEquipName;
+
     public Vector3 targetPos;
     public float fixedZ;
     public float maxSpeed; // units per sec
@@ -18,7 +20,7 @@ public class PlayerMB : MonoBehaviour
     public bool aimTypeDirect; // true means aimed directly at cursor
     public float throwAngleWiggle; // degrees either way
 
-    public KeyManager throwChargeKey, throwFreeKey;
+    public KeyManager throwKey;
 
     const float kbdDist = 1.0f;
 
@@ -26,7 +28,7 @@ public class PlayerMB : MonoBehaviour
 
     public void Start()
     {
-        SetEquipBall("BallEQ_Single");
+        SetEquipBall(startBallEquipName);
 
         Vector3 newPos = thisTransform.position;
         newPos.z = fixedZ;
@@ -37,8 +39,7 @@ public class PlayerMB : MonoBehaviour
 
     public void FixedUpdate()
     {
-        throwChargeKey.Update();
-        throwFreeKey.Update();
+        throwKey.Update();
 
         switch (moveType)
         {
@@ -55,9 +56,14 @@ public class PlayerMB : MonoBehaviour
     public void SetEquipBall(string name)
     {
         if (ballEquip != null) Destroy(ballEquip.gameObject);
-        ballEquip = Instantiate(PrefabPaletteMB.instance.GetBallEQ_Prefab(name));
-        if (ballEquip != null) ballEquip.SetEquip(this);
-        else Debug.Log(string.Format("Ball equip with the name \"{0}\" could not be found", name));
+        BallEquipMB ballEquipPF = PrefabPaletteMB.instance.GetBallEQ_Prefab(name);
+        if (ballEquipPF == null)
+        {
+            Debug.Log(string.Format("Ball equip with the name \"{0}\" could not be found", name));
+            return;
+        }
+        ballEquip = Instantiate(ballEquipPF, transform.parent);
+        ballEquip.SetEquip(this);
     }
 
     public void MouseTargetPos()
@@ -104,27 +110,20 @@ public class PlayerMB : MonoBehaviour
         switch (actionState)
         {
             case ActionState.normal:
-                if (throwChargeKey.GetKeyDown)
+                if (throwKey.GetKeyDown)
                 {
                     actionState = ActionState.throwCharge;
-                    ballEquip.SetState(BallThrowMB.BallState.external);
                     ballEquip.InitThrowCharge();
                     break;
                 }
-                if (throwFreeKey.GetKeyDown)
-                {
-                    actionState = ActionState.thrown;
-                    ballEquip.SetState(BallThrowMB.BallState.thrown);
-                }
                 break;
             case ActionState.throwCharge:
-                if (!throwChargeKey.GetKey)
+                if (!throwKey.GetKey)
                 {
-                    if (ballEquip.ThrowAngleCorrect(targetPos, throwAngleWiggle, aimTypeDirect))
+                    if (ballEquip.ThrowAngleCorrect())
                     {
                         actionState = ActionState.thrown;
-                        ballEquip.SetState(BallThrowMB.BallState.thrown);
-                        ballEquip.InitThrow(targetPos, aimTypeDirect);
+                        ballEquip.InitThrow();
                     }
                     else
                     {
@@ -133,27 +132,26 @@ public class PlayerMB : MonoBehaviour
                 }
                 break;
             case ActionState.throwPreRelease:
-                if (ballEquip.ThrowAngleCorrect(targetPos, throwAngleWiggle, aimTypeDirect))
+                if (ballEquip.ThrowAngleCorrect())
                 {
                     actionState = ActionState.thrown;
-                    ballEquip.SetState(BallThrowMB.BallState.thrown);
-                    ballEquip.InitThrow(targetPos, aimTypeDirect);
+                    ballEquip.InitThrow();
                 }
                 break;
 
             case ActionState.thrown:
                 // suggestion: maybe add way to set return without button in range
-                if (throwChargeKey.GetKey)
+                if (throwKey.GetKey)
                 {
                     actionState = ActionState.returning;
-                    ballEquip.SetState(BallThrowMB.BallState.returning);
+                    ballEquip.InitReturn();
                 }
                 break;
             case ActionState.returning:
                 if (ballEquip.AllReturned())
                 {
                     actionState = ActionState.normal;
-                    ballEquip.SetState(BallThrowMB.BallState.normal);
+                    ballEquip.InitNormal();
                     break;
                 }
                 break;
@@ -164,8 +162,10 @@ public class PlayerMB : MonoBehaviour
                 UpdatePos(dt);
                 break;
             case ActionState.throwCharge:
-            case ActionState.throwPreRelease:
                 ballEquip.DoSpin(dt);
+                break;
+            case ActionState.throwPreRelease:
+                ballEquip.DoThrowPreRelease(dt);
                 break;
             case ActionState.thrown:
             case ActionState.returning:

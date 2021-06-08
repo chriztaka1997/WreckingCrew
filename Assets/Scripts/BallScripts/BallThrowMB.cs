@@ -14,8 +14,9 @@ public class BallThrowMB : BallMB
     //public float throwAngleWiggle; // degrees either way
     public float lengthReturnedRatio; // at this ratio, the ball is returned
     public float minSpinSpd;
-    private bool spinDirCCW;
-    private float spinSpd;
+    public float spinSpd { get; private set; }
+
+    public bool spinDirCCW => spinSpd >= 0;
 
     public override void Start()
     {
@@ -66,22 +67,35 @@ public class BallThrowMB : BallMB
 
     public void InitThrowCharge()
     {
+        state = BallState.external;
+
         Vector2 playerToBall = thisTransform.position - anchorTransform.position;
-        //spinDist = playerToBall.magnitude;
         Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
         float spinCcwAmount = Vector2.Dot(thisRigidbody.velocity, tangentCCW);
         Vector2 spinVel = spinCcwAmount * tangentCCW;
         spinSpd = spinVel.magnitude;
         if (spinSpd < minSpinSpd) spinSpd = minSpinSpd;
-        spinDirCCW = spinCcwAmount >= 0;
+        if (spinCcwAmount < 0) spinSpd *= -1;
+    }
+
+    public void InitThrowCharge(float spinSpd)
+    {
+        state = BallState.external;
+
+        this.spinSpd = spinSpd;
+        if (Mathf.Abs(spinSpd) < Mathf.Abs(minSpinSpd))
+        {
+            this.spinSpd = spinDirCCW ? minSpinSpd : -minSpinSpd;
+        }
     }
 
     public void InitThrow(Vector3 targetPos, bool aimTypeDirect)
     {
+        state = BallState.thrown;
+
         Vector2 throwTrajectory = aimTypeDirect ? targetPos - thisTransform.position : targetPos - anchorTransform.position;
-        Vector2 throwVec = throwTrajectory.normalized * spinSpd;
+        Vector2 throwVec = throwTrajectory.normalized * Mathf.Abs(spinSpd);
         thisRigidbody.velocity = throwVec;
-        thisRigidbody.angularVelocity = 0;
     }
 
     public void SpinBall(float dt)
@@ -89,7 +103,6 @@ public class BallThrowMB : BallMB
         Vector2 playerToBall = thisTransform.position - anchorTransform.position;
         Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
         Vector2 spinVel = tangentCCW * spinSpd;
-        if (!spinDirCCW) spinVel = -spinVel;
         thisRigidbody.velocity = spinVel;
 
         AddExternSpinForce();

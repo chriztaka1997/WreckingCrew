@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class BallEQ_Single : BallEquipMB
+public class BallEQ_SingleMB : BallEquipMB
 {
     public BallThrowMB ball;
 
@@ -23,7 +23,7 @@ public class BallEQ_Single : BallEquipMB
         ball.SpinBall(dt);
     }
 
-    public override void InitThrow(Vector3 targetPos, bool aimTypeDirect)
+    public override void InitThrow()
     {
         ball.InitThrow(targetPos, aimTypeDirect);
     }
@@ -38,7 +38,7 @@ public class BallEQ_Single : BallEquipMB
         ball.state = ballState;
     }
 
-    public override bool ThrowAngleCorrect(Vector3 targetPos, float throwAngleWiggle, bool aimTypeDirect)
+    public override bool ThrowAngleCorrect()
     {
         return ball.ThrowAngleCorrect(targetPos, throwAngleWiggle, aimTypeDirect);
     }
