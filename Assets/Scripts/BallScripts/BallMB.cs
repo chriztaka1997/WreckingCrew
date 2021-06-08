@@ -30,12 +30,27 @@ public class BallMB : MonoBehaviour
         newPos.z = fixedZ;
         thisTransform.position = newPos;
 
-        anchorBallRef = anchor.GetComponent<BallMB>();
+        if (anchor != null)
+        {
+            anchorBallRef = anchor.GetComponent<BallMB>();
+        }
     }
 
     public virtual void FixedUpdate()
     {
+        if (anchor == null)
+        {
+            Debug.Log("Error: ball object has no anchor reference");
+            return;
+        }
+
         UpdateForces();
+    }
+
+    public virtual void SetAnchor(GameObject anchor)
+    {
+        this.anchor = anchor;
+        anchorBallRef = anchor.GetComponent<BallMB>();
     }
 
     protected void AddForceTowardsAnchor(float magnitude)

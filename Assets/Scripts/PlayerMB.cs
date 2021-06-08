@@ -3,33 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class PlayerMB : MonoBehaviour
 {
-    public BallThrowMB primaryBall;
+    public BallEquipMB ballEquip;
+
+    public string startBallEquipName;
 
     public Vector3 targetPos;
     public float fixedZ;
     public float maxSpeed; // units per sec
-    public float throwAngleWiggle; // degrees either way
-    public float lengthReturnedRatio; // at this ratio, the ball is returned
-    public float minSpinSpd;
 
     public ActionState actionState;
 
     public MoveType moveType;
 
-    public KeyCode throwChargeKey, throwFreeKey;
+    public bool aimTypeDirect; // true means aimed directly at cursor
+    public float throwAngleWiggle; // degrees either way
+
+    public KeyManager throwKey;
 
     const float kbdDist = 1.0f;
-    private bool spinDirCCW;
-    private float spinDist, spinSpd;
 
     public Transform thisTransform => gameObject.transform;
-    public Transform pBallTransform => primaryBall.transform;
-    public Rigidbody2D pBallRigidbody => primaryBall.thisRigidbody;
 
     public void Start()
     {
+        SetEquipBall(startBallEquipName);
+
         Vector3 newPos = thisTransform.position;
         newPos.z = fixedZ;
         thisTransform.position = newPos;
@@ -39,6 +43,8 @@ public class PlayerMB : MonoBehaviour
 
     public void FixedUpdate()
     {
+        throwKey.Update();
+
         switch (moveType)
         {
             case MoveType.Mouse:
@@ -49,6 +55,19 @@ public class PlayerMB : MonoBehaviour
                 break;
         }
         UpdateAction(Time.fixedDeltaTime);
+    }
+
+    public void SetEquipBall(string name)
+    {
+        if (ballEquip != null) Destroy(ballEquip.gameObject);
+        BallEquipMB ballEquipPF = PrefabPaletteMB.instance.GetBallEQ_Prefab(name);
+        if (ballEquipPF == null)
+        {
+            Debug.Log(string.Format("Ball equip with the name \"{0}\" could not be found", name));
+            return;
+        }
+        ballEquip = Instantiate(ballEquipPF, transform.parent);
+        ballEquip.SetEquip(this);
     }
 
     public void MouseTargetPos()
@@ -88,65 +107,27 @@ public class PlayerMB : MonoBehaviour
         }
     }
 
-    public bool ThrowAngleCorrect()
-    {
-        float targetAng = spinDirCCW ? 90.0f : -90.0f;
-        float angle = targetAng - Vector2.SignedAngle(pBallTransform.position - thisTransform.position, targetPos - thisTransform.position);
-        return Mathf.Abs(angle) <= throwAngleWiggle;
-    }
-
-    public void InitThrowCharge()
-    {
-        Vector2 playerToBall = pBallTransform.position - thisTransform.position;
-        spinDist = playerToBall.magnitude;
-        Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
-        float spinCcwAmount = Vector2.Dot(pBallRigidbody.velocity, tangentCCW);
-        Vector2 spinVel = spinCcwAmount * tangentCCW;
-        spinSpd = spinVel.magnitude;
-        if (spinSpd < minSpinSpd) spinSpd = minSpinSpd;
-        spinDirCCW = spinCcwAmount >= 0;
-    }
-
-    public void InitThrow()
-    {
-        Vector2 throwVec = (targetPos - thisTransform.position).normalized * spinSpd;
-        pBallRigidbody.velocity = throwVec;
-    }
-
-    public void SpinBall(float dt)
-    {
-        Vector2 playerToBall = pBallTransform.position - thisTransform.position;
-        Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
-        Vector2 spinVel = tangentCCW * spinSpd;
-        if (!spinDirCCW) spinVel = -spinVel;
-        pBallRigidbody.velocity = spinVel;
-    }
+    
 
     public void UpdateAction(float dt)
     {
         switch (actionState)
         {
             case ActionState.normal:
-                if (Input.GetKeyDown(throwChargeKey))
+                if (throwKey.GetKeyDown)
                 {
                     actionState = ActionState.throwCharge;
-                    InitThrowCharge();
+                    ballEquip.InitThrowCharge();
                     break;
-                }
-                if (Input.GetKeyDown(throwFreeKey))
-                {
-                    actionState = ActionState.thrown;
-                    primaryBall.state = BallThrowMB.BallState.thrown;
                 }
                 break;
             case ActionState.throwCharge:
-                if (!Input.GetKey(throwChargeKey))
+                if (!throwKey.GetKey)
                 {
-                    if (ThrowAngleCorrect())
+                    if (ballEquip.ThrowAngleCorrect())
                     {
                         actionState = ActionState.thrown;
-                        primaryBall.state = BallThrowMB.BallState.thrown;
-                        InitThrow();
+                        ballEquip.InitThrow();
                     }
                     else
                     {
@@ -155,27 +136,26 @@ public class PlayerMB : MonoBehaviour
                 }
                 break;
             case ActionState.throwPreRelease:
-                if (ThrowAngleCorrect())
+                if (ballEquip.ThrowAngleCorrect())
                 {
                     actionState = ActionState.thrown;
-                    primaryBall.state = BallThrowMB.BallState.thrown;
-                    InitThrow();
+                    ballEquip.InitThrow();
                 }
                 break;
 
             case ActionState.thrown:
-                //if (Vector2.Dot(pBallRigidbody.velocity, (thisTransform.position - pBallTransform.position).normalized) >= 10.0f)
-                if (Input.GetKey(throwChargeKey))
+                // suggestion: maybe add way to set return without button in range
+                if (throwKey.GetKey)
                 {
                     actionState = ActionState.returning;
-                    primaryBall.state = BallThrowMB.BallState.returning;
+                    ballEquip.InitReturn();
                 }
                 break;
             case ActionState.returning:
-                if ((thisTransform.position - pBallTransform.position).magnitude <= primaryBall.chainLengthSet * lengthReturnedRatio)
+                if (ballEquip.AllReturned())
                 {
                     actionState = ActionState.normal;
-                    primaryBall.state = BallThrowMB.BallState.normal;
+                    ballEquip.InitNormal();
                     break;
                 }
                 break;
@@ -186,8 +166,10 @@ public class PlayerMB : MonoBehaviour
                 UpdatePos(dt);
                 break;
             case ActionState.throwCharge:
+                ballEquip.DoSpin(dt);
+                break;
             case ActionState.throwPreRelease:
-                SpinBall(dt);
+                ballEquip.DoThrowPreRelease(dt);
                 break;
             case ActionState.thrown:
             case ActionState.returning:
@@ -214,3 +196,28 @@ public class PlayerMB : MonoBehaviour
 }
 
 
+[CustomEditor(typeof(PlayerMB))]
+public class PlayerMB_Editor : Editor
+{
+    public PlayerMB targetRef => (PlayerMB)target;
+
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        EditorGUILayout.LabelField("Editor");
+
+        if (GUILayout.Button("Set ball to single"))
+        {
+            targetRef.SetEquipBall("BallEQ_Single");
+        }
+        if (GUILayout.Button("Set ball to triple spread"))
+        {
+            targetRef.SetEquipBall("BallEQ_TripleSpread");
+        }
+        if (GUILayout.Button("Set ball to triple rapid"))
+        {
+            targetRef.SetEquipBall("BallEQ_TripleRapid");
+        }
+    }
+}
