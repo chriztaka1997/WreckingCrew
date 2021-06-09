@@ -9,6 +9,7 @@ public class Enemymovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private string BALL_TAG = "Ball";
+    private bool move = true;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,10 @@ public class Enemymovement : MonoBehaviour
     
     void FixedUpdate()
     {
-        moveEnemy(movement);
+        if (move)
+        {
+            moveEnemy(movement);
+        }
     }
 
     void moveEnemy(Vector2 direction)
@@ -37,10 +41,10 @@ public class Enemymovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.tag.Equals(BALL_TAG))
         {
-            Destroy(gameObject);
+            move = false;
+            Destroy(gameObject,1f);
         }
     }
 }
