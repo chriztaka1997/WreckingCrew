@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Enemyspawn : MonoBehaviour
 {
-    public GameObject enemy;
+    public Enemymovement enemy;
+    public GameObject EnemyHolder;
+    public GameObject player;
     public float spawnTime = 1.0f;
     private Vector2 whereToSpawn;
 
@@ -16,8 +18,9 @@ public class Enemyspawn : MonoBehaviour
 
     private void spawnEnemy()
     {
-        GameObject a = Instantiate(enemy) as GameObject;
+        Enemymovement a = Instantiate(enemy, EnemyHolder.transform);
         a.transform.position = new Vector2(Random.Range(-19, 19), Random.Range(-19, 19));
+        a.player = player.transform;
     }
 
     IEnumerator enemyWave()
@@ -25,7 +28,7 @@ public class Enemyspawn : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(spawnTime);
-            spawnEnemy();
+            spawnEnemy();  
         }
     }
 }
