@@ -18,6 +18,8 @@ public abstract class BallEquipMB : MonoBehaviour
 
     public abstract void SetState(BallThrowMB.BallState ballState);
 
+    public virtual void ResetState() => SetState(BallThrowMB.BallState.normal);
+
     public abstract bool ThrowAngleCorrect();
 
     public abstract void InitThrowCharge();

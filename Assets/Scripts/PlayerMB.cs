@@ -26,7 +26,15 @@ public class PlayerMB : MonoBehaviour
 
     public KeyManager throwKey;
 
+    public float knockBackDist;
+    public float knockBackDuration; // in seconds
+    public float iframeDuration; // in seconds
+    private DateTime hitTime;
+    private Vector2 knockbackStartPoint;
+    private Vector2 knockbackEndPoint;
+
     public Rigidbody2D  thisRigidbody { get; protected set; }
+    public CircleCollider2D thisCollider { get; protected set; }
     const float kbdDist = 1.0f;
 
     public Transform thisTransform => gameObject.transform;
@@ -35,7 +43,7 @@ public class PlayerMB : MonoBehaviour
     {
         SetEquipBall(startBallEquipName);
 
-        
+        thisCollider = gameObject.GetComponent<CircleCollider2D>();
         thisRigidbody = gameObject.GetComponent<Rigidbody2D>();
 
         Vector3 newPos = thisTransform.position;
@@ -112,7 +120,12 @@ public class PlayerMB : MonoBehaviour
         }
     }
 
-    
+    public void UpdateKnockback()
+    {
+        double timeSinceHit = (DateTime.Now - hitTime).TotalSeconds;
+        double kb_ratio = timeSinceHit / knockBackDuration;
+        thisRigidbody.MovePosition(Vector2.Lerp(knockbackStartPoint, knockbackEndPoint, (float)kb_ratio));
+    }
 
     public void UpdateAction(float dt)
     {
@@ -164,6 +177,19 @@ public class PlayerMB : MonoBehaviour
                     break;
                 }
                 break;
+            case ActionState.knockback:
+                if ((DateTime.Now - hitTime).TotalSeconds >= knockBackDuration)
+                {
+                    actionState = ActionState.iframes;
+                    goto case ActionState.iframes;
+                }
+                break;
+            case ActionState.iframes:
+                if ((DateTime.Now - hitTime).TotalSeconds >= iframeDuration)
+                {
+                    actionState = ActionState.normal;
+                }
+                break;
         }
         switch (actionState)
         {
@@ -179,6 +205,45 @@ public class PlayerMB : MonoBehaviour
             case ActionState.thrown:
             case ActionState.returning:
                 UpdatePos(dt);
+                break;
+            case ActionState.knockback:
+                UpdateKnockback();
+                break;
+            case ActionState.iframes:
+                UpdatePos(dt);
+                break;
+        }
+    }
+
+    public void ResetActionState()
+    {
+        ballEquip.ResetState();
+        actionState = ActionState.normal;
+    }
+
+    public bool StartHit()
+    {
+        if (actionState == ActionState.knockback) return false;
+
+        ResetActionState();
+        actionState = ActionState.knockback;
+        hitTime = DateTime.Now;
+        return true;
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        string tag = collision.gameObject.tag;
+        Vector2 hitDir = (transform.position - collision.transform.position).normalized;
+        switch (tag)
+        {
+            case "Enemy":
+                if (actionState == ActionState.knockback || actionState == ActionState.iframes) break;
+                Enemymovement enemy = collision.gameObject.GetComponent<Enemymovement>();
+                knockbackStartPoint = transform.position;
+                knockbackEndPoint = knockbackStartPoint + (hitDir * knockBackDist);
+                hitTime = DateTime.Now;
+                actionState = ActionState.knockback;
                 break;
         }
     }
@@ -197,10 +262,12 @@ public class PlayerMB : MonoBehaviour
         throwPreRelease, // waiting to throw in direction
         thrown, // ball(s) being thrown
         returning, // ball(s) on the way back to player with constant force
+        knockback, // hit back by enemy
+        iframes, // invincible state after being hit
     }
 }
 
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(PlayerMB))]
 public class PlayerMB_Editor : Editor
 {
@@ -226,3 +293,4 @@ public class PlayerMB_Editor : Editor
         }
     }
 }
+#endif
