@@ -26,12 +26,15 @@ public class PlayerMB : MonoBehaviour
 
     public KeyManager throwKey;
 
+    public PlayerEffectManagerMB effectManager;
+
     public float knockBackDist;
     public float knockBackDuration; // in seconds
     public float iframeDuration; // in seconds
     private DateTime hitTime;
     private Vector2 knockbackStartPoint;
     private Vector2 knockbackEndPoint;
+    public float iframeFlashDuration;
 
     public Rigidbody2D  thisRigidbody { get; protected set; }
     public CircleCollider2D thisCollider { get; protected set; }
@@ -49,6 +52,8 @@ public class PlayerMB : MonoBehaviour
         Vector3 newPos = thisTransform.position;
         newPos.z = fixedZ;
         thisTransform.position = newPos;
+
+        effectManager.Init(gameObject.GetComponent<MeshRenderer>());
 
         actionState = ActionState.normal;
 
@@ -181,6 +186,7 @@ public class PlayerMB : MonoBehaviour
                 if ((DateTime.Now - hitTime).TotalSeconds >= knockBackDuration)
                 {
                     actionState = ActionState.iframes;
+                    effectManager.ChangeState(PlayerEffectManagerMB.State.iframe);
                     goto case ActionState.iframes;
                 }
                 break;
@@ -188,6 +194,7 @@ public class PlayerMB : MonoBehaviour
                 if ((DateTime.Now - hitTime).TotalSeconds >= iframeDuration)
                 {
                     actionState = ActionState.normal;
+                    effectManager.ChangeState(PlayerEffectManagerMB.State.normal);
                 }
                 break;
         }
@@ -244,6 +251,7 @@ public class PlayerMB : MonoBehaviour
                 knockbackEndPoint = knockbackStartPoint + (hitDir * knockBackDist);
                 hitTime = DateTime.Now;
                 actionState = ActionState.knockback;
+                effectManager.ChangeState(PlayerEffectManagerMB.State.damaged);
                 break;
         }
     }
