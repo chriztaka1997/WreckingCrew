@@ -34,7 +34,6 @@ public class PlayerMB : MonoBehaviour
     private DateTime hitTime;
     private Vector2 knockbackStartPoint;
     private Vector2 knockbackEndPoint;
-    public float iframeFlashDuration;
 
     public Rigidbody2D  thisRigidbody { get; protected set; }
     public CircleCollider2D thisCollider { get; protected set; }
