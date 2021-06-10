@@ -73,7 +73,7 @@ public class BallEQ_MultiMB : BallEquipMB
             foreach (BallThrowMB ball in balls)
             {
                 if (ball == primary) ball.InitThrow(targetPos, aimTypeDirect);
-                else ball.state = BallThrowMB.BallState.thrown;
+                else ball.InitThrowTangent();
             }
         }
         else

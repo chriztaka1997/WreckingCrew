@@ -109,6 +109,18 @@ public class BallThrowMB : BallMB
         thisRigidbody.velocity = throwVec;
     }
 
+    public void InitThrowTangent()
+    {
+        state = BallState.thrown;
+
+        Vector2 playerToBall = thisTransform.position - anchorTransform.position;
+        Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
+        float spinCcwAmount = Vector2.Dot(thisRigidbody.velocity, tangentCCW);
+        Vector2 throwTrajectory = (spinCcwAmount >= 0) ? tangentCCW : tangentCCW * -1;
+        Vector2 throwVec = throwTrajectory.normalized * Mathf.Abs(spinSpd);
+        thisRigidbody.velocity = throwVec;
+    }
+
     public void SpinBall(float dt)
     {
         Vector2 playerToBall = thisTransform.position - anchorTransform.position;
