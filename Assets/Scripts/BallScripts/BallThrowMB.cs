@@ -14,6 +14,8 @@ public class BallThrowMB : BallMB
     public float minSpinSpd;
     public float spinSpd { get; private set; }
 
+    public Action<BallThrowMB, Collision2D> onCollisionDelegate;
+
     public bool spinDirCCW => spinSpd >= 0;
 
     public override void Start()
@@ -120,6 +122,11 @@ public class BallThrowMB : BallMB
     public bool IsReturnedDistance()
     {
         return (anchorTransform.position - thisTransform.position).magnitude <= chainLengthSet * lengthReturnedRatio;
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        onCollisionDelegate?.Invoke(this, collision);
     }
 
     public enum BallState

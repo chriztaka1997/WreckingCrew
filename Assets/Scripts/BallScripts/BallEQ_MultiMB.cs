@@ -6,8 +6,17 @@ public class BallEQ_MultiMB : BallEquipMB
 {
     public List<BallThrowMB> balls;
     public bool spread;
+    public float spinSlowFactor;
 
     private float spinSpdAvg;
+
+    public void Start()
+    {
+        foreach (BallThrowMB ball in balls)
+        {
+            ball.onCollisionDelegate += OnBallCollision;
+        }
+    }
 
     public override void SetEquip(PlayerMB player)
     {
@@ -143,5 +152,29 @@ public class BallEQ_MultiMB : BallEquipMB
         }
         return primary;
 
+    }
+
+    public override void OnBallCollision(BallThrowMB ballRef, Collision2D collision)
+    {
+        string tag = collision.gameObject.tag;
+        if (tag == "Enemy")
+        {
+            switch (ballRef.state)
+            {
+                case BallThrowMB.BallState.normal:
+                case BallThrowMB.BallState.thrown:
+                    var velocity = ballRef.thisRigidbody.velocity;
+                    ballRef.thisRigidbody.velocity = velocity * spinSlowFactor;
+                    break;
+                case BallThrowMB.BallState.external:
+                    // split slowing among all balls
+                    float groupSlowFactor = 1.0f - ((1.0f - spinSlowFactor) / balls.Count);
+                    foreach (BallThrowMB ball in balls)
+                    {
+                        ball.InitSpin(ballRef.spinSpd * groupSlowFactor);
+                    }
+                    break;
+            }
+        }
     }
 }
