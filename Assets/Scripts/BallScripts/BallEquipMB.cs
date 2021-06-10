@@ -22,7 +22,7 @@ public abstract class BallEquipMB : MonoBehaviour
 
     public abstract bool ThrowAngleCorrect();
 
-    public abstract void InitThrowCharge();
+    public abstract void InitSpin();
 
     public abstract void InitThrow();
 

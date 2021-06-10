@@ -1679,6 +1679,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
+      propertyPath: spinKey.code
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 3126958323139317928, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
       propertyPath: m_RootOrder
       value: 3

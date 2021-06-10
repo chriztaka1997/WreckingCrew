@@ -10,8 +10,6 @@ public class BallThrowMB : BallMB
     public float throwChainLengthSet;
 
 
-    //public bool aimTypeDirect; // true means aimed directly at cursor
-    //public float throwAngleWiggle; // degrees either way
     public float lengthReturnedRatio; // at this ratio, the ball is returned
     public float minSpinSpd;
     public float spinSpd { get; private set; }
@@ -65,24 +63,30 @@ public class BallThrowMB : BallMB
         return Mathf.Abs(angle) <= throwAngleWiggle;
     }
 
-    public void InitThrowCharge()
+    public float GetTangentSpd()
     {
-        state = BallState.external;
-
         Vector2 playerToBall = thisTransform.position - anchorTransform.position;
         Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
         float spinCcwAmount = Vector2.Dot(thisRigidbody.velocity, tangentCCW);
-        Vector2 spinVel = spinCcwAmount * tangentCCW;
-        spinSpd = spinVel.magnitude;
-        if (spinSpd < minSpinSpd) spinSpd = minSpinSpd;
-        if (spinCcwAmount < 0) spinSpd *= -1;
+        Vector2 tanVel = spinCcwAmount * tangentCCW;
+        float tanSpd = tanVel.magnitude;
+        if (spinCcwAmount < 0) tanSpd *= -1;
+        return tanSpd;
     }
 
-    public void InitThrowCharge(float spinSpd)
+    public float GetTangentSpdFloor()
+    {
+        float tanSpd = GetTangentSpd();
+        if (Mathf.Abs(tanSpd) < minSpinSpd) tanSpd = (tanSpd >= 0) ? minSpinSpd : -minSpinSpd;
+        return tanSpd;
+    }
+
+    public void InitSpin(float spinSpd)
     {
         state = BallState.external;
 
         this.spinSpd = spinSpd;
+
         if (Mathf.Abs(spinSpd) < Mathf.Abs(minSpinSpd))
         {
             this.spinSpd = spinDirCCW ? minSpinSpd : -minSpinSpd;

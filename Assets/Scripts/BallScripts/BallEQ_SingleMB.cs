@@ -6,6 +6,7 @@ using System;
 public class BallEQ_SingleMB : BallEquipMB
 {
     public BallThrowMB ball;
+    private float spinSpd;
 
     public override void SetEquip(PlayerMB player)
     {
@@ -18,6 +19,12 @@ public class BallEQ_SingleMB : BallEquipMB
         return ball.IsReturnedDistance();
     }
 
+    public override void InitSpin()
+    {
+        spinSpd = ball.GetTangentSpdFloor();
+        ball.InitSpin(spinSpd);
+    }
+
     public override void DoSpin(float dt)
     {
         ball.SpinBall(dt);
@@ -26,11 +33,6 @@ public class BallEQ_SingleMB : BallEquipMB
     public override void InitThrow()
     {
         ball.InitThrow(targetPos, aimTypeDirect);
-    }
-
-    public override void InitThrowCharge()
-    {
-        ball.InitThrowCharge();
     }
 
     public override void SetState(BallThrowMB.BallState ballState)

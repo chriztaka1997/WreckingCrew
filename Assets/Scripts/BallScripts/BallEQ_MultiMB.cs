@@ -7,6 +7,8 @@ public class BallEQ_MultiMB : BallEquipMB
     public List<BallThrowMB> balls;
     public bool spread;
 
+    private float spinSpdAvg;
+
     public override void SetEquip(PlayerMB player)
     {
         base.SetEquip(player);
@@ -77,18 +79,18 @@ public class BallEQ_MultiMB : BallEquipMB
         }
     }
 
-    public override void InitThrowCharge()
+    public override void InitSpin()
     {
-        float spinAvg = 0f;
+        float tempSpinSpdAvg = 0f;
         foreach (BallThrowMB ball in balls)
         {
-            ball.InitThrowCharge();
-            spinAvg += ball.spinSpd;
+            tempSpinSpdAvg += ball.GetTangentSpdFloor();
         }
-        spinAvg /= balls.Count;
+        tempSpinSpdAvg /= balls.Count;
+        spinSpdAvg = tempSpinSpdAvg;
         foreach (BallThrowMB ball in balls)
         {
-            ball.InitThrowCharge(spinAvg);
+            ball.InitSpin(tempSpinSpdAvg);
         }
     }
 
