@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1646878182322718265}
   m_Layer: 0
   m_Name: Ball (2)
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 1646878182932181945}
   m_Layer: 0
   m_Name: Ball (1)
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -343,6 +343,7 @@ MonoBehaviour:
   - {fileID: 1646878182932181950}
   - {fileID: 1646878182322718270}
   spread: 0
+  spinSlowFactor: 0.8
 --- !u!1 &4885163024989058720
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +360,7 @@ GameObject:
   - component: {fileID: 4885163024989058734}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

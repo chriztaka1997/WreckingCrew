@@ -22,7 +22,7 @@ public abstract class BallEquipMB : MonoBehaviour
 
     public abstract bool ThrowAngleCorrect();
 
-    public abstract void InitThrowCharge();
+    public abstract void InitSpin();
 
     public abstract void InitThrow();
 
@@ -35,4 +35,6 @@ public abstract class BallEquipMB : MonoBehaviour
     public abstract bool AllReturned();
 
     public virtual void InitNormal() => SetState(BallThrowMB.BallState.normal);
+
+    public abstract void OnBallCollision(BallThrowMB ballRef, Collision2D collision);
 }

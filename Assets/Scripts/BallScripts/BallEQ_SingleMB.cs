@@ -6,6 +6,13 @@ using System;
 public class BallEQ_SingleMB : BallEquipMB
 {
     public BallThrowMB ball;
+    public float spinSlowFactor;
+    private float spinSpd;
+
+    public void Start()
+    {
+        ball.onCollisionDelegate += OnBallCollision;
+    }
 
     public override void SetEquip(PlayerMB player)
     {
@@ -18,6 +25,12 @@ public class BallEQ_SingleMB : BallEquipMB
         return ball.IsReturnedDistance();
     }
 
+    public override void InitSpin()
+    {
+        spinSpd = ball.GetConservedSpinSpd();
+        ball.InitSpin(spinSpd);
+    }
+
     public override void DoSpin(float dt)
     {
         ball.SpinBall(dt);
@@ -28,11 +41,6 @@ public class BallEQ_SingleMB : BallEquipMB
         ball.InitThrow(targetPos, aimTypeDirect);
     }
 
-    public override void InitThrowCharge()
-    {
-        ball.InitThrowCharge();
-    }
-
     public override void SetState(BallThrowMB.BallState ballState)
     {
         ball.state = ballState;
@@ -41,5 +49,24 @@ public class BallEQ_SingleMB : BallEquipMB
     public override bool ThrowAngleCorrect()
     {
         return ball.ThrowAngleCorrect(targetPos, throwAngleWiggle, aimTypeDirect);
+    }
+
+    public override void OnBallCollision(BallThrowMB ballRef, Collision2D collision)
+    {
+        string tag = collision.gameObject.tag;
+        if (tag == "Enemy")
+        {
+            switch (ballRef.state)
+            {
+                case BallThrowMB.BallState.normal:
+                case BallThrowMB.BallState.thrown:
+                    var velocity = ballRef.thisRigidbody.velocity;
+                    ballRef.thisRigidbody.velocity = velocity * spinSlowFactor;
+                    break;
+                case BallThrowMB.BallState.external:
+                    ballRef.InitSpin(ballRef.spinSpd * spinSlowFactor);
+                    break;
+            }
+        }
     }
 }

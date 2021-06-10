@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 4286877294427350056}
+  spinSlowFactor: 0.8
 --- !u!1 &6083712420045083958
 GameObject:
   m_ObjectHideFlags: 0

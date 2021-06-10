@@ -24,7 +24,8 @@ public class PlayerMB : MonoBehaviour
     public bool aimTypeDirect; // true means aimed directly at cursor
     public float throwAngleWiggle; // degrees either way
 
-    public KeyManager throwKey;
+    public KeyManager throwKey, spinKey;
+    private List<KeyManager> keyManagers;
 
     public PlayerEffectManagerMB effectManager;
 
@@ -34,7 +35,6 @@ public class PlayerMB : MonoBehaviour
     private DateTime hitTime;
     private Vector2 knockbackStartPoint;
     private Vector2 knockbackEndPoint;
-    public float iframeFlashDuration;
 
     public Rigidbody2D  thisRigidbody { get; protected set; }
     public CircleCollider2D thisCollider { get; protected set; }
@@ -53,6 +53,8 @@ public class PlayerMB : MonoBehaviour
         newPos.z = fixedZ;
         thisTransform.position = newPos;
 
+        keyManagers = new List<KeyManager> { throwKey, spinKey };
+
         effectManager.Init(gameObject.GetComponent<MeshRenderer>());
 
         actionState = ActionState.normal;
@@ -61,17 +63,8 @@ public class PlayerMB : MonoBehaviour
 
     public void FixedUpdate()
     {
-        throwKey.Update();
-
-        switch (moveType)
-        {
-            case MoveType.Mouse:
-                MouseTargetPos();
-                break;
-            case MoveType.Kbd:
-                KbdTargetPos();
-                break;
-        }
+        UpdateKeys();
+        UpdateTargetPos();
         UpdateAction(Time.fixedDeltaTime);
     }
 
@@ -109,6 +102,27 @@ public class PlayerMB : MonoBehaviour
             targetPos.x -= kbdDist;
     }
 
+    public void UpdateKeys()
+    {
+        foreach (KeyManager keyM in keyManagers)
+        {
+            keyM.Update();
+        }
+    }
+
+    public void UpdateTargetPos()
+    {
+        switch (moveType)
+        {
+            case MoveType.Mouse:
+                MouseTargetPos();
+                break;
+            case MoveType.Kbd:
+                KbdTargetPos();
+                break;
+        }
+    }    
+
     public void UpdatePos(float dt)
     {
         float maxDist = maxSpeed * dt;
@@ -137,14 +151,38 @@ public class PlayerMB : MonoBehaviour
         switch (actionState)
         {
             case ActionState.normal:
+                if (spinKey.GetKeyDown)
+                {
+                    actionState = ActionState.moveSpin;
+                    ballEquip.InitSpin();
+                    break;
+                }
                 if (throwKey.GetKeyDown)
                 {
                     actionState = ActionState.throwCharge;
-                    ballEquip.InitThrowCharge();
+                    ballEquip.InitSpin();
+                    break;
+                }
+                break;
+            case ActionState.moveSpin:
+                if (!spinKey.GetKey)
+                {
+                    actionState = ActionState.normal;
+                    ballEquip.InitNormal();
+                    break;
+                }
+                if (throwKey.GetKeyDown)
+                {
+                    actionState = ActionState.throwCharge;
                     break;
                 }
                 break;
             case ActionState.throwCharge:
+                if (spinKey.GetKeyDown)
+                {
+                    actionState = ActionState.moveSpin;
+                    break;
+                }
                 if (!throwKey.GetKey)
                 {
                     if (ballEquip.ThrowAngleCorrect())
@@ -156,6 +194,7 @@ public class PlayerMB : MonoBehaviour
                     {
                         actionState = ActionState.throwPreRelease;
                     }
+                    break;
                 }
                 break;
             case ActionState.throwPreRelease:
@@ -168,7 +207,7 @@ public class PlayerMB : MonoBehaviour
 
             case ActionState.thrown:
                 // suggestion: maybe add way to set return without button in range
-                if (throwKey.GetKey)
+                if (throwKey.GetKeyDown || spinKey.GetKeyDown)
                 {
                     actionState = ActionState.returning;
                     ballEquip.InitReturn();
@@ -202,6 +241,10 @@ public class PlayerMB : MonoBehaviour
         {
             case ActionState.normal:
                 UpdatePos(dt);
+                break;
+            case ActionState.moveSpin:
+                UpdatePos(dt);
+                ballEquip.DoSpin(dt);
                 break;
             case ActionState.throwCharge:
                 ballEquip.DoSpin(dt);
@@ -251,6 +294,7 @@ public class PlayerMB : MonoBehaviour
                 knockbackEndPoint = knockbackStartPoint + (hitDir * knockBackDist);
                 hitTime = DateTime.Now;
                 actionState = ActionState.knockback;
+                ballEquip.InitNormal();
                 effectManager.ChangeState(PlayerEffectManagerMB.State.damaged);
                 break;
         }
@@ -266,6 +310,7 @@ public class PlayerMB : MonoBehaviour
     public enum ActionState
     {
         normal, // neutral state
+        moveSpin, // spinning ball while moving
         throwCharge, // chargeup to throw
         throwPreRelease, // waiting to throw in direction
         thrown, // ball(s) being thrown
