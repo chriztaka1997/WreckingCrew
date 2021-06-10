@@ -84,7 +84,7 @@ public class BallEQ_MultiMB : BallEquipMB
         float tempSpinSpdAvg = 0f;
         foreach (BallThrowMB ball in balls)
         {
-            tempSpinSpdAvg += ball.GetTangentSpdFloor();
+            tempSpinSpdAvg += ball.GetConservedSpinSpd();
         }
         tempSpinSpdAvg /= balls.Count;
         spinSpdAvg = tempSpinSpdAvg;

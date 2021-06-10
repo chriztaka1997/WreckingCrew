@@ -21,7 +21,7 @@ public class BallEQ_SingleMB : BallEquipMB
 
     public override void InitSpin()
     {
-        spinSpd = ball.GetTangentSpdFloor();
+        spinSpd = ball.GetConservedSpinSpd();
         ball.InitSpin(spinSpd);
     }
 
