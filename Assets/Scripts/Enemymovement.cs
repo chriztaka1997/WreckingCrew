@@ -6,6 +6,7 @@ public class Enemymovement : MonoBehaviour
 {
     public Transform player;
     public float moveSpeed = 5f;
+    public float weight;
     private Rigidbody2D rb;
     private Vector2 movement;
     private string BALL_TAG = "Ball";
@@ -36,6 +37,12 @@ public class Enemymovement : MonoBehaviour
     void moveEnemy(Vector2 direction)
     {
         rb.MovePosition((Vector2)transform.position + (direction * moveSpeed *Time.deltaTime));
+    }
+
+    public void CollisionWithBall(BallThrowMB ball, float damage)
+    {
+        // the ball is what was collided with
+        // damage is the damage for the enemy to take
     }
 
 
