@@ -159,6 +159,7 @@ public class BallEQ_MultiMB : BallEquipMB
         string tag = collision.gameObject.tag;
         if (tag == "Enemy")
         {
+            Enemymovement enemymovement = collision.gameObject.GetComponent<Enemymovement>();
             switch (ballRef.state)
             {
                 case BallThrowMB.BallState.normal:
@@ -175,6 +176,8 @@ public class BallEQ_MultiMB : BallEquipMB
                     }
                     break;
             }
+            float damage = 100.0f;
+            enemymovement.CollisionWithBall(ballRef, damage);
         }
     }
 }

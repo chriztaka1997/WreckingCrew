@@ -43,15 +43,20 @@ public class Enemymovement : MonoBehaviour
     {
         // the ball is what was collided with
         // damage is the damage for the enemy to take
+
+        move = false;
+        Destroy(gameObject, 1f);
     }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag.Equals(BALL_TAG))
-        {
-            move = false;
-            Destroy(gameObject,1f);
-        }
+        // Use if you want to have collision effect with other object
+
+        //if (collision.gameObject.tag.Equals(BALL_TAG))
+        //{
+        //    move = false;
+        //    Destroy(gameObject,1f);
+        //}
     }
 }

@@ -56,6 +56,7 @@ public class BallEQ_SingleMB : BallEquipMB
         string tag = collision.gameObject.tag;
         if (tag == "Enemy")
         {
+            Enemymovement enemymovement = collision.gameObject.GetComponent<Enemymovement>();
             switch (ballRef.state)
             {
                 case BallThrowMB.BallState.normal:
@@ -67,6 +68,8 @@ public class BallEQ_SingleMB : BallEquipMB
                     ballRef.InitSpin(ballRef.spinSpd * spinSlowFactor);
                     break;
             }
+            float damage = 100.0f;
+            enemymovement.CollisionWithBall(ballRef, damage);
         }
     }
 }
