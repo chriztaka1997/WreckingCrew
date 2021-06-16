@@ -1746,8 +1746,48 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd,
         type: 3}
+      propertyPath: stats.crit
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd,
+        type: 3}
+      propertyPath: stats.dodge
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd,
+        type: 3}
+      propertyPath: stats.maxHP
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd,
+        type: 3}
       propertyPath: spinKey.code
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd,
+        type: 3}
+      propertyPath: stats.attack
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd,
+        type: 3}
+      propertyPath: stats.movSpd
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd,
+        type: 3}
+      propertyPath: stats.healTick
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd,
+        type: 3}
+      propertyPath: stats.currentHP
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd,
+        type: 3}
+      propertyPath: stats.precision
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3126958322957143019, guid: 21e8ad3095f3f431894e49849a4dc2dd,
         type: 3}

@@ -13,6 +13,8 @@ public class PlayerMB : MonoBehaviour
 
     public string startBallEquipName;
 
+    public PlayerStats stats;
+
     public Vector3 targetPos;
     public float fixedZ;
     public float maxSpeed; // units per sec
@@ -52,6 +54,8 @@ public class PlayerMB : MonoBehaviour
         Vector3 newPos = thisTransform.position;
         newPos.z = fixedZ;
         thisTransform.position = newPos;
+
+        stats.Reset();
 
         keyManagers = new List<KeyManager> { throwKey, spinKey };
 
@@ -281,6 +285,17 @@ public class PlayerMB : MonoBehaviour
         return true;
     }
 
+    public bool CheckDeath()
+    {
+        if (stats.currentHP <= 0)
+        {
+            print("Died :(");
+            stats.Reset();
+            return true;
+        }
+        return false;
+    }
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
         string tag = collision.gameObject.tag;
@@ -296,6 +311,11 @@ public class PlayerMB : MonoBehaviour
                 actionState = ActionState.knockback;
                 ballEquip.InitNormal();
                 effectManager.ChangeState(PlayerEffectManagerMB.State.damaged);
+
+                float damageTaken = 40.0f; // Set from enemy later
+                stats.currentHP -= damageTaken;
+
+                CheckDeath();
                 break;
         }
     }
