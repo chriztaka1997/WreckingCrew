@@ -21,17 +21,24 @@ public class Enemymovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 direction = player.position - transform.position;
-        direction.Normalize();
-        movement = direction;
+        if (move)
+        {
+            Vector3 direction = player.position - transform.position;
+            direction.Normalize();
+            movement = direction;
+        }
+        else
+        {
+            Vector3 direction = transform.position - player.position;
+            direction.Normalize();
+            movement = direction;
+        }
+        
     }
     
     void FixedUpdate()
     {
-        if (move)
-        {
             moveEnemy(movement);
-        }
     }
 
     void moveEnemy(Vector2 direction)
@@ -43,20 +50,38 @@ public class Enemymovement : MonoBehaviour
     {
         // the ball is what was collided with
         // damage is the damage for the enemy to take
+        //knockback to give player a room to re spin the ball
+            //Idea for knocking back, using the same force or speed +
+            //the motion will be perpendicular to the ball motion
+        //if the health is zero then the enemy will drift along with collision off
 
         move = false;
+        //rb.Collider.enabled = false;
         Destroy(gameObject, 1f);
     }
 
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag.Equals(BALL_TAG))
+        {
+            move = false;
+            Destroy(gameObject, 1f);
+        }
+    }
+
+    /**
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Use if you want to have collision effect with other object
 
-        //if (collision.gameObject.tag.Equals(BALL_TAG))
-        //{
-        //    move = false;
-        //    Destroy(gameObject,1f);
-        //}
+        if (collision.gameObject.tag.Equals(BALL_TAG))
+        {
+            move = false;
+            CircleCollider2D m_collider = GetComponent<CircleCollider2D>();
+            m_collider.isTrigger = true;
+            Destroy(gameObject,1f);
+        }
     }
+    **/
 }
