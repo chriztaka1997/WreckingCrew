@@ -154,12 +154,12 @@ public class BallEQ_MultiMB : BallEquipMB
 
     }
 
-    public override void OnBallCollision(BallThrowMB ballRef, Collision2D collision)
+    public override void OnBallCollision(BallThrowMB ballRef, Collider2D collider)
     {
-        string tag = collision.gameObject.tag;
+        string tag = collider.gameObject.tag;
         if (tag == "Enemy")
         {
-            Enemymovement enemymovement = collision.gameObject.GetComponent<Enemymovement>();
+            Enemymovement enemymovement = collider.gameObject.GetComponent<Enemymovement>();
             switch (ballRef.state)
             {
                 case BallThrowMB.BallState.normal:

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1646878182322718264}
   - component: {fileID: 1646878182322718270}
   - component: {fileID: 1646878182322718265}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball (2)
   m_TagString: Ball
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 1646878182932181944}
   - component: {fileID: 1646878182932181950}
   - component: {fileID: 1646878182932181945}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball (1)
   m_TagString: Ball
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 4885163024989058722}
   - component: {fileID: 3231378887903840190}
   - component: {fileID: 4885163024989058734}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ball
   m_TagString: Ball
   m_Icon: {fileID: 0}

@@ -36,5 +36,5 @@ public abstract class BallEquipMB : MonoBehaviour
 
     public virtual void InitNormal() => SetState(BallThrowMB.BallState.normal);
 
-    public abstract void OnBallCollision(BallThrowMB ballRef, Collision2D collision);
+    public abstract void OnBallCollision(BallThrowMB ballRef, Collider2D collider);
 }
