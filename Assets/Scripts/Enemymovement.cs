@@ -7,10 +7,14 @@ public class Enemymovement : MonoBehaviour
     public Transform player;
     public float moveSpeed = 5f;
     public float weight;
+    
     private Rigidbody2D rb;
-    private Vector2 movement;
     private string BALL_TAG = "Ball";
+
+    private Vector2 movement;
+    private Vector3 fixedAway;
     private bool move = true;
+    private bool hit =true;
 
     // Start is called before the first frame update
     void Start()
@@ -21,24 +25,31 @@ public class Enemymovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (move)
-        {
-            Vector3 direction = player.position - transform.position;
-            direction.Normalize();
-            movement = direction;
-        }
-        else
-        {
-            Vector3 direction = transform.position - player.position;
-            direction.Normalize();
-            movement = direction;
-        }
+        
         
     }
     
     void FixedUpdate()
     {
-            moveEnemy(movement);
+        Vector3 direction;
+        if (move)
+        {
+            direction = player.position - transform.position;
+        }
+        else
+        {
+            if (hit)
+            {
+                fixedAway = transform.position - player.position;
+                hit = false;
+            }
+            direction = fixedAway;
+        }
+
+        direction.Normalize();
+        movement = direction;
+        
+        moveEnemy(movement);
     }
 
     void moveEnemy(Vector2 direction)
