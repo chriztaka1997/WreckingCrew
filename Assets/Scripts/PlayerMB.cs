@@ -10,6 +10,7 @@ using UnityEditor;
 public class PlayerMB : MonoBehaviour
 {
     public BallEquipMB ballEquip;
+    public HP_BarMB hpBar;
 
     public string startBallEquipName;
 
@@ -56,6 +57,7 @@ public class PlayerMB : MonoBehaviour
         thisTransform.position = newPos;
 
         stats.Reset();
+        hpBar.InitHP(stats.currentHP);
 
         keyManagers = new List<KeyManager> { throwKey, spinKey };
 
@@ -285,12 +287,23 @@ public class PlayerMB : MonoBehaviour
         return true;
     }
 
+    public void SetHP(float hp)
+    {
+        stats.currentHP = hp;
+        hpBar.SetHP(stats.currentHP);
+    }
+
+    public void ResetHP() => SetHP(stats.maxHP);
+
+    public void AlterHP(float d_hp) => SetHP(stats.currentHP + d_hp);
+
     public bool CheckDeath()
     {
         if (stats.currentHP <= 0)
         {
             print("Died :(");
             stats.Reset();
+            ResetHP();
             return true;
         }
         return false;
@@ -313,7 +326,7 @@ public class PlayerMB : MonoBehaviour
                 effectManager.ChangeState(PlayerEffectManagerMB.State.damaged);
 
                 float damageTaken = 40.0f; // Set from enemy later
-                stats.currentHP -= damageTaken;
+                AlterHP(-damageTaken);
 
                 CheckDeath();
                 break;
