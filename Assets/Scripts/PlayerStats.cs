@@ -13,6 +13,7 @@ public class PlayerStats
     public float movSpd;
     public float dodge;
     public float healTick;
+    public float tenacity;
     // list of buffs/debuffs
     // list of ball attributes
     // list of ball equips obtained

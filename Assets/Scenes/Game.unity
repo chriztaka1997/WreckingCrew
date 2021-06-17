@@ -1811,6 +1811,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
+      propertyPath: stats.attack
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126958322957143018, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
+      propertyPath: stats.precision
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3126958323139317928, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
       propertyPath: m_RootOrder
       value: 4

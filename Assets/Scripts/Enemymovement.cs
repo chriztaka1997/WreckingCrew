@@ -6,7 +6,12 @@ public class Enemymovement : MonoBehaviour
 {
     public Transform player;
     public float moveSpeed = 5f;
+    public float currentHP;
+    public float maxHP;
+    public float attack;
     public float weight;
+
+    public HP_BarMB hpBar;
     
     private Rigidbody2D rb;
     private string BALL_TAG = "Ball";
@@ -20,6 +25,9 @@ public class Enemymovement : MonoBehaviour
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
+
+        currentHP = maxHP;
+        hpBar.InitHP(maxHP);
     }
 
     // Update is called once per frame
@@ -57,21 +65,35 @@ public class Enemymovement : MonoBehaviour
         rb.MovePosition((Vector2)transform.position + (direction * moveSpeed *Time.deltaTime));
     }
 
+    public void SetHP(float hp)
+    {
+        currentHP = hp;
+        hpBar.SetHP(currentHP);
+    }
+
+    public void ResetHP() => SetHP(maxHP);
+
+    public void AlterHP(float d_hp) => SetHP(currentHP + d_hp);
+
     public void CollisionWithBall(BallThrowMB ball, float damage)
     {
         // the ball is what was collided with
         // damage is the damage for the enemy to take
         //knockback to give player a room to re spin the ball
-            //Idea for knocking back, using the same force or speed +
-            //the motion will be perpendicular to the ball motion
+        //Idea for knocking back, using the same force or speed +
+        //the motion will be perpendicular to the ball motion
         //if the health is zero then the enemy will drift along with collision off
 
-        move = false;
-        //rb.Collider.enabled = false;
-        Destroy(gameObject, 1f);
+        AlterHP(-damage);
+        if (currentHP <= 0)
+        {
+            move = false;
+            //rb.Collider.enabled = false;
+            Destroy(gameObject, 1f);
+        }
     }
 
-
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag.Equals(BALL_TAG))
@@ -80,6 +102,7 @@ public class Enemymovement : MonoBehaviour
             Destroy(gameObject, 1f);
         }
     }
+    */
 
     /**
     private void OnCollisionEnter2D(Collision2D collision)

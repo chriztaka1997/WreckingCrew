@@ -62,13 +62,13 @@ public class BallEQ_SingleMB : BallEquipMB
                 case BallThrowMB.BallState.normal:
                 case BallThrowMB.BallState.thrown:
                     var velocity = ballRef.thisRigidbody.velocity;
-                    ballRef.thisRigidbody.velocity = velocity * spinSlowFactor;
+                    ballRef.thisRigidbody.velocity = velocity * CalcSloSpdMult(enemymovement);
                     break;
                 case BallThrowMB.BallState.external:
-                    ballRef.InitSpin(ballRef.spinSpd * spinSlowFactor);
+                    ballRef.InitSpin(ballRef.spinSpd * CalcSloSpdMult(enemymovement));
                     break;
             }
-            float damage = 100.0f;
+            float damage = CalcDamage(ballRef);
             enemymovement.CollisionWithBall(ballRef, damage);
         }
     }

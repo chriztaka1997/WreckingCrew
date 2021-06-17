@@ -165,18 +165,18 @@ public class BallEQ_MultiMB : BallEquipMB
                 case BallThrowMB.BallState.normal:
                 case BallThrowMB.BallState.thrown:
                     var velocity = ballRef.thisRigidbody.velocity;
-                    ballRef.thisRigidbody.velocity = velocity * spinSlowFactor;
+                    ballRef.thisRigidbody.velocity = velocity * CalcSloSpdMult(enemymovement);
                     break;
                 case BallThrowMB.BallState.external:
                     // split slowing among all balls
-                    float groupSlowFactor = 1.0f - ((1.0f - spinSlowFactor) / balls.Count);
+                    float groupSlowFactor = 1.0f - ((1.0f - CalcSloSpdMult(enemymovement)) / balls.Count);
                     foreach (BallThrowMB ball in balls)
                     {
                         ball.InitSpin(ballRef.spinSpd * groupSlowFactor);
                     }
                     break;
             }
-            float damage = 100.0f;
+            float damage = CalcDamage(ballRef);
             enemymovement.CollisionWithBall(ballRef, damage);
         }
     }
