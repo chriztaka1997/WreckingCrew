@@ -216,6 +216,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3126958322957143022}
     m_Modifications:
+    - target: {fileID: 1669614664598682813, guid: c9147aadcfcb24cf7ba93293d04a60d5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1669614664598682813, guid: c9147aadcfcb24cf7ba93293d04a60d5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3290112010537157023, guid: c9147aadcfcb24cf7ba93293d04a60d5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3290112010537157023, guid: c9147aadcfcb24cf7ba93293d04a60d5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8357265353992785960, guid: c9147aadcfcb24cf7ba93293d04a60d5, type: 3}
       propertyPath: m_Name
       value: HP_Canvas
@@ -302,14 +318,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8357265353992785972, guid: c9147aadcfcb24cf7ba93293d04a60d5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357265354619376411, guid: c9147aadcfcb24cf7ba93293d04a60d5, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8357265354619376411, guid: c9147aadcfcb24cf7ba93293d04a60d5, type: 3}
-      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
