@@ -105,11 +105,12 @@ MonoBehaviour:
   stats:
     currentHP: 0
     maxHP: 1000
-    attack: 100
-    precision: 10
+    attack: 20
+    precision: 1
     movSpd: 5
     dodge: 0.1
     healTick: 10
+    tenacity: 0
   targetPos: {x: 0, y: 0, z: 0}
   fixedZ: 0
   maxSpeed: 5
