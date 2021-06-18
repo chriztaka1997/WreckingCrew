@@ -14,9 +14,11 @@ public class GameManagerMB : MonoBehaviour
 
     public List<GameObject> wallsSolid;
     public List<GameObject> wallsBreak;
+    public GameObject wallHolder;
 
     public void Awake()
     {
+        level = new LevelData(37, 37, 1, new Vector2(0, 0));
         InitFromLevel(level);
     }
 
@@ -57,14 +59,18 @@ public class GameManagerMB : MonoBehaviour
                         break;
                     case TileType.solidWall:
                         {
-                            GameObject go = Instantiate(wallSolidPF);
+                            string name = string.Format("Wall Solid: ({0}, {1})", ix, iy);
+                            GameObject go = Instantiate(wallSolidPF, wallHolder.transform);
+                            go.name = name;
                             go.transform.position = level.WorldLocation(ix, iy);
                             wallsSolid.Add(go);
                         }
                         break;
                     case TileType.breakWall:
                         {
-                            GameObject go = Instantiate(wallBreakPF);
+                            string name = string.Format("Wall Break: ({0}, {1})", ix, iy);
+                            GameObject go = Instantiate(wallBreakPF, wallHolder.transform);
+                            go.name = name;
                             go.transform.position = level.WorldLocation(ix, iy);
                             wallsBreak.Add(go);
                         }
@@ -73,7 +79,9 @@ public class GameManagerMB : MonoBehaviour
                         break;
                     case TileType.playerSpawn:
                         {
+                            string name = string.Format("PlayerUnit", ix, iy);
                             GameObject go = Instantiate(playerPF);
+                            go.name = name;
                             go.transform.position = Vector3.zero;
                             player = go.GetComponentInChildren<PlayerMB>();
                             player.transform.position = level.WorldLocation(ix, iy);
@@ -89,12 +97,43 @@ public class GameManagerMB : MonoBehaviour
     {
         foreach (GameObject g in wallsSolid)
         {
-            if (g != null) Destroy(g);
+            if (g != null)
+            {
+                if (!Application.isEditor)
+                {
+                    Destroy(g);
+                }
+                else
+                {
+                    DestroyImmediate(g);
+                }
+            }
         }
         foreach (GameObject g in wallsBreak)
         {
-            if (g != null) Destroy(g);
+            if (g != null)
+            {
+                if (!Application.isEditor)
+                {
+                    Destroy(g);
+                }
+                else
+                {
+                    DestroyImmediate(g);
+                }
+            }
         }
-        if (player != null) Destroy(player);
+        if (player != null)
+        {
+            if (!Application.isEditor)
+            {
+                Destroy(player);
+            }
+            else
+            {
+                DestroyImmediate(player);
+            }
+        }
     }
+
 }

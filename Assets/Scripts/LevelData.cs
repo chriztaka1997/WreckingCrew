@@ -13,11 +13,11 @@ public class LevelData
     public int width => tiles.GetLength(0);
     public int height => tiles.GetLength(1);
 
-    public LevelData(int width, int height, float levelScale, Vector2 anchor)
+    public LevelData(int width, int height, float levelScale, Vector2 center)
     {
         tiles = new LevelTile[width, height];
         this.levelScale = levelScale;
-        this.anchor = anchor;
+        anchor = center - new Vector2(width * levelScale * 0.5f, height * levelScale * 0.5f) + new Vector2(levelScale * 0.5f, levelScale * 0.5f);
 
         for (int ix = 0; ix < width; ix++)
         {
