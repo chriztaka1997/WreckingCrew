@@ -15,11 +15,15 @@ public class Enemymovement : MonoBehaviour
     
     private Rigidbody2D rb;
     private string BALL_TAG = "Ball";
+    private List<string> STATES= new List<string>() { "Spawning", "Alive", "Recoil", "Dead" };
+    private string currentState = "Alive";
+    private bool gotHit;
+    private float hitTime;
+    private float turnBack = 1f;
 
     private Vector2 movement;
     private Vector3 fixedAway;
     private bool move = true;
-    private bool hit =true;
 
     // Start is called before the first frame update
     void Start()
@@ -40,16 +44,24 @@ public class Enemymovement : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 direction;
-        if (move)
+        if ((Time.time - hitTime >= turnBack)&&!(currentState ==STATES[1]))
+        {
+            currentState = STATES[1];
+        }
+
+        //When nothing is happen to the enemy
+        if (currentState == STATES[1])
         {
             direction = player.position - transform.position;
         }
-        else
+
+        //When the ball hits the enemy
+        else 
         {
-            if (hit)
+            if (gotHit)
             {
                 fixedAway = transform.position - player.position;
-                hit = false;
+                gotHit = false;
             }
             direction = fixedAway;
         }
@@ -62,7 +74,7 @@ public class Enemymovement : MonoBehaviour
 
     void moveEnemy(Vector2 direction)
     {
-        rb.MovePosition((Vector2)transform.position + (direction * moveSpeed *Time.deltaTime));
+        rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
     }
 
     public void SetHP(float hp)
@@ -85,12 +97,19 @@ public class Enemymovement : MonoBehaviour
         //if the health is zero then the enemy will drift along with collision off
 
         AlterHP(-damage);
+        gotHit = true;
+        hitTime = Time.time;
+        currentState = STATES[2];
+
         if (currentHP <= 0)
         {
             move = false;
-            //rb.Collider.enabled = false;
+            currentState = STATES[3];
+            moveSpeed = 10f;
             Destroy(gameObject, 1f);
         }
+
+
     }
 
     /*
@@ -98,8 +117,7 @@ public class Enemymovement : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals(BALL_TAG))
         {
-            move = false;
-            Destroy(gameObject, 1f);
+            gotHit = true;
         }
     }
     */
