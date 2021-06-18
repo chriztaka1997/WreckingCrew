@@ -60,16 +60,15 @@ public class GameManagerMB : MonoBehaviour
                     case TileType.solidWall:
                         {
                             string name = string.Format("Wall Solid: ({0}, {1})", ix, iy);
-                            GameObject go = Instantiate(wallSolidPF, wallHolder.transform);
+                            GameObject go = WallSpawner.SpawnWall(level.WorldLocation(ix, iy), level.levelScale, level.levelScale, wallHolder.transform);
                             go.name = name;
-                            go.transform.position = level.WorldLocation(ix, iy);
                             wallsSolid.Add(go);
                         }
                         break;
                     case TileType.breakWall:
                         {
                             string name = string.Format("Wall Break: ({0}, {1})", ix, iy);
-                            GameObject go = Instantiate(wallBreakPF, wallHolder.transform);
+                            GameObject go = WallSpawner.SpawnObstacle(level.WorldLocation(ix, iy), level.levelScale, level.levelScale, wallHolder.transform).gameObject;
                             go.name = name;
                             go.transform.position = level.WorldLocation(ix, iy);
                             wallsBreak.Add(go);

@@ -5,19 +5,21 @@ using UnityEngine;
 public static class WallSpawner
 {
 
-    public static void SpawnWall(float x, float y, float length, float width)
+    public static GameObject SpawnWall(Vector2 pos, float length, float width, Transform parent = null)
     {
         GameObject wallPrefab = Resources.Load("RandomWall") as GameObject;
-        GameObject.Instantiate(wallPrefab);
-        wallPrefab.transform.position = new Vector3(x, y, -0.5f);
+        GameObject wall = (parent == null) ? GameObject.Instantiate(wallPrefab) : GameObject.Instantiate(wallPrefab, parent);
+        wallPrefab.transform.position = new Vector3(pos.x, pos.y, -0.5f);
         wallPrefab.transform.localScale = new Vector3(length, width, 1.0f);
+        return wall;
     }
 
-    public static void SpawnObstacle(float x, float y, float length, float width)
+    public static BreakableObastacle SpawnObstacle(Vector2 pos, float length, float width, Transform parent = null)
     {
-        GameObject wallPrefab = Resources.Load("RandomObstacle") as GameObject;
-        GameObject.Instantiate(wallPrefab);
-        wallPrefab.transform.position = new Vector3(x, y, -0.5f);
+        BreakableObastacle wallPrefab = Resources.Load("RandomObstacle", typeof(BreakableObastacle)) as BreakableObastacle;
+        BreakableObastacle wall = (parent == null) ? GameObject.Instantiate(wallPrefab) : GameObject.Instantiate(wallPrefab, parent);
+        wallPrefab.transform.position = new Vector3(pos.x, pos.y, -0.5f);
         wallPrefab.transform.localScale = new Vector3(length, width, 1.0f);
+        return wall;
     }
 }
