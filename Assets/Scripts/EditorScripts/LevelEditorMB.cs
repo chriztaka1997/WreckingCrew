@@ -20,12 +20,22 @@ public class LevelEditorMB : MonoBehaviour
     public string json;
     private string internalJson;
 
+    public EditorLabelMB editorLabelPF;
+    public GameObject labelsObject;
+
+    public Color EnemySpawnColor;
+    public Color PlayerSpawnColor;
+
 
     public void ResetLevel()
     {
-        gameManager.ResetLevel();
-        gameManager.level = level;
-        gameManager.InitFromLevel(level);
+        if (gameManager.levelMngr == null)
+        {
+            gameManager.levelMngr = Instantiate(gameManager.levelMngrPF);
+            gameManager.levelMngr.name = "LevelManager";
+        }
+        gameManager.levelMngr.SetLevel(level);
+        AddLabels();
         SerializeInternal();
     }
 
@@ -41,6 +51,7 @@ public class LevelEditorMB : MonoBehaviour
         {
             MakeNewLevel();
         }
+        AddLabels();
     }
 
     public void PlaceTile(int x, int y)
@@ -79,6 +90,59 @@ public class LevelEditorMB : MonoBehaviour
     {
         DeserializeInteral();
         json = level.ToJsonString();
+    }
+
+    public void CleanScene()
+    {
+        Utils.TryDestroy(gameManager.levelMngr?.gameObject);
+        Utils.TryDestroy(gameManager.player?.gameObject);
+        Utils.TryDestroy(labelsObject);
+    }
+
+    public GameObject GetEditorObject()
+    {
+        if (labelsObject == null)
+        {
+            labelsObject = new GameObject("Labels Object");
+            labelsObject.transform.SetParent(transform);
+        }
+        return labelsObject;
+    }
+
+    public void AddPlayerSpawn(int x, int y)
+    {
+        EditorLabelMB label = Instantiate(editorLabelPF, GetEditorObject().transform);
+        string name = string.Format("Player Spawn: ({0}, {1})", x, y);
+        label.name = name;
+        label.Init("Player Spawn", level.levelScale, level.WorldLocation(x, y), PlayerSpawnColor);
+    }
+
+    public void AddEnemySpawn(int x, int y)
+    {
+        EditorLabelMB label = Instantiate(editorLabelPF, GetEditorObject().transform);
+        string name = string.Format("Enemy Spawn: ({0}, {1})", x, y);
+        label.name = name;
+        label.Init("Enemy Spawn", level.levelScale, level.WorldLocation(x, y), EnemySpawnColor);
+    }
+
+    public void AddLabels()
+    {
+        Utils.TryDestroy(labelsObject);
+        for (int ix = 0; ix < level.width; ix++)
+        {
+            for (int iy = 0; iy < level.height; iy++)
+            {
+                switch (level.tiles[ix, iy].tileType)
+                {
+                    case TileType.enemySpawn:
+                        AddEnemySpawn(ix, iy);
+                        break;
+                    case TileType.playerSpawn:
+                        AddPlayerSpawn(ix, iy);
+                        break;
+                }
+            }
+        }
     }
 }
 
@@ -128,6 +192,11 @@ public class LevelEditorMB_Editor : Editor
         if (GUILayout.Button("Print Json"))
         {
             targetRef.PrintJson();
+        }
+
+        if (GUILayout.Button("Clean Scene"))
+        {
+            targetRef.CleanScene();
         }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerCameraMB : MonoBehaviour
 {
+    public static PlayerCameraMB instance;
+
     public float planeZ;
     public GameObject target;
     public float speedPerDist; // (units / sec) / unit apart
@@ -16,8 +18,18 @@ public class PlayerCameraMB : MonoBehaviour
     public int width => Camera.main.pixelWidth;
     public int height => Camera.main.pixelHeight;
 
+    public void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        instance = this;
+    }
+
     public void Start()
     {
+
     }
 
     public void FixedUpdate()

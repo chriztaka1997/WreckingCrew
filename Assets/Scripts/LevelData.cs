@@ -9,16 +9,26 @@ public class LevelData
 {
     public LevelTile[,] tiles;
     public float levelScale; // tile length in unity units
-    public Vector2 anchor;
+    public Vector2 anchor; // center of bottom left tile
 
     public int width => tiles.GetLength(0);
     public int height => tiles.GetLength(1);
+    public Vector2 bottomLeft => anchor - new Vector2(levelScale / 2, levelScale / 2);
+    public Vector2 center => bottomLeft + new Vector2(width * levelScale / 2, height * levelScale / 2);
+
+    [JsonConstructor]
+    public LevelData(LevelTile[,] tiles, float levelScale, Vector2 anchor)
+    {
+        this.tiles = tiles;
+        this.levelScale = levelScale;
+        this.anchor = anchor;
+    }
 
     public LevelData(int width, int height, float levelScale, Vector2 center)
     {
         tiles = new LevelTile[width, height];
         this.levelScale = levelScale;
-        anchor = center - new Vector2(width * levelScale * 0.5f, height * levelScale * 0.5f) + new Vector2(levelScale * 0.5f, levelScale * 0.5f);
+        anchor = center - new Vector2(width * levelScale / 2, height * levelScale / 2) + new Vector2(levelScale / 2, levelScale / 2);
 
         for (int ix = 0; ix < width; ix++)
         {
@@ -29,11 +39,24 @@ public class LevelData
         }
     }
 
+    // copy constructor
+    public LevelData(LevelData other) : this(other.tiles, other.levelScale, other.anchor)
+    { }
+
     public static LevelData Deserialize(string jsonStr)
     {
-        return JsonConvert.DeserializeObject<LevelData>(jsonStr);
+        try
+        {
+            return JsonConvert.DeserializeObject<LevelData>(jsonStr);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            return null;
+        }
     }
 
+    public Vector2 WorldLocation(Vector2Int coords) => WorldLocation(coords.x, coords.y);
     public Vector2 WorldLocation(int x, int y)
     {
         return anchor + new Vector2(x * levelScale, y * levelScale);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public static class Utils
 {
@@ -81,4 +82,27 @@ public static class Utils
         mousePos.z = -Camera.main.transform.position.z; // z is distance from camera to plane
         return Camera.main.ScreenToWorldPoint(mousePos);
     }
+
+    /// <summary>
+    /// Destroys an object if it isnt null, works in both runtime and edit mode
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public static bool TryDestroy(UnityEngine.Object obj)
+    {
+        if (obj != null)
+        {
+            if (Application.isEditor)
+            {
+                UnityEngine.Object.DestroyImmediate(obj);
+            }
+            else
+            {
+                UnityEngine.Object.Destroy(obj);
+            }
+            return true;
+        }
+        return false;
+    }
+
 }
