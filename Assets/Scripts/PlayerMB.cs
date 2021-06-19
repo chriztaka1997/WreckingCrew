@@ -269,6 +269,8 @@ public class PlayerMB : MonoBehaviour
                 UpdatePos(dt);
                 break;
         }
+
+        
     }
 
     public void ResetActionState()
@@ -331,6 +333,7 @@ public class PlayerMB : MonoBehaviour
                 CheckDeath();
                 break;
         }
+
     }
 
 
@@ -380,3 +383,5 @@ public class PlayerMB_Editor : Editor
     }
 }
 #endif
+
+

@@ -14,16 +14,25 @@ public class Enemymovement : MonoBehaviour
     public HP_BarMB hpBar;
     
     private Rigidbody2D rb;
-    private string BALL_TAG = "Ball";
-    private List<string> STATES= new List<string>() { "Spawning", "Alive", "Recoil", "Dead" };
-    private string currentState = "Alive";
+    //private string BALL_TAG = "Ball";
+
+    //private List<string> STATES= new List<string>() { "Spawning", "Alive", "Recoil", "Dead" };
+    public States currentState;
+    //private string currentState = "Alive";
     private bool gotHit;
     private float hitTime;
     private float turnBack = 1f;
 
     private Vector2 movement;
     private Vector3 fixedAway;
-    private bool move = true;
+
+    public enum States
+    {
+        normal,
+        recoil,
+        dead,
+        respawn
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -44,28 +53,28 @@ public class Enemymovement : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 direction;
-        if ((Time.time - hitTime >= turnBack)&&!(currentState ==STATES[1]))
+        if ((Time.time - hitTime >= turnBack)&&(currentState ==States.recoil))
         {
-            currentState = STATES[1];
+            currentState = States.normal;
         }
 
-        //When nothing is happen to the enemy
-        if (currentState == STATES[1])
+        switch (currentState)
         {
-            direction = player.position - transform.position;
+            case States.respawn:
+                direction = Vector3.zero;
+                break;
+            case States.normal:
+                direction = player.position - transform.position;
+                break;
+            default:
+                if (gotHit)
+                {
+                    fixedAway = transform.position - player.position;
+                    gotHit = false;
+                }
+                direction = fixedAway;
+                break;
         }
-
-        //When the ball hits the enemy
-        else 
-        {
-            if (gotHit)
-            {
-                fixedAway = transform.position - player.position;
-                gotHit = false;
-            }
-            direction = fixedAway;
-        }
-
         direction.Normalize();
         movement = direction;
         
@@ -74,7 +83,26 @@ public class Enemymovement : MonoBehaviour
 
     void moveEnemy(Vector2 direction)
     {
-        rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
+        switch (currentState)
+        {
+            case States.dead:
+                rb.velocity = direction * moveSpeed;
+                break;
+
+            default:
+                if (currentState == States.recoil)
+                {
+                    rb.MovePosition((Vector2)transform.position +
+                    (direction * 6 * Time.deltaTime));
+                }
+                else
+                {
+                    rb.MovePosition((Vector2)transform.position +
+                    (direction * moveSpeed * Time.deltaTime));
+                }
+                break;
+        }
+       
     }
 
     public void SetHP(float hp)
@@ -99,12 +127,12 @@ public class Enemymovement : MonoBehaviour
         AlterHP(-damage);
         gotHit = true;
         hitTime = Time.time;
-        currentState = STATES[2];
+        currentState = States.recoil;
 
         if (currentHP <= 0)
         {
-            move = false;
-            currentState = STATES[3];
+            //move = false;
+            currentState = States.dead;
             moveSpeed = 10f;
             Destroy(gameObject, 1f);
         }
@@ -112,28 +140,5 @@ public class Enemymovement : MonoBehaviour
 
     }
 
-    /*
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag.Equals(BALL_TAG))
-        {
-            gotHit = true;
-        }
-    }
-    */
-
-    /**
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Use if you want to have collision effect with other object
-
-        if (collision.gameObject.tag.Equals(BALL_TAG))
-        {
-            move = false;
-            CircleCollider2D m_collider = GetComponent<CircleCollider2D>();
-            m_collider.isTrigger = true;
-            Destroy(gameObject,1f);
-        }
-    }
-    **/
+    
 }
