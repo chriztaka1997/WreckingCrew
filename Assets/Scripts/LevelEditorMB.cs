@@ -7,7 +7,7 @@ using UnityEditor;
 public class LevelEditorMB : MonoBehaviour
 {
     public GameManagerMB gameManager;
-    public LevelData level => gameManager.level;
+    public LevelData level;
 
     public LevelTile tileToAdd;
 
@@ -16,36 +16,69 @@ public class LevelEditorMB : MonoBehaviour
     public int width;
     public int height;
 
-    public void ResetLevel() => gameManager.ResetLevel();
+    [TextArea]
+    public string json;
+    private string internalJson;
+
+
+    public void ResetLevel()
+    {
+        gameManager.ResetLevel();
+        gameManager.level = level;
+        gameManager.InitFromLevel(level);
+        SerializeInternal();
+    }
+
+    public void SerializeInternal()
+    {
+        internalJson = level.ToJsonString();
+    }
+
+    public void DeserializeInteral()
+    {
+        level = LevelData.Deserialize(internalJson);
+        if (level == null)
+        {
+            MakeNewLevel();
+        }
+    }
 
     public void PlaceTile(int x, int y)
     {
+        DeserializeInteral();
         level.tiles[x, y] = tileToAdd;
         ResetLevel();
-        gameManager.InitFromLevel(level);
     }
 
     public void PlaceTileRect(int x, int y, int width, int height)
     {
+        DeserializeInteral();
         for (int ix = x; ix < level.width && ix < x + width; ix++)
         {
             for (int iy = y; iy < level.height && iy < y + height; iy++)
             {
-                PlaceTile(ix, iy);
+                level.tiles[ix, iy] = tileToAdd;
             }
         }
+        ResetLevel();
     }
 
     public void MakeNewLevel()
     {
-        LevelData newLevel = new LevelData(width, height, levelScale, anchor);
+        level = new LevelData(width, height, levelScale, anchor);
         ResetLevel();
-        gameManager.level = newLevel;
+    }
+
+    public void LoadLevelJson()
+    {
+        level = LevelData.Deserialize(json);
+        ResetLevel();
     }
 
     public void PrintJson()
     {
-        print(level.ToJsonString());
+        DeserializeInteral();
+        json = level.ToJsonString();
     }
 }
 
@@ -58,8 +91,6 @@ public class LevelEditorMB_Editor : Editor
     public int y;
     public int placeWidth;
     public int placeHeight;
-
-
 
     public override void OnInspectorGUI()
     {
@@ -87,6 +118,11 @@ public class LevelEditorMB_Editor : Editor
         if (GUILayout.Button("Make new level"))
         {
             targetRef.MakeNewLevel();
+        }
+
+        if (GUILayout.Button("Deserialize Json"))
+        {
+            targetRef.LoadLevelJson();
         }
 
         if (GUILayout.Button("Print Json"))

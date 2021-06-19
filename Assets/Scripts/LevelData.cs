@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Newtonsoft.Json;
 
 [Serializable]
 public class LevelData
@@ -28,6 +29,11 @@ public class LevelData
         }
     }
 
+    public static LevelData Deserialize(string jsonStr)
+    {
+        return JsonConvert.DeserializeObject<LevelData>(jsonStr);
+    }
+
     public Vector2 WorldLocation(int x, int y)
     {
         return anchor + new Vector2(x * levelScale, y * levelScale);
@@ -44,12 +50,15 @@ public class LevelData
 
     public string ToJsonString()
     {
-        return JsonUtility.ToJson(this);
+        return JsonConvert.SerializeObject(this, new JsonSerializerSettings()
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        });
     }
 }
 
 [Serializable]
-public struct LevelTile
+public class LevelTile
 {
     public TileType tileType;
 
