@@ -14,6 +14,8 @@ public class GameManagerMB : MonoBehaviour
     public LevelManagerMB levelMngr;
     public LevelManagerMB levelMngrPF;
 
+    public string startingLevel;
+
 
     public void Awake()
     {
@@ -23,7 +25,8 @@ public class GameManagerMB : MonoBehaviour
     {
         if (levelMngr == null)
         {
-            LevelData level = LevelPaletteMB.instance.GetLevelData("default");
+            LevelData level = LevelPaletteMB.instance.GetLevelData(startingLevel);
+            if (level == null) level = LevelPaletteMB.instance.GetLevelData("default");
             levelMngr = Instantiate(levelMngrPF);
             levelMngr.name = "LevelManager";
             levelMngr.SetLevel(level);

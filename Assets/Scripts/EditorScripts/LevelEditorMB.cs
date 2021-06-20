@@ -11,8 +11,8 @@ public class LevelEditorMB : MonoBehaviour
 
     public LevelTile tileToAdd;
 
-    public float levelScale; // tile length in unity units
-    public Vector2 anchor;
+    public float tileSize; // tile length in unity units
+    public Vector2 center;
     public int width;
     public int height;
 
@@ -76,7 +76,7 @@ public class LevelEditorMB : MonoBehaviour
 
     public void MakeNewLevel()
     {
-        level = new LevelData(width, height, levelScale, anchor);
+        level = new LevelData(width, height, tileSize, center);
         ResetLevel();
     }
 
