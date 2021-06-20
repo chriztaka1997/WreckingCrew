@@ -6,6 +6,8 @@ using System;
 
 public class GameManagerMB : MonoBehaviour
 {
+    public static GameManagerMB instance;
+
     public PlayerMB player { get; private set; }
     public Enemyspawn enemyspawn;
     public GameObject playerPF;
@@ -19,6 +21,11 @@ public class GameManagerMB : MonoBehaviour
 
     public void Awake()
     {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        instance = this;
     }
 
     public void Start()
