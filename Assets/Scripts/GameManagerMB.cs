@@ -6,6 +6,8 @@ using System;
 
 public class GameManagerMB : MonoBehaviour
 {
+    public static GameManagerMB instance;
+
     public PlayerMB player { get; private set; }
     public Enemyspawn enemyspawn;
     public GameObject playerPF;
@@ -14,16 +16,24 @@ public class GameManagerMB : MonoBehaviour
     public LevelManagerMB levelMngr;
     public LevelManagerMB levelMngrPF;
 
+    public string startingLevel;
+
 
     public void Awake()
     {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        instance = this;
     }
 
     public void Start()
     {
         if (levelMngr == null)
         {
-            LevelData level = LevelPaletteMB.instance.GetLevelData("default");
+            LevelData level = LevelPaletteMB.instance.GetLevelData(startingLevel);
+            if (level == null) level = LevelPaletteMB.instance.GetLevelData("default");
             levelMngr = Instantiate(levelMngrPF);
             levelMngr.name = "LevelManager";
             levelMngr.SetLevel(level);
