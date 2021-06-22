@@ -147,31 +147,29 @@ public class Enemymovement : MonoBehaviour
 
     }
 
-    //public void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.collider.tag == "Enemy") 
-    //    { 
-    //        Bounce(collision.contacts[0].normal);
-    //    }
-    //}
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        currentState = States.recoil;
+        Bounce(collision.contacts[0].normal);
+    }
 
-    //private void Bounce(Vector3 collisionNormal)
-    //{
-    //    var speed = lastFrameVelocity.magnitude;
-    //    var direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
+    private void Bounce(Vector3 collisionNormal)
+    {
+        var speed = lastFrameVelocity.magnitude;
+        var direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
 
-    //    //Checking to make sure that the enemy does not got back
-    //    if (Vector3.Dot(lastFrameVelocity.normalized, direction.normalized) == -1)
-    //    {
-    //        rb.velocity = Vector3.zero;
-    //    }
-    //    else
-    //    {
-    //        rb.velocity = direction * (speed-0.5f);
-    //    }
-        
+        //Checking to make sure that the enemy does not got back
+        if (Vector3.Dot(lastFrameVelocity.normalized, direction.normalized) == -1)
+        {
+            rb.velocity = Vector3.zero;
+        }
+        else
+        {
+            rb.velocity = direction * (speed - 1f);
+        }
 
-    //}
+
+    }
 
 
 }
