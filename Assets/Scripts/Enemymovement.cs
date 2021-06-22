@@ -16,15 +16,14 @@ public class Enemymovement : MonoBehaviour
     private Rigidbody2D rb;
     //private string BALL_TAG = "Ball";
 
-    //private List<string> STATES= new List<string>() { "Spawning", "Alive", "Recoil", "Dead" };
     public States currentState;
-    //private string currentState = "Alive";
-    private bool gotHit;
+    //private bool gotHit;
     private float hitTime;
     private float turnBack = 1f;
 
     private Vector2 movement;
-    private Vector3 fixedAway;
+    //private Vector3 fixedAway;
+    private Vector3 lastFrameVelocity; //use for recoil movement
 
     public enum States
     {
@@ -41,6 +40,7 @@ public class Enemymovement : MonoBehaviour
 
         currentHP = maxHP;
         hpBar.InitHP(maxHP);
+        currentState = States.normal;
     }
 
     // Update is called once per frame
@@ -56,50 +56,50 @@ public class Enemymovement : MonoBehaviour
         if ((Time.time - hitTime >= turnBack)&&(currentState ==States.recoil))
         {
             currentState = States.normal;
+            moveSpeed = 2f;
         }
 
         switch (currentState)
         {
             case States.respawn:
-                direction = Vector3.zero;
+                //direction = Vector3.zero;
                 break;
             case States.normal:
                 direction = player.position - transform.position;
+                direction.Normalize();
+                movement = direction;
+
+                moveEnemy(movement);
                 break;
-            default:
-                if (gotHit)
-                {
-                    fixedAway = transform.position - player.position;
-                    gotHit = false;
-                }
-                direction = fixedAway;
+
+            case States.recoil:
                 break;
+            case States.dead:
+                break;
+
         }
-        direction.Normalize();
-        movement = direction;
-        
-        moveEnemy(movement);
     }
 
     void moveEnemy(Vector2 direction)
     {
         switch (currentState)
         {
+
+            case States.recoil:
+                float tempSpeed = 6f;
+                direction.Normalize();
+                rb.velocity = direction * tempSpeed;
+                break;
+
             case States.dead:
+                moveSpeed = 10f;
+                direction.Normalize();
                 rb.velocity = direction * moveSpeed;
                 break;
 
-            default:
-                if (currentState == States.recoil)
-                {
-                    rb.MovePosition((Vector2)transform.position +
-                    (direction * 6 * Time.deltaTime));
-                }
-                else
-                {
-                    rb.MovePosition((Vector2)transform.position +
+            case States.normal:
+                rb.MovePosition((Vector2)transform.position +
                     (direction * moveSpeed * Time.deltaTime));
-                }
                 break;
         }
        
@@ -125,20 +125,53 @@ public class Enemymovement : MonoBehaviour
         //if the health is zero then the enemy will drift along with collision off
 
         AlterHP(-damage);
-        gotHit = true;
-        hitTime = Time.time;
-        currentState = States.recoil;
+        //gotHit = true;
+        lastFrameVelocity = rb.velocity;
 
         if (currentHP <= 0)
         {
             //move = false;
             currentState = States.dead;
-            moveSpeed = 10f;
+            Vector3 direction = transform.position - player.position;
+            moveEnemy(direction);
             Destroy(gameObject, 1f);
+        }
+        else
+        {
+            hitTime = Time.time;
+            currentState = States.recoil;
+            Vector3 direction = transform.position - player.position;
+            moveEnemy(direction);
         }
 
 
     }
 
-    
+    //public void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.collider.tag == "Enemy") 
+    //    { 
+    //        Bounce(collision.contacts[0].normal);
+    //    }
+    //}
+
+    //private void Bounce(Vector3 collisionNormal)
+    //{
+    //    var speed = lastFrameVelocity.magnitude;
+    //    var direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
+
+    //    //Checking to make sure that the enemy does not got back
+    //    if (Vector3.Dot(lastFrameVelocity.normalized, direction.normalized) == -1)
+    //    {
+    //        rb.velocity = Vector3.zero;
+    //    }
+    //    else
+    //    {
+    //        rb.velocity = direction * (speed-0.5f);
+    //    }
+        
+
+    //}
+
+
 }
