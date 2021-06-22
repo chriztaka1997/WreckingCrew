@@ -56,7 +56,7 @@ public class Enemymovement : MonoBehaviour
         if ((Time.time - hitTime >= turnBack)&&(currentState ==States.recoil))
         {
             currentState = States.normal;
-            moveSpeed = 2f;
+            rb.velocity = lastFrameVelocity;
         }
 
         switch (currentState)
@@ -139,6 +139,7 @@ public class Enemymovement : MonoBehaviour
         else
         {
             hitTime = Time.time;
+            lastFrameVelocity = rb.velocity;
             currentState = States.recoil;
             Vector3 direction = transform.position - player.position;
             moveEnemy(direction);
@@ -149,27 +150,32 @@ public class Enemymovement : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        currentState = States.recoil;
-        Bounce(collision.contacts[0].normal);
+        Enemymovement collider = collision.gameObject.GetComponent<Enemymovement>();
+        if ((collision.gameObject.tag == "Enemy")&&(collider.currentState == States.recoil || collider.currentState == States.dead))
+        {
+            hitTime = Time.time;
+            lastFrameVelocity = rb.velocity;
+            currentState = States.recoil;
+        }
     }
 
-    private void Bounce(Vector3 collisionNormal)
-    {
-        var speed = lastFrameVelocity.magnitude;
-        var direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
+    //private void Bounce(Vector3 collisionNormal)
+    //{
+    //    var speed = lastFrameVelocity.magnitude;
+    //    var direction = Vector3.Reflect(lastFrameVelocity.normalized, collisionNormal);
 
-        //Checking to make sure that the enemy does not got back
-        if (Vector3.Dot(lastFrameVelocity.normalized, direction.normalized) == -1)
-        {
-            rb.velocity = Vector3.zero;
-        }
-        else
-        {
-            rb.velocity = direction * (speed - 1f);
-        }
+    //    //Checking to make sure that the enemy does not got back
+    //    if (Vector3.Dot(lastFrameVelocity.normalized, direction.normalized) == -1)
+    //    {
+    //        rb.velocity = Vector3.zero;
+    //    }
+    //    else
+    //    {
+    //        rb.velocity = direction * (speed - 1f);
+    //    }
 
 
-    }
+    //}
 
 
 }
