@@ -37,4 +37,9 @@ public class BreakableObastacle : MonoBehaviour
     {
         return otherVelocity.magnitude >= collisionVelocityThreshold;
     }
+
+    private void OnTest()
+    {
+
+    }
 }

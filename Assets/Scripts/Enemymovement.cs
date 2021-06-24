@@ -47,7 +47,13 @@ public class Enemymovement : MonoBehaviour
         
         
     }
-    
+
+    private void OnDestroy()
+    {
+        ObjectPooler.SharedInstance.SpawnCoin(gameObject.transform.position);
+        ObjectPooler.SharedInstance.SpawnHealthPotion(gameObject.transform.position);
+    }
+
     void FixedUpdate()
     {
         Vector3 direction;
