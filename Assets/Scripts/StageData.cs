@@ -8,21 +8,29 @@ using Newtonsoft.Json;
 public class StageData
 {
     public List<string> levelNames;
+    public List<EnemySpawnData> enemySpawns;
+
     [JsonIgnore]
     public string currentLevel { get; private set; }
+    [JsonIgnore]
+    public EnemySpawnData currentEnemySpawnData { get; private set; }
+
 
     [JsonConstructor]
-    public StageData(List<string> levelNames)
+    public StageData(List<string> levelNames, List<EnemySpawnData> enemySpawns)
     {
         this.levelNames = new List<string>(levelNames);
-        ChooseLevel();
+        this.enemySpawns = new List<EnemySpawnData>(enemySpawns);
+
+        RandomSelect();
     }
 
-    public string ChooseLevel()
+    public void RandomSelect()
     {
         System.Random rng = new System.Random();
         currentLevel = levelNames[Utils.BindRange(rng.Next(), 0, levelNames.Count)];
-        return currentLevel;
+        currentEnemySpawnData = enemySpawns[Utils.BindRange(rng.Next(), 0, enemySpawns.Count)];
+
     }
 
     public static StageData Deserialize(string jsonStr)

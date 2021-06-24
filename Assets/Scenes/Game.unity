@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 9af9975ca2d2b41429f964c25d542d9b, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 9af9975ca2d2b41429f964c25d542d9b,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -542,7 +543,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &647438127
 GameObject:
@@ -1776,12 +1777,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballEQ_Prefabs:
   - name: BallEQ_Single
-    ballEquip: {fileID: 3969232774559526426, guid: 1bb44b2072fda45cbb767f0b30049898, type: 3}
+    ballEquip: {fileID: 3969232774559526426, guid: 1bb44b2072fda45cbb767f0b30049898,
+      type: 3}
   - name: BallEQ_TripleSpread
-    ballEquip: {fileID: 2356413914008669309, guid: 8d50d2eb3f39e43e791d876d65058975, type: 3}
+    ballEquip: {fileID: 2356413914008669309, guid: 8d50d2eb3f39e43e791d876d65058975,
+      type: 3}
   - name: BallEQ_TripleRapid
-    ballEquip: {fileID: 2356413914008669309, guid: c2380496d9f784ccfb105f066758b54c, type: 3}
-  ballThrowPF: {fileID: 6308327254374711322, guid: c6f5dbe1b155742caac2c94f47617adc, type: 3}
+    ballEquip: {fileID: 2356413914008669309, guid: c2380496d9f784ccfb105f066758b54c,
+      type: 3}
+  ballThrowPF: {fileID: 6308327254374711322, guid: c6f5dbe1b155742caac2c94f47617adc,
+    type: 3}
 --- !u!4 &966148954
 Transform:
   m_ObjectHideFlags: 0
@@ -2256,10 +2261,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyspawn: {fileID: 1108518240}
-  playerPF: {fileID: 3126958323139317929, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
-  borderPF: {fileID: 4538974536096834458, guid: ea2ca1ec02f0249ccabc97b2314b39ba, type: 3}
+  playerPF: {fileID: 3126958323139317929, guid: 21e8ad3095f3f431894e49849a4dc2dd,
+    type: 3}
+  borderPF: {fileID: 4538974536096834458, guid: ea2ca1ec02f0249ccabc97b2314b39ba,
+    type: 3}
   levelMngr: {fileID: 1281634680}
-  levelMngrPF: {fileID: 7155326236806335460, guid: c4dce3ced102041f69d8edca38c2a3d5, type: 3}
+  levelMngrPF: {fileID: 7155326236806335460, guid: c4dce3ced102041f69d8edca38c2a3d5,
+    type: 3}
   startingLevel: default
 --- !u!4 &1052180518
 Transform:
@@ -2289,10 +2297,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemsToPool:
   - amountToPool: 20
-    objectToPool: {fileID: 1498403948531744, guid: fa2c57d3f28a5e6419393e8bc3eeb32a, type: 3}
+    objectToPool: {fileID: 1498403948531744, guid: fa2c57d3f28a5e6419393e8bc3eeb32a,
+      type: 3}
     shouldExpand: 1
   - amountToPool: 10
-    objectToPool: {fileID: 1000012970591572, guid: 7cafb89b5a0f61f479d0a748962abbbc, type: 3}
+    objectToPool: {fileID: 1000012970591572, guid: 7cafb89b5a0f61f479d0a748962abbbc,
+      type: 3}
     shouldExpand: 1
   pooledObjects: []
 --- !u!1 &1053296931
@@ -2473,6 +2483,12 @@ MonoBehaviour:
   EnemyHolder: {fileID: 1133731663}
   player: {fileID: 0}
   spawnTime: 2
+  spawnData:
+    enemyTypes: []
+    timeSpawn: 0
+    maxEnemies: 0
+  enemySpawnCoords: []
+  spawnedEnemies: []
 --- !u!4 &1108518241
 Transform:
   m_ObjectHideFlags: 0
@@ -2646,7 +2662,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1168048091
 GameObject:
@@ -3009,7 +3025,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66563cad6e9f248f4859ef17268153c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  borderPF: {fileID: 4538974536096834458, guid: ea2ca1ec02f0249ccabc97b2314b39ba, type: 3}
+  borderPF: {fileID: 4538974536096834458, guid: ea2ca1ec02f0249ccabc97b2314b39ba,
+    type: 3}
   level:
     levelScale: 2
     anchor: {x: -19, y: -19}
@@ -4504,7 +4521,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3763684880318595402, guid: 7cafb89b5a0f61f479d0a748962abbbc, type: 3}
+    - target: {fileID: 3763684880318595402, guid: 7cafb89b5a0f61f479d0a748962abbbc,
+        type: 3}
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
@@ -5318,7 +5336,8 @@ MonoBehaviour:
   width: 20
   height: 20
   json: '{"tiles":[[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":4},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}]],"levelScale":2.0,"anchor":{"x":-19.0,"y":-19.0,"normalized":{"x":-0.707106769,"y":-0.707106769,"magnitude":1.0,"sqrMagnitude":0.99999994},"magnitude":26.8700581,"sqrMagnitude":722.0},"width":20,"height":20,"bottomLeft":{"x":-20.0,"y":-20.0,"normalized":{"x":-0.707106769,"y":-0.707106769,"magnitude":1.0,"sqrMagnitude":0.99999994},"magnitude":28.2842712,"sqrMagnitude":800.0},"center":{"x":0.0,"y":0.0,"magnitude":0.0,"sqrMagnitude":0.0}}'
-  editorLabelPF: {fileID: 2100363615318133126, guid: ad4ba2a5dd6104bfea345a02c6373126, type: 3}
+  editorLabelPF: {fileID: 2100363615318133126, guid: ad4ba2a5dd6104bfea345a02c6373126,
+    type: 3}
   labelsObject: {fileID: 1695323134}
   EnemySpawnColor: {r: 0.5, g: 0, b: 0, a: 1}
   PlayerSpawnColor: {r: 0, g: 0, b: 0.5, a: 1}

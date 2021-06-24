@@ -31,10 +31,11 @@ public class GameManagerMB : MonoBehaviour
 
     public void Start()
     {
+        stageData = StagePaletteMB.instance.GetStageData(startingStage);
+        stageData.RandomSelect();
         if (levelMngr == null)
         {
-            stageData = StagePaletteMB.instance.GetStageData(startingStage);
-            LevelData level = LevelPaletteMB.instance.GetLevelData(stageData.ChooseLevel());
+            LevelData level = LevelPaletteMB.instance.GetLevelData(stageData.currentLevel);
             if (level == null) level = LevelPaletteMB.instance.GetLevelData("default");
             levelMngr = Instantiate(levelMngrPF);
             levelMngr.name = "LevelManager";
@@ -46,9 +47,10 @@ public class GameManagerMB : MonoBehaviour
         }
         else levelMngr.PlacePlayer(player);
 
+        enemyspawn.StartWave(player, stageData.currentEnemySpawnData, levelMngr);
+
         // set reference in other objects
         PlayerCameraMB.instance.target = player.gameObject;
-        enemyspawn.player = player.gameObject;
     }
 
 
