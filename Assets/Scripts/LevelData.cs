@@ -13,7 +13,9 @@ public class LevelData
 
     public int width => tiles.GetLength(0);
     public int height => tiles.GetLength(1);
+    [JsonIgnore]
     public Vector2 bottomLeft => anchor - new Vector2(levelScale / 2, levelScale / 2);
+    [JsonIgnore]
     public Vector2 center => bottomLeft + new Vector2(width * levelScale / 2, height * levelScale / 2);
 
     [JsonConstructor]
@@ -56,6 +58,13 @@ public class LevelData
         }
     }
 
+    public void SetLevelScale(float levelScale)
+    {
+        Vector2 oldCenter = center;
+        this.levelScale = levelScale;
+        anchor = oldCenter - new Vector2(width * levelScale / 2, height * levelScale / 2) + new Vector2(levelScale / 2, levelScale / 2);
+    }
+
     public Vector2 WorldLocation(Vector2Int coords) => WorldLocation(coords.x, coords.y);
     public Vector2 WorldLocation(int x, int y)
     {
@@ -85,9 +94,15 @@ public class LevelTile
 {
     public TileType tileType;
 
+    [JsonConstructor]
     public LevelTile(TileType tileType)
     {
         this.tileType = tileType;
+    }
+
+    public LevelTile(LevelTile other)
+    {
+        tileType = other.tileType;
     }
 }
 

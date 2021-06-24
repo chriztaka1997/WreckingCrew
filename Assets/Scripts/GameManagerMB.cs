@@ -16,7 +16,8 @@ public class GameManagerMB : MonoBehaviour
     public LevelManagerMB levelMngr;
     public LevelManagerMB levelMngrPF;
 
-    public string startingLevel;
+    public StageData stageData;
+    public string startingStage;
 
 
     public void Awake()
@@ -32,7 +33,8 @@ public class GameManagerMB : MonoBehaviour
     {
         if (levelMngr == null)
         {
-            LevelData level = LevelPaletteMB.instance.GetLevelData(startingLevel);
+            stageData = StagePaletteMB.instance.GetStageData(startingStage);
+            LevelData level = LevelPaletteMB.instance.GetLevelData(stageData.ChooseLevel());
             if (level == null) level = LevelPaletteMB.instance.GetLevelData("default");
             levelMngr = Instantiate(levelMngrPF);
             levelMngr.name = "LevelManager";
@@ -82,5 +84,11 @@ public class GameManagerMB : MonoBehaviour
         }
     }
 
+    public enum GameState
+    {
+        countdown,
+        spawning,
+        complete,
+    }
     
 }

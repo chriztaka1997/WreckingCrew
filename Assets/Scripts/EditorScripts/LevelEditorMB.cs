@@ -57,7 +57,7 @@ public class LevelEditorMB : MonoBehaviour
     public void PlaceTile(int x, int y)
     {
         DeserializeInteral();
-        level.tiles[x, y] = tileToAdd;
+        level.tiles[x, y] = new LevelTile(tileToAdd);
         ResetLevel();
     }
 
@@ -68,9 +68,42 @@ public class LevelEditorMB : MonoBehaviour
         {
             for (int iy = y; iy < level.height && iy < y + height; iy++)
             {
-                level.tiles[ix, iy] = tileToAdd;
+                level.tiles[ix, iy] = new LevelTile(tileToAdd);
             }
         }
+        ResetLevel();
+    }
+
+    public void MirrorLeftRight()
+    {
+        DeserializeInteral();
+        for (int ix = 0; ix < level.width / 2; ix++)
+        {
+            for (int iy = 0; iy < level.height; iy++)
+            {
+                level.tiles[width - ix - 1, iy] = new LevelTile(level.tiles[ix,iy]);
+            }
+        }
+        ResetLevel();
+    }
+
+    public void MirrorBottomTop()
+    {
+        DeserializeInteral();
+        for (int ix = 0; ix < level.width; ix++)
+        {
+            for (int iy = 0; iy < level.height / 2; iy++)
+            {
+                level.tiles[ix, height - iy - 1] = new LevelTile(level.tiles[ix, iy]);
+            }
+        }
+        ResetLevel();
+    }
+
+    public void ChangeTileSize()
+    {
+        DeserializeInteral();
+        level.SetLevelScale(tileSize);
         ResetLevel();
     }
 
@@ -179,9 +212,24 @@ public class LevelEditorMB_Editor : Editor
             targetRef.PlaceTileRect(x, y, placeWidth, placeHeight);
         }
 
+        if (GUILayout.Button("Mirror Left Right"))
+        {
+            targetRef.MirrorLeftRight();
+        }
+
+        if (GUILayout.Button("Mirror Bottom Top"))
+        {
+            targetRef.MirrorBottomTop();
+        }
+
         if (GUILayout.Button("Make new level"))
         {
             targetRef.MakeNewLevel();
+        }
+
+        if (GUILayout.Button("Change Tile Size"))
+        {
+            targetRef.ChangeTileSize();
         }
 
         if (GUILayout.Button("Deserialize Json"))

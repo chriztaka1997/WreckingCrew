@@ -30,12 +30,14 @@ public class LevelPaletteMB : MonoBehaviour
     }
 
     public LevelData GetLevelData(string name) => LevelData.Deserialize(GetJsonString(name));
+
+    [Serializable]
+    public struct LevelJsonPair
+    {
+        public string name;
+        [TextArea]
+        public string json;
+    }
 }
 
-[Serializable]
-public struct LevelJsonPair
-{
-    public string name;
-    [TextArea]
-    public string json;
-}
+
