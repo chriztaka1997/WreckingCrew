@@ -17,5 +17,12 @@ public class EnemySpawnData
         public Enemymovement enemyPF;
     }
 
+    public EnemySpawnData(EnemySpawnData other)
+    {
+        enemyTypes = new List<EnemyTypeSpawn>(other.enemyTypes);
+        timeSpawn = other.timeSpawn;
+        maxEnemies = other.maxEnemies;
+    }
+
 
 }

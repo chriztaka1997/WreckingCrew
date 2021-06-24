@@ -29,7 +29,7 @@ public class PlayerCameraMB : MonoBehaviour
 
     public void Start()
     {
-
+        target = GameManagerMB.instance.player.gameObject;
     }
 
     public void FixedUpdate()

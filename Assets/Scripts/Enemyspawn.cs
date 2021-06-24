@@ -22,6 +22,8 @@ public class Enemyspawn : MonoBehaviour
 
     private System.Random rng;
 
+    public int enemiesLeftInWave => prefabQueue.Count + numEnemies;
+
 
 
     private void Awake()
@@ -35,13 +37,18 @@ public class Enemyspawn : MonoBehaviour
     public void StartWave(PlayerMB player, EnemySpawnData spawnData, LevelManagerMB levelMngr)
     {
         this.player = player;
-        this.spawnData = spawnData;
+        this.spawnData = new EnemySpawnData(spawnData);
         this.levelMngr = levelMngr;
         enemySpawnCoords = new List<Vector2Int>(levelMngr.enemySpawnCoords);
 
         DeleteCurrentEnemies();
         InitPrefabQueue();
-        lastSpawnTime = DateTime.Now;
+        lastSpawnTime = DateTime.Now - TimeSpan.FromSeconds(spawnData.timeSpawn);
+    }
+
+    public void AbortWave()
+    {
+        DeleteCurrentEnemies();
     }
 
     public void InitPrefabQueue()
@@ -99,15 +106,22 @@ public class Enemyspawn : MonoBehaviour
             if (e != null) Destroy(e.gameObject);
         }
         numEnemies = 0;
+        spawnedEnemies.Clear();
     }
 
-    public float GetWaveProgress()
+    public float GetWaveProgressRatio()
     {
+        UpdateEnemyList();
         if (totalEnemies == 0)
         {
             return 0.0f;
         }
-        return (float)spawnedEnemies.Count / totalEnemies;
+        return 1.0f - (float)enemiesLeftInWave / totalEnemies;
+    }
+
+    public bool IsWave()
+    {
+        return enemiesLeftInWave != 0;
     }
 
 

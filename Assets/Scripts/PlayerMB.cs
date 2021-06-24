@@ -303,7 +303,7 @@ public class PlayerMB : MonoBehaviour
 
     public void SetHP(float hp)
     {
-        stats.currentHP = hp;
+        stats.currentHP = (hp <= stats.maxHP) ? hp : stats.maxHP;
         hpBar.SetHP(stats.currentHP);
     }
 
