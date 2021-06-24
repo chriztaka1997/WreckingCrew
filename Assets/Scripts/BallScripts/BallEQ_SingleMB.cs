@@ -46,6 +46,12 @@ public class BallEQ_SingleMB : BallEquipMB
         ball.state = ballState;
     }
 
+    public override void InitNormal()
+    {
+        base.InitNormal();
+        ball.isStuck = false;
+    }
+
     public override bool ThrowAngleCorrect()
     {
         return ball.ThrowAngleCorrect(targetPos, throwAngleWiggle, aimTypeDirect);
@@ -71,5 +77,10 @@ public class BallEQ_SingleMB : BallEquipMB
             float damage = CalcDamage(ballRef);
             enemymovement.CollisionWithBall(ballRef, damage);
         }
+    }
+
+    public override bool IsStuck()
+    {
+        return ball.isStuck;
     }
 }

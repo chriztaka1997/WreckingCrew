@@ -8,6 +8,7 @@ public class BallThrowMB : BallMB
     public BallState state;
     public float returnForceMag;
     public float throwChainLengthSet;
+    public float stuckDuration; // seconds until considered stuck
 
 
     public float lengthReturnedRatio; // at this ratio, the ball is returned
@@ -18,10 +19,20 @@ public class BallThrowMB : BallMB
 
     public bool spinDirCCW => spinSpd >= 0;
 
+    private Vector2 lastAng;
+    //private DateTime stuckStart;
+    public bool isStuck;
+
     public override void Start()
     {
         base.Start();
         state = BallState.normal;
+    }
+
+    public override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        UpdateIsStuck();
     }
 
     public override void UpdateForces()
@@ -98,6 +109,9 @@ public class BallThrowMB : BallMB
         {
             this.spinSpd = spinDirCCW ? minSpinSpd : -minSpinSpd;
         }
+
+        isStuck = false;
+        lastAng = transform.position - anchorTransform.position; // intentionally reversed, will not trigger isStuck
     }
 
     public void InitThrow(Vector3 targetPos, bool aimTypeDirect)
@@ -134,6 +148,23 @@ public class BallThrowMB : BallMB
     public bool IsReturnedDistance()
     {
         return (anchorTransform.position - thisTransform.position).magnitude <= chainLengthSet * lengthReturnedRatio;
+    }
+
+    public void UpdateIsStuck()
+    {
+        if (state == BallState.external)
+        {
+            Vector2 toCurrent = anchorTransform.position - thisTransform.position;
+            float expectedAngle = Time.fixedDeltaTime * spinSpd / toCurrent.magnitude;
+            float actualAngle = Vector2.Angle(toCurrent, lastAng);
+            isStuck = actualAngle <= expectedAngle / 2;
+            if (isStuck)
+            {
+                print("stuck");
+            }
+            lastAng = anchorTransform.position - transform.position;
+        }
+        else isStuck = false;
     }
 
     public void OnTriggerEnter2D(Collider2D collider)

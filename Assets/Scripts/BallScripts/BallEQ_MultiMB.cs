@@ -111,6 +111,15 @@ public class BallEQ_MultiMB : BallEquipMB
         }
     }
 
+    public override void InitNormal()
+    {
+        base.InitNormal();
+        foreach (BallThrowMB ball in balls)
+        {
+            ball.isStuck = false;
+        }
+    }
+
     public override bool ThrowAngleCorrect()
     {
         if (spread) return GetPrimaryBall().ThrowAngleCorrect(targetPos, throwAngleWiggle, aimTypeDirect);
@@ -179,5 +188,14 @@ public class BallEQ_MultiMB : BallEquipMB
             float damage = CalcDamage(ballRef);
             enemymovement.CollisionWithBall(ballRef, damage);
         }
+    }
+
+    public override bool IsStuck()
+    {
+        foreach (BallThrowMB ball in balls)
+        {
+            if (ball.isStuck) return true;
+        }
+        return false;
     }
 }

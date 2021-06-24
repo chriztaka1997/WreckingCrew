@@ -182,6 +182,12 @@ public class PlayerMB : MonoBehaviour
                     actionState = ActionState.throwCharge;
                     break;
                 }
+                if (ballEquip.IsStuck())
+                {
+                    actionState = ActionState.normal;
+                    ballEquip.InitNormal();
+                    break;
+                }
                 break;
             case ActionState.throwCharge:
                 if (spinKey.GetKeyDown)
@@ -200,6 +206,12 @@ public class PlayerMB : MonoBehaviour
                     {
                         actionState = ActionState.throwPreRelease;
                     }
+                    break;
+                }
+                if (ballEquip.IsStuck())
+                {
+                    actionState = ActionState.normal;
+                    ballEquip.InitNormal();
                     break;
                 }
                 break;
