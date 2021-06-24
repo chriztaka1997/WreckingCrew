@@ -9,8 +9,8 @@ public static class WallSpawner
     {
         GameObject wallPrefab = Resources.Load("RandomWall") as GameObject;
         GameObject wall = (parent == null) ? GameObject.Instantiate(wallPrefab) : GameObject.Instantiate(wallPrefab, parent);
-        wallPrefab.transform.position = new Vector3(pos.x, pos.y, -0.5f);
-        wallPrefab.transform.localScale = new Vector3(length, width, 1.0f);
+        wall.transform.position = new Vector3(pos.x, pos.y, -0.5f);
+        wall.transform.localScale = new Vector3(length, width, 1.0f);
         return wall;
     }
 
@@ -18,8 +18,8 @@ public static class WallSpawner
     {
         BreakableObastacle wallPrefab = Resources.Load("RandomObstacle", typeof(BreakableObastacle)) as BreakableObastacle;
         BreakableObastacle wall = (parent == null) ? GameObject.Instantiate(wallPrefab) : GameObject.Instantiate(wallPrefab, parent);
-        wallPrefab.transform.position = new Vector3(pos.x, pos.y, -0.5f);
-        wallPrefab.transform.localScale = new Vector3(length, width, 1.0f);
+        wall.transform.position = new Vector3(pos.x, pos.y, -0.5f);
+        wall.transform.localScale = new Vector3(length, width, 1.0f);
         return wall;
     }
 }
