@@ -158,10 +158,6 @@ public class BallThrowMB : BallMB
             float expectedAngle = Mathf.Abs(Time.fixedDeltaTime * spinSpd / toCurrent.magnitude);
             float actualAngle = Vector2.Angle(toCurrent, lastAng);
             isStuck = actualAngle <= expectedAngle / 2;
-            if (isStuck)
-            {
-                print("stuck");
-            }
             lastAng = anchorTransform.position - transform.position;
         }
         else isStuck = false;
