@@ -10,6 +10,7 @@ public class GameManagerMB : MonoBehaviour
 
     public GameState gameState;
 
+    public UI_ManagerMB uiMngr;
 
     public PlayerMB player { get; private set; }
     public Enemyspawn enemyspawn;
@@ -54,6 +55,7 @@ public class GameManagerMB : MonoBehaviour
         KbdDebugCommands();
 
         UpdateState();
+        UpdateUI();
     }
 
     public void KbdDebugCommands()
@@ -92,18 +94,32 @@ public class GameManagerMB : MonoBehaviour
                 if ((DateTime.Now - countDownStart).TotalSeconds >= countDownTime)
                 {
                     enemyspawn.StartWave(player, stageData.currentEnemySpawnData, levelMngr);
-                    gameState = GameState.combat;
+                    ChangeState(GameState.combat);
                 }
                 break;
             case GameState.combat:
                 if (!enemyspawn.IsWave())
                 {
-                    gameState = GameState.complete;
+                    ChangeState(GameState.complete);
                 }
                 break;
             case GameState.complete:
                 break;
         }
+    }
+
+    public void UpdateUI()
+    {
+        if (gameState == GameState.combat)
+        {
+            uiMngr.UpdateWaveProgress(enemyspawn.GetWaveProgressRatio());
+        }
+    }
+
+    public void ChangeState(GameState newState)
+    {
+        gameState = newState;
+        uiMngr.StateChanged();
     }
 
     public void InstantiatePlayer()
@@ -143,7 +159,7 @@ public class GameManagerMB : MonoBehaviour
     {
         if (gameState != GameState.complete) return;
 
-        gameState = GameState.countdown;
+        ChangeState(GameState.countdown);
         countDownStart = DateTime.Now;
         enemyspawn.AbortWave();
     }
