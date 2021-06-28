@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class Enemymovement : MonoBehaviour
 {
@@ -132,6 +133,8 @@ public class Enemymovement : MonoBehaviour
 
         if (currentHP <= 0)
         {
+            //Track the number of dead enemy based on the attack of the player
+
             currentState = States.dead;
             Vector3 direction = transform.position - player.position;
             moveEnemy(direction);
@@ -139,6 +142,13 @@ public class Enemymovement : MonoBehaviour
         }
         else
         {
+            AnalyticsResult analyticsResult = Analytics.CustomEvent("Collission", new Dictionary<string, object>
+                    {
+                        { "level", 1},
+                        { "Collided with", "Ball"}
+                    });
+            Debug.Log("Collision with ball Result: " + analyticsResult);
+
             hitTime = Time.time;
             lastFrameVelocity = rb.velocity;
             currentState = States.recoil;
@@ -160,6 +170,13 @@ public class Enemymovement : MonoBehaviour
                     break;
 
                 case States.normal:
+                    AnalyticsResult analyticsResult = Analytics.CustomEvent("Collission", new Dictionary<string, object>
+                    {
+                        { "level", 1},
+                        { "Collided with", "Enemy"}
+                    });
+                    Debug.Log("Collision with enemy Result: " + analyticsResult);
+
                     hitTime = Time.time;
                     lastFrameVelocity = rb.velocity;
                     rb.velocity = collision.relativeVelocity;
