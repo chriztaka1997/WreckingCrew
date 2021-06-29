@@ -93,6 +93,11 @@ public class GameManagerMB : MonoBehaviour
         {
             PrepNextStage();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            enemyspawn.AbortWave();
+            ChangeState(GameState.preupgrade);
+        }
     }
 
     public void UpdateState()

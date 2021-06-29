@@ -242,7 +242,7 @@ MonoBehaviour:
     enemySpawns: []
   startingStage: stage_1
   countDownTime: 5
-  preUpgradeTime: 0
+  preUpgradeTime: 1
 --- !u!4 &1052180518
 Transform:
   m_ObjectHideFlags: 0

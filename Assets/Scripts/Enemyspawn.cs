@@ -49,6 +49,7 @@ public class Enemyspawn : MonoBehaviour
     public void AbortWave()
     {
         DeleteCurrentEnemies();
+        prefabQueue.Clear();
     }
 
     public void InitPrefabQueue()
