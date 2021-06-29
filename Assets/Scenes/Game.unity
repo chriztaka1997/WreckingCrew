@@ -757,6 +757,7 @@ GameObject:
   - component: {fileID: 966148953}
   - component: {fileID: 966148955}
   - component: {fileID: 966148956}
+  - component: {fileID: 966148957}
   m_Layer: 0
   m_Name: Palette
   m_TagString: Untagged
@@ -846,6 +847,25 @@ MonoBehaviour:
           enemyPF: {fileID: 1829448405230497336, guid: 785868d0820480d47a40c9115e029d7d, type: 3}
         timeSpawn: 10
         maxEnemies: 5
+--- !u!114 &966148957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966148952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b3d47763fb4a4bd2995f1faf4b8b720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgrades:
+  - name: hp_small
+    title: HP Up (minor)
+    desc: Increase maximum HP by a small amount
+    data:
+    - name: maxHP
+      amount: 50
 --- !u!1 &1013703695
 GameObject:
   m_ObjectHideFlags: 0

@@ -56,15 +56,14 @@ public class PlayerMB : MonoBehaviour
         newPos.z = fixedZ;
         thisTransform.position = newPos;
 
-        stats.Reset();
-        hpBar.InitHP(stats.currentHP);
+        stats.Init();
+        hpBar.InitHP(stats.maxHP);
 
         keyManagers = new List<KeyManager> { throwKey, spinKey };
 
         effectManager.Init(gameObject.GetComponent<MeshRenderer>());
 
         actionState = ActionState.normal;
-
     }
 
     public void FixedUpdate()
@@ -299,6 +298,12 @@ public class PlayerMB : MonoBehaviour
         actionState = ActionState.knockback;
         hitTime = DateTime.Now;
         return true;
+    }
+
+    public void OnMaxHPChange()
+    {
+        hpBar.SetMaxHP(stats.maxHP);
+        hpBar.SetHP(stats.currentHP);
     }
 
     public void SetHP(float hp)

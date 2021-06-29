@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class GameManagerMB : MonoBehaviour
 {
     public static GameManagerMB instance;
@@ -19,6 +23,8 @@ public class GameManagerMB : MonoBehaviour
 
     public LevelManagerMB levelMngr;
     public LevelManagerMB levelMngrPF;
+
+    public UpgradeManager upgradeMngr;
 
     public StageData stageData;
     public string startingStage;
@@ -39,6 +45,8 @@ public class GameManagerMB : MonoBehaviour
 
         gameState = GameState.countdown;
         countDownStart = DateTime.Now;
+
+        upgradeMngr = new UpgradeManager();
     }
 
     public void Start()
@@ -174,6 +182,11 @@ public class GameManagerMB : MonoBehaviour
         PrepNextWave();
     }
 
+    public void AddUpgrade(string name)
+    {
+        upgradeMngr.AddUpgrade(name, player);
+    }
+
     public enum GameState
     {
         countdown,
@@ -182,3 +195,24 @@ public class GameManagerMB : MonoBehaviour
     }
     
 }
+
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(GameManagerMB))]
+public class GameManagerMB_Editor : Editor
+{
+    public GameManagerMB targetRef => (GameManagerMB)target;
+
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        EditorGUILayout.LabelField("Editor");
+
+        if (GUILayout.Button("hp_small"))
+        {
+            targetRef.AddUpgrade("hp_small");
+        }
+    }
+}
+#endif

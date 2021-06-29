@@ -17,9 +17,14 @@ public class HP_BarMB : MonoBehaviour
 
     public void InitHP(float hp)
     {
+        SetMaxHP(hp);
+        Reset();
+    }
+
+    public void SetMaxHP(float hp)
+    {
         hpSlider.maxValue = hp;
         delaySlider.maxValue = hp;
-        Reset();
     }
 
     public void Reset()

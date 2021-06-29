@@ -104,13 +104,20 @@ MonoBehaviour:
   startBallEquipName: BallEQ_Single
   stats:
     currentHP: 0
-    maxHP: 1000
-    attack: 20
-    precision: 1
-    movSpd: 5
-    dodge: 0.1
-    healTick: 10
-    tenacity: 0
+    maxHP:
+      baseStat: 1000
+    attack:
+      baseStat: 20
+    precision:
+      baseStat: 1
+    movSpd:
+      baseStat: 5
+    dodge:
+      baseStat: 0.1
+    healTick:
+      baseStat: 10
+    tenacity:
+      baseStat: 0
   targetPos: {x: 0, y: 0, z: 0}
   fixedZ: 0
   maxSpeed: 5
