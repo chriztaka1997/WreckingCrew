@@ -14,6 +14,10 @@ public class PlayerStats
     public Stat dodge;
     public Stat healTick;
     public Stat tenacity;
+    public Stat maxSpinSpd;
+    public Stat minSpinSpd;
+    public Stat spinSpdRate;
+
 
     [NonSerialized]
     public List<Stat> statsList;
@@ -29,6 +33,10 @@ public class PlayerStats
         statsList.Add(dodge);
         statsList.Add(healTick);
         statsList.Add(tenacity);
+        statsList.Add(maxSpinSpd);
+        statsList.Add(minSpinSpd);
+        statsList.Add(spinSpdRate);
+
         Reset();
     }
 

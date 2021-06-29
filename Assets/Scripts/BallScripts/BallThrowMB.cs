@@ -12,7 +12,6 @@ public class BallThrowMB : BallMB
 
 
     public float lengthReturnedRatio; // at this ratio, the ball is returned
-    public float minSpinSpd;
     public float spinSpd { get; private set; }
 
     public Action<BallThrowMB, Collider2D> onCollisionDelegate;
@@ -85,7 +84,7 @@ public class BallThrowMB : BallMB
         return tanSpd;
     }
 
-    public float GetConservedSpinSpd()
+    public float GetConservedSpinSpd(PlayerMB player)
     {
         Vector2 playerToBall = thisTransform.position - anchorTransform.position;
         Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
@@ -94,20 +93,25 @@ public class BallThrowMB : BallMB
         float tanSpd = tanVel.magnitude;
         // Converving momentum doesnt work now
         //tanSpd *= playerToBall.magnitude / chainLengthSet; // conserve momentum to chain length
-        if (tanSpd < minSpinSpd) tanSpd = minSpinSpd;
+        if (tanSpd < player.stats.minSpinSpd) tanSpd = player.stats.minSpinSpd;
+        if (tanSpd > player.stats.maxSpinSpd) tanSpd = player.stats.maxSpinSpd;
         if (spinCcwAmount < 0) tanSpd *= -1;
         return tanSpd;
     }
 
-    public void InitSpin(float spinSpd)
+    public void InitSpin(float spinSpd, PlayerMB player)
     {
         state = BallState.external;
 
         this.spinSpd = spinSpd;
 
-        if (Mathf.Abs(spinSpd) < Mathf.Abs(minSpinSpd))
+        if (Mathf.Abs(spinSpd) < Mathf.Abs(player.stats.minSpinSpd))
         {
-            this.spinSpd = spinDirCCW ? minSpinSpd : -minSpinSpd;
+            this.spinSpd = spinDirCCW ? player.stats.minSpinSpd : -player.stats.minSpinSpd;
+        }
+        if (Mathf.Abs(spinSpd) > Mathf.Abs(player.stats.maxSpinSpd))
+        {
+            this.spinSpd = spinDirCCW ? player.stats.maxSpinSpd : -player.stats.maxSpinSpd;
         }
 
         isStuck = false;
@@ -135,8 +139,21 @@ public class BallThrowMB : BallMB
         thisRigidbody.velocity = throwVec;
     }
 
-    public void SpinBall(float dt)
+    public void SpinBall(float dt, PlayerMB player)
     {
+        if (Mathf.Abs(spinSpd) < Mathf.Abs(player.stats.maxSpinSpd))
+        {
+            spinSpd += player.stats.spinSpdRate * dt * (spinDirCCW ? 1 : -1);
+            if (Mathf.Abs(spinSpd) < Mathf.Abs(player.stats.minSpinSpd))
+            {
+                spinSpd = spinDirCCW ? player.stats.minSpinSpd : -player.stats.minSpinSpd;
+            }
+            if (Mathf.Abs(spinSpd) > Mathf.Abs(player.stats.maxSpinSpd))
+            {
+                spinSpd = spinDirCCW ? player.stats.maxSpinSpd : -player.stats.maxSpinSpd;
+            }
+        }
+
         Vector2 playerToBall = thisTransform.position - anchorTransform.position;
         Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
         Vector2 spinVel = tangentCCW * spinSpd;
