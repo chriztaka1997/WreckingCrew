@@ -118,6 +118,12 @@ MonoBehaviour:
       baseStat: 10
     tenacity:
       baseStat: 0
+    maxSpinSpd:
+      baseStat: 50
+    minSpinSpd:
+      baseStat: 20
+    spinSpdRate:
+      baseStat: 10
   targetPos: {x: 0, y: 0, z: 0}
   fixedZ: 0
   maxSpeed: 5

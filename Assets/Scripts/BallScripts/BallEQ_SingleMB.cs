@@ -7,7 +7,6 @@ public class BallEQ_SingleMB : BallEquipMB
 {
     public BallThrowMB ball;
     public float spinSlowFactor;
-    private float spinSpd;
 
     public void Start()
     {
@@ -27,13 +26,13 @@ public class BallEQ_SingleMB : BallEquipMB
 
     public override void InitSpin()
     {
-        spinSpd = ball.GetConservedSpinSpd();
-        ball.InitSpin(spinSpd);
+        float spinSpd = ball.GetConservedSpinSpd(player);
+        ball.InitSpin(spinSpd, player);
     }
 
     public override void DoSpin(float dt)
     {
-        ball.SpinBall(dt);
+        ball.SpinBall(dt, player);
     }
 
     public override void InitThrow()
@@ -71,7 +70,7 @@ public class BallEQ_SingleMB : BallEquipMB
                     ballRef.thisRigidbody.velocity = velocity * CalcSloSpdMult(enemymovement);
                     break;
                 case BallThrowMB.BallState.external:
-                    ballRef.InitSpin(ballRef.spinSpd * CalcSloSpdMult(enemymovement));
+                    ballRef.InitSpin(ballRef.spinSpd * CalcSloSpdMult(enemymovement), player);
                     break;
             }
             float damage = CalcDamage(ballRef);
