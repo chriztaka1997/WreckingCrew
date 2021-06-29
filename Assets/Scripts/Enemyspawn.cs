@@ -83,6 +83,7 @@ public class Enemyspawn : MonoBehaviour
             for (int i = 0; i < toSpawn && prefabQueue.Count != 0; i++)
             {
                 SpawnEnemy(prefabQueue.Dequeue(), tempCoords[i]);
+                numEnemies++;
             }
             lastSpawnTime = DateTime.Now;
         }

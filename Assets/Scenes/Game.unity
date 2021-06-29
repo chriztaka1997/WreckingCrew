@@ -623,6 +623,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1052180517}
+    - target: {fileID: 6332983910535098420, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332983910535098420, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6332983911013427850, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
       propertyPath: gameMngr
       value: 
@@ -775,6 +783,254 @@ PrefabInstance:
     - target: {fileID: 7002203067344836906, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
       propertyPath: m_Name
       value: Palette
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[0].desc
+      value: Increases maximum HP by a small amount
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[0].name
+      value: stat:hp_small
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[1].desc
+      value: Increases maximum HP by a large amount
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[1].name
+      value: stat:hp_large
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[2].desc
+      value: Increases maximum HP by a small percent
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[2].name
+      value: stat:hp_small%
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[3].desc
+      value: Increases maximum HP by a large percent
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[3].name
+      value: stat:hp_large%
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[4].desc
+      value: Increases attack by a small amount
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[4].name
+      value: stat:attack_small
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[5].desc
+      value: Increases attack by a large amount
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[5].name
+      value: stat:attack_large
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[6].desc
+      value: Increases attack by a small percent
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[6].name
+      value: stat:attack_small%
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[7].desc
+      value: Increases attack by a large percent
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[7].name
+      value: stat:attack_large
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[0].title
+      value: HP Up (minor)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[1].title
+      value: HP Up (major)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[2].title
+      value: HP Up (minor %)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[3].title
+      value: HP Up (major %)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[4].title
+      value: Attack Up (minor)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[5].title
+      value: Attack Up (major)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[6].title
+      value: Attack Up (minor %)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[7].title
+      value: Attack Up (major %)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[0].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 32454ebd4a92f4683bfa2419e7a4c767, type: 3}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[1].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 32454ebd4a92f4683bfa2419e7a4c767, type: 3}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[1].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[2].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 32454ebd4a92f4683bfa2419e7a4c767, type: 3}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[2].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[3].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 32454ebd4a92f4683bfa2419e7a4c767, type: 3}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[3].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[4].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c14eb339ebced464fa3f381014c60c7a, type: 3}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[4].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[5].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c14eb339ebced464fa3f381014c60c7a, type: 3}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[5].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[6].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c14eb339ebced464fa3f381014c60c7a, type: 3}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[6].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[7].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c14eb339ebced464fa3f381014c60c7a, type: 3}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[7].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[1].data.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[2].data.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[3].data.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[4].data.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[5].data.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[6].data.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[7].data.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[1].data.Array.data[0].name
+      value: maxHP
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[2].data.Array.data[0].name
+      value: maxHP%
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[3].data.Array.data[0].name
+      value: maxHP%
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[4].data.Array.data[0].name
+      value: attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[5].data.Array.data[0].name
+      value: attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[6].data.Array.data[0].name
+      value: attack%
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[7].data.Array.data[0].name
+      value: attack%
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[0].data.Array.data[0].amount
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[1].data.Array.data[0].amount
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[2].data.Array.data[0].amount
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[3].data.Array.data[0].amount
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[4].data.Array.data[0].amount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[5].data.Array.data[0].amount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[6].data.Array.data[0].amount
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[7].data.Array.data[0].amount
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dde024632a50047f5816de5162f2e9e1, type: 3}

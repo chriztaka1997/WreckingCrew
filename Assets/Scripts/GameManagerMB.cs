@@ -200,7 +200,7 @@ public class GameManagerMB : MonoBehaviour
 
     public void UpgradeSelected(string name)
     {
-        AddUpgrade(name);
+        if (name != "") AddUpgrade(name);
         ChangeState(GameState.complete);
         Time.timeScale = 1.0f;
     }

@@ -23,4 +23,9 @@ public class UpgradeSelectorMB : MonoBehaviour
             buttons[i].SetUpgrade(upgrades[i], uiMngr);
         }
     }
+
+    public void OnNoneButton()
+    {
+        uiMngr.OnUpgradeSelected("");
+    }
 }

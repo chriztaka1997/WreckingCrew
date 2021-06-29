@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Text.RegularExpressions;
 
 public abstract class Upgrade
 {
@@ -18,7 +19,7 @@ public abstract class Upgrade
     {
         switch (upgradeData.name)
         {
-            case "hp_small":
+            case var _ when Regex.IsMatch(upgradeData.name, @"stat:"):
                 return new StatUpgrade(upgradeData);
             default:
                 throw new Exception("No upgrade found");

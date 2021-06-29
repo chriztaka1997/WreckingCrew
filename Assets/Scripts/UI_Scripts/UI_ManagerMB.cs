@@ -20,9 +20,9 @@ public class UI_ManagerMB : MonoBehaviour
 
     public void StateChanged()
     {
+        DeactivateTogglable();
         switch (gameMngr.gameState)
         {
-
             case GameManagerMB.GameState.countdown:
                 waveProgress.SetState(WaveProgressBarMB.State.prep);
                 break;
