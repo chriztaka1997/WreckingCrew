@@ -6,6 +6,7 @@ using UnityEngine.Analytics;
 public class Enemymovement : MonoBehaviour
 {
     public Transform player;
+    public PlayerMB playerObject;
     public float moveSpeed = 5f;
     public float currentHP;
     public float maxHP;
@@ -40,6 +41,7 @@ public class Enemymovement : MonoBehaviour
         currentHP = maxHP;
         hpBar.InitHP(maxHP);
         currentState = States.normal;
+        playerObject = player.GetComponent<PlayerMB>();
     }
 
     // Update is called once per frame
@@ -131,9 +133,27 @@ public class Enemymovement : MonoBehaviour
         AlterHP(-damage);
         lastFrameVelocity = rb.velocity;
 
+        //Track enemy collision with ball
+        AnalyticsResult analyticsResult = Analytics.CustomEvent("Collission", new Dictionary<string, object>
+                    {
+                        { "level", 1},
+                        { "Collided with", "Ball"},
+                        {"State of the Ball", playerObject.actionState}
+                    });
+        Debug.Log("Collision with ball Result: " + analyticsResult);
+
         if (currentHP <= 0)
         {
+            
             //Track the number of dead enemy based on the attack of the player
+            AnalyticsResult killAnalytics = Analytics.CustomEvent("Enemy killed", new Dictionary<string, object>
+                    {
+                        { "level", 1},
+                        { "Collided with", "Ball"},
+                        {"State of the Ball", playerObject.actionState}
+                    });
+            Debug.Log("Enemy killed Result: " + killAnalytics);
+
 
             currentState = States.dead;
             Vector3 direction = transform.position - player.position;
@@ -142,12 +162,7 @@ public class Enemymovement : MonoBehaviour
         }
         else
         {
-            AnalyticsResult analyticsResult = Analytics.CustomEvent("Collission", new Dictionary<string, object>
-                    {
-                        { "level", 1},
-                        { "Collided with", "Ball"}
-                    });
-            Debug.Log("Collision with ball Result: " + analyticsResult);
+            
 
             hitTime = Time.time;
             lastFrameVelocity = rb.velocity;
@@ -173,7 +188,8 @@ public class Enemymovement : MonoBehaviour
                     AnalyticsResult analyticsResult = Analytics.CustomEvent("Collission", new Dictionary<string, object>
                     {
                         { "level", 1},
-                        { "Collided with", "Enemy"}
+                        { "Collided with", "Enemy"},
+                        { "State", collider.currentState}
                     });
                     Debug.Log("Collision with enemy Result: " + analyticsResult);
 
