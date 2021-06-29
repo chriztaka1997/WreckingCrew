@@ -40,4 +40,22 @@ public class UpgradePaletteMB : MonoBehaviour
             return null;
         }
     }
+
+    public UpgradeData GetRandomWeighted(System.Random rng = null)
+    {
+        if (rng == null) rng = new System.Random();
+
+        float totWeight = 0;
+        foreach (UpgradeData upd in upgrades)
+        {
+            totWeight += upd.weight;
+        }
+        float randWeight = (float)(rng.NextDouble() * totWeight);
+        foreach (UpgradeData upd in upgrades)
+        {
+            randWeight -= upd.weight;
+            if (randWeight <= 0) return upd;
+        }
+        return upgrades[upgrades.Count - 1];
+    }
 }

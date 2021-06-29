@@ -30,7 +30,8 @@ public class GameManagerMB : MonoBehaviour
     public string startingStage;
 
     public float countDownTime;
-    private DateTime countDownStart;
+    public float preUpgradeTime;
+    private DateTime stateChangeTime;
 
 
     public void Awake()
@@ -44,7 +45,7 @@ public class GameManagerMB : MonoBehaviour
         InstantiatePlayer();
 
         gameState = GameState.countdown;
-        countDownStart = DateTime.Now;
+        stateChangeTime = DateTime.Now;
 
         upgradeMngr = new UpgradeManager();
     }
@@ -99,7 +100,7 @@ public class GameManagerMB : MonoBehaviour
         switch (gameState)
         {
             case GameState.countdown:
-                if ((DateTime.Now - countDownStart).TotalSeconds >= countDownTime)
+                if ((DateTime.Now - stateChangeTime).TotalSeconds >= countDownTime)
                 {
                     enemyspawn.StartWave(player, stageData.currentEnemySpawnData, levelMngr);
                     ChangeState(GameState.combat);
@@ -108,8 +109,18 @@ public class GameManagerMB : MonoBehaviour
             case GameState.combat:
                 if (!enemyspawn.IsWave())
                 {
-                    ChangeState(GameState.complete);
+                    ChangeState(GameState.preupgrade);
                 }
+                break;
+            case GameState.preupgrade:
+                if ((DateTime.Now - stateChangeTime).TotalSeconds >= preUpgradeTime)
+                {
+                    ChangeState(GameState.upgrade);
+                    DisplayUpgradeSelector();
+                    Time.timeScale = 0;
+                }
+                break;
+            case GameState.upgrade:
                 break;
             case GameState.complete:
                 break;
@@ -127,6 +138,7 @@ public class GameManagerMB : MonoBehaviour
     public void ChangeState(GameState newState)
     {
         gameState = newState;
+        stateChangeTime = DateTime.Now;
         uiMngr.StateChanged();
     }
 
@@ -168,7 +180,6 @@ public class GameManagerMB : MonoBehaviour
         if (gameState != GameState.complete) return;
 
         ChangeState(GameState.countdown);
-        countDownStart = DateTime.Now;
         enemyspawn.AbortWave();
     }
 
@@ -187,10 +198,30 @@ public class GameManagerMB : MonoBehaviour
         upgradeMngr.AddUpgrade(name, player);
     }
 
+    public void UpgradeSelected(string name)
+    {
+        AddUpgrade(name);
+        ChangeState(GameState.complete);
+        Time.timeScale = 1.0f;
+    }
+
+    public void DisplayUpgradeSelector()
+    {
+        System.Random rng = new System.Random();
+        List<UpgradeData> upgrades = new List<UpgradeData>();
+        for (int i = 0; i < UpgradeSelectorMB.numUpgrades; i++)
+        {
+            upgrades.Add(UpgradePaletteMB.instance.GetRandomWeighted(rng));
+        }
+        uiMngr.DisplayUpgradeSelector(upgrades);
+    }
+
     public enum GameState
     {
         countdown,
         combat,
+        preupgrade,
+        upgrade,
         complete,
     }
     

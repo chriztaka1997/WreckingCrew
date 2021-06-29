@@ -9,6 +9,7 @@ public class UI_ManagerMB : MonoBehaviour
 
     public WaveProgressBarMB waveProgress;
     public GameObject nextButtonArea;
+    public UpgradeSelectorMB upgradeSelector;
 
 
     void Start()
@@ -21,13 +22,16 @@ public class UI_ManagerMB : MonoBehaviour
     {
         switch (gameMngr.gameState)
         {
+
             case GameManagerMB.GameState.countdown:
-                nextButtonArea.SetActive(false);
                 waveProgress.SetState(WaveProgressBarMB.State.prep);
                 break;
             case GameManagerMB.GameState.combat:
-                nextButtonArea.SetActive(false);
                 waveProgress.SetState(WaveProgressBarMB.State.wave);
+                break;
+            case GameManagerMB.GameState.preupgrade:
+            case GameManagerMB.GameState.upgrade:
+                waveProgress.SetState(WaveProgressBarMB.State.done);
                 break;
             case GameManagerMB.GameState.complete:
                 nextButtonArea.SetActive(true);
@@ -36,9 +40,27 @@ public class UI_ManagerMB : MonoBehaviour
         }
     }
 
+    public void DeactivateTogglable()
+    {
+        nextButtonArea.SetActive(false);
+        upgradeSelector.gameObject.SetActive(false);
+    }
+
     public void UpdateWaveProgress(float progress)
     {
         waveProgress.SetValue(progress);
+    }
+
+    public void DisplayUpgradeSelector(List<UpgradeData> upgrades)
+    {
+        upgradeSelector.gameObject.SetActive(true);
+        upgradeSelector.SetButtons(upgrades);
+    }
+
+    public void OnUpgradeSelected(string name)
+    {
+        upgradeSelector.gameObject.SetActive(false);
+        gameMngr.UpgradeSelected(name);
     }
 
     
