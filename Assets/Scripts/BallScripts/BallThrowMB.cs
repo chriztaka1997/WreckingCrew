@@ -96,6 +96,9 @@ public class BallThrowMB : BallMB
         if (tanSpd < player.stats.minSpinSpd) tanSpd = player.stats.minSpinSpd;
         if (tanSpd > player.stats.maxSpinSpd) tanSpd = player.stats.maxSpinSpd;
         if (spinCcwAmount < 0) tanSpd *= -1;
+
+        AnalyticsManager.SpinStartAnalytics(tanSpd);
+
         return tanSpd;
     }
 
@@ -125,6 +128,9 @@ public class BallThrowMB : BallMB
         Vector2 throwTrajectory = aimTypeDirect ? targetPos - thisTransform.position : targetPos - anchorTransform.position;
         Vector2 throwVec = throwTrajectory.normalized * Mathf.Abs(spinSpd);
         thisRigidbody.velocity = throwVec;
+
+
+        AnalyticsManager.ThrowAnalytics(spinSpd);
     }
 
     public void InitThrowTangent()
