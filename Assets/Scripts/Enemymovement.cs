@@ -12,6 +12,7 @@ public class Enemymovement : MonoBehaviour
     public float maxHP;
     public float attack;
     public float weight;
+    public float droppingRate;
 
     public HP_BarMB hpBar;
     public States currentState;
@@ -46,15 +47,13 @@ public class Enemymovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        
-        
+    {        
+
     }
 
     private void OnDestroy()
     {
-        ObjectPooler.SharedInstance.SpawnCoin(gameObject.transform.position);
-        ObjectPooler.SharedInstance.SpawnHealthPotion(gameObject.transform.position);
+        ObjectPooler.SharedInstance.DropByEnemy(gameObject.transform.position, droppingRate);
     }
 
     void FixedUpdate()
