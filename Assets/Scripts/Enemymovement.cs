@@ -12,6 +12,7 @@ public class Enemymovement : MonoBehaviour
     public float maxHP;
     public float attack;
     public float weight;
+    public float fixedDamage= 5; //Fixed enemy collision damage
 
     public HP_BarMB hpBar;
     public States currentState;
@@ -138,7 +139,7 @@ public class Enemymovement : MonoBehaviour
                     {
                         { "Stage", 1},
                         { "Collided with", "Ball"},
-                        {"State", playerObject.actionState}
+                        {"State collider", playerObject.actionState}
                     });
         Debug.Log("Collision with ball Result: " + analyticsResult);
 
@@ -150,7 +151,7 @@ public class Enemymovement : MonoBehaviour
                     {
                         { "Stage", 1},
                         { "Collided with", "Ball"},
-                        {"State", playerObject.actionState}
+                        {"State collider", playerObject.actionState}
                     });
             Debug.Log("Enemy killed Result: " + killAnalytics);
 
@@ -179,28 +180,82 @@ public class Enemymovement : MonoBehaviour
         Enemymovement collider = collision.gameObject.GetComponent<Enemymovement>();
         if ((collision.gameObject.tag == "Enemy")&&(collider.currentState == States.recoil || collider.currentState == States.dead))
         {
+            AnalyticsResult analyticsResult = Analytics.CustomEvent("Collision", new Dictionary<string, object>
+                    {
+                        { "Stage", 1},
+                        { "Collided with", "Enemy"},
+                        { "State collider", collider.currentState},
+                        { "This enemy state", currentState}
+                    });
+            Debug.Log("Collision with enemy Result: " + analyticsResult);
             switch (currentState)
             {
                 case States.dead:
                     break;
 
                 case States.normal:
-                    AnalyticsResult analyticsResult = Analytics.CustomEvent("Collision", new Dictionary<string, object>
-                    {
-                        { "Stage", 1},
-                        { "Collided with", "Enemy"},
-                        { "State", collider.currentState}
-                    });
-                    Debug.Log("Collision with enemy Result: " + analyticsResult);
+                    
 
-                    hitTime = Time.time;
-                    lastFrameVelocity = rb.velocity;
-                    rb.velocity = collision.relativeVelocity;
-                    currentState = States.recoil;
+                    // Collision with recoil or dead enemy will effect the hp
+                    //check if the enemy hp is 0 or below zero 
+                    //if it is, destroy
+                    //if not, change state to recoil
+                    AlterHP(-fixedDamage);
+                    if (currentHP <= 0)
+                    {
+
+                        //Track the number of dead enemy based on the attack of the player
+                        AnalyticsResult killAnalytics = Analytics.CustomEvent("Enemy killed", new Dictionary<string, object>
+                        {
+                            { "Stage", 1},
+                            { "Collided with", "Enemy"},
+                            {"State collider", collider.currentState},
+                            { "This enemy state", currentState}
+                        });
+                        Debug.Log("Enemy killed by ricochet Result: " + killAnalytics);
+
+
+                        currentState = States.dead;
+                        Vector3 direction = transform.position - player.position;
+                        moveEnemy(direction);
+                        Destroy(gameObject, deathTime);
+                    }
+                    else
+                    {
+                        hitTime = Time.time;
+                        lastFrameVelocity = rb.velocity;
+                        rb.velocity = collision.relativeVelocity;
+                        currentState = States.recoil;
+                    }
+                    
                     break;
 
                 case States.recoil:
-                    hitTime = Time.time;
+                    AlterHP(-fixedDamage);
+
+                    if (currentHP <= 0)
+                    {
+
+                        //Track the number of dead enemy based on the attack of the player
+                        AnalyticsResult killAnalytics = Analytics.CustomEvent("Enemy killed", new Dictionary<string, object>
+                        {
+                            { "Stage", 1},
+                            { "Collided with", "Enemy"},
+                            {"State collider", collider.currentState},
+                            { "This enemy state", currentState}
+                        });
+                        Debug.Log("Enemy killed by ricochet Result: " + killAnalytics);
+
+
+                        currentState = States.dead;
+                        Vector3 direction = transform.position - player.position;
+                        moveEnemy(direction);
+                        Destroy(gameObject, deathTime);
+                    }
+                    else
+                    {
+                        hitTime = Time.time;
+                    }
                     break;
 
                 case States.respawn:
