@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Coin : GenericItems
 {
+    public int value;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,5 +20,6 @@ public class Coin : GenericItems
     protected override void ItemTriggerEvent(Collider2D collision)
     {
         base.ItemTriggerEvent(collision);
+        ObjectPooler.currentCoin += value;
     }
 }
