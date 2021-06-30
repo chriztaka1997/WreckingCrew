@@ -21,7 +21,7 @@ public class BreakableObastacle : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Ball" && CollisionVelocityCheck(collision.relativeVelocity))
+        if (collision.gameObject.tag == "Ball" && CollisionVelocityCheck(collision.relativeVelocity))
         {
             hitPoint--;
             if (hitPoint == 0)
@@ -36,10 +36,5 @@ public class BreakableObastacle : MonoBehaviour
     private bool CollisionVelocityCheck(Vector2 otherVelocity)
     {
         return otherVelocity.magnitude >= collisionVelocityThreshold;
-    }
-
-    private void OnTest()
-    {
-
     }
 }

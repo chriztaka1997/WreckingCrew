@@ -7,11 +7,17 @@ using System.Text.RegularExpressions;
 public abstract class Upgrade
 {
     public string name;
+    public UpgradeData upgradeData;
 
     public Action<BallEquipMB, float> onBallEnemyCollision;
     public Action<PlayerMB, Enemymovement, float> onDamageTaken;
 
-    public UpgradeData upgradeData;
+
+    public Upgrade(UpgradeData upgradeData)
+    {
+        this.upgradeData = upgradeData;
+        name = upgradeData.name;
+    }
 
     public abstract void OnUpgradeGet(PlayerMB player);
 
@@ -19,8 +25,10 @@ public abstract class Upgrade
     {
         switch (upgradeData.name)
         {
-            case var _ when Regex.IsMatch(upgradeData.name, @"stat:"):
+            case var _ when Regex.IsMatch(upgradeData.name, StatUpgrade.prefix):
                 return new StatUpgrade(upgradeData);
+            case var _ when Regex.IsMatch(upgradeData.name, BallEQ_Upgrade.prefix):
+                return new BallEQ_Upgrade(upgradeData);
             default:
                 throw new Exception("No upgrade found");
         }
@@ -29,9 +37,10 @@ public abstract class Upgrade
 
 public class StatUpgrade : Upgrade
 {
-    public StatUpgrade(UpgradeData upgradeData)
+    public const string prefix = @"stat:";
+
+    public StatUpgrade(UpgradeData upgradeData) : base(upgradeData)
     {
-        this.upgradeData = upgradeData;
         if (upgradeData.data.Count == 0)
         {
             throw new Exception("No Stat Data Provided!!");
@@ -90,5 +99,25 @@ public class StatUpgrade : Upgrade
             default:
                 throw new Exception("No Stat Data Provided!!");
         }
+    }
+}
+
+public class BallEQ_Upgrade : Upgrade
+{
+    public const string prefix = @"balleq:";
+
+    public BallEQ_Upgrade(UpgradeData upgradeData) : base(upgradeData)
+    {
+        if (upgradeData.data.Count == 0)
+        {
+            throw new Exception("No Stat Data Provided!!");
+        }
+    }
+
+    public override void OnUpgradeGet(PlayerMB player)
+    {
+        GameManagerMB.instance.upgradeMngr.RemoveOtherBallEQ(this);
+        UpgradeData.Data statData = upgradeData.data[0];
+        player.SetEquipBall(statData.name);
     }
 }
