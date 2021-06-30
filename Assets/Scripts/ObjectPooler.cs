@@ -8,6 +8,7 @@ public class ObjectPoolItem
     public int amountToPool;
     public GameObject objectToPool;
     public bool shouldExpand;
+    public string itemName;
 }
 
 
@@ -15,22 +16,27 @@ public class ObjectPooler : MonoBehaviour
 {
 
     public static ObjectPooler SharedInstance;
+    public static int currentCoin;
     public List<ObjectPoolItem> itemsToPool;
     public List<GameObject> pooledObjects;
 
     private void Awake()
     {
         SharedInstance = this;
+        currentCoin = 0;
     }
     // Start is called before the first frame update
     void Start()
     {
         pooledObjects = new List<GameObject>();
+        Transform itemHolder = GameObject.Find("ItemHolder").transform;
         foreach (ObjectPoolItem item in itemsToPool)
         {
+            GameObject subHolder = new GameObject(item.itemName);
+            subHolder.transform.SetParent(itemHolder);
             for (int i = 0; i < item.amountToPool; i++)
             {
-                GameObject obj = (GameObject)Instantiate(item.objectToPool);
+                GameObject obj = (GameObject)Instantiate(item.objectToPool, subHolder.transform);
                 obj.SetActive(false);
                 pooledObjects.Add(obj);
             }
