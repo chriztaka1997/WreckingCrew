@@ -134,11 +134,11 @@ public class Enemymovement : MonoBehaviour
         lastFrameVelocity = rb.velocity;
 
         //Track enemy collision with ball
-        AnalyticsResult analyticsResult = Analytics.CustomEvent("Collission", new Dictionary<string, object>
+        AnalyticsResult analyticsResult = Analytics.CustomEvent("Collision", new Dictionary<string, object>
                     {
-                        { "level", 1},
+                        { "Stage", 1},
                         { "Collided with", "Ball"},
-                        {"State of the Ball", playerObject.actionState}
+                        {"State", playerObject.actionState}
                     });
         Debug.Log("Collision with ball Result: " + analyticsResult);
 
@@ -148,9 +148,9 @@ public class Enemymovement : MonoBehaviour
             //Track the number of dead enemy based on the attack of the player
             AnalyticsResult killAnalytics = Analytics.CustomEvent("Enemy killed", new Dictionary<string, object>
                     {
-                        { "level", 1},
+                        { "Stage", 1},
                         { "Collided with", "Ball"},
-                        {"State of the Ball", playerObject.actionState}
+                        {"State", playerObject.actionState}
                     });
             Debug.Log("Enemy killed Result: " + killAnalytics);
 
@@ -185,9 +185,9 @@ public class Enemymovement : MonoBehaviour
                     break;
 
                 case States.normal:
-                    AnalyticsResult analyticsResult = Analytics.CustomEvent("Collission", new Dictionary<string, object>
+                    AnalyticsResult analyticsResult = Analytics.CustomEvent("Collision", new Dictionary<string, object>
                     {
-                        { "level", 1},
+                        { "Stage", 1},
                         { "Collided with", "Enemy"},
                         { "State", collider.currentState}
                     });
