@@ -41,7 +41,7 @@ public class BallThrowMB : BallMB
             case BallState.normal:
                 base.UpdateForces();
                 break;
-            case BallState.external:
+            case BallState.spin:
                 break;
             case BallState.thrown:
                 AddThrownForce();
@@ -104,7 +104,7 @@ public class BallThrowMB : BallMB
 
     public void InitSpin(float spinSpd, PlayerMB player)
     {
-        state = BallState.external;
+        state = BallState.spin;
 
         this.spinSpd = spinSpd;
 
@@ -175,7 +175,7 @@ public class BallThrowMB : BallMB
 
     public void UpdateIsStuck()
     {
-        if (state == BallState.external)
+        if (state == BallState.spin)
         {
             Vector2 toCurrent = anchorTransform.position - thisTransform.position;
             float expectedAngle = Mathf.Abs(Time.fixedDeltaTime * spinSpd / toCurrent.magnitude);
@@ -194,7 +194,7 @@ public class BallThrowMB : BallMB
     public enum BallState
     {
         normal, // like normal ball
-        external, // no forces, implied velocity control externally
+        spin, // no forces, implied velocity control externally
         thrown, // no chain force
         returning, // on the way back to player with constant force
     }
