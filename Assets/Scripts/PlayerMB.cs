@@ -21,6 +21,7 @@ public class PlayerMB : MonoBehaviour
     public float maxSpeed; // units per sec
 
     public ActionState actionState;
+    public DateTime actionStateChangeTime;
 
     public MoveType moveType;
 
@@ -64,6 +65,7 @@ public class PlayerMB : MonoBehaviour
         effectManager.Init(gameObject.GetComponent<MeshRenderer>());
 
         actionState = ActionState.normal;
+        actionStateChangeTime = DateTime.Now;
     }
 
     public void FixedUpdate()
@@ -151,6 +153,14 @@ public class PlayerMB : MonoBehaviour
         thisRigidbody.MovePosition(Vector2.Lerp(knockbackStartPoint, knockbackEndPoint, (float)kb_ratio));
     }
 
+    public void ChangeActionState(ActionState newState)
+    {
+        AnalyticsManager.PlayerStateChangeAnalytics(actionState, (float)(DateTime.Now - actionStateChangeTime).TotalSeconds);
+
+        actionState = newState;
+        actionStateChangeTime = DateTime.Now;
+    }
+
     public void UpdateAction(float dt)
     {
         switch (actionState)
@@ -158,13 +168,13 @@ public class PlayerMB : MonoBehaviour
             case ActionState.normal:
                 if (spinKey.GetKeyDown)
                 {
-                    actionState = ActionState.moveSpin;
+                    ChangeActionState(ActionState.moveSpin);
                     ballEquip.InitSpin();
                     break;
                 }
                 if (throwKey.GetKeyDown)
                 {
-                    actionState = ActionState.throwCharge;
+                    ChangeActionState(ActionState.throwCharge);
                     ballEquip.InitSpin();
                     break;
                 }
@@ -172,18 +182,18 @@ public class PlayerMB : MonoBehaviour
             case ActionState.moveSpin:
                 if (!spinKey.GetKey)
                 {
-                    actionState = ActionState.normal;
+                    ChangeActionState(ActionState.normal);
                     ballEquip.InitNormal();
                     break;
                 }
                 if (throwKey.GetKeyDown)
                 {
-                    actionState = ActionState.throwCharge;
+                    ChangeActionState(ActionState.throwCharge);
                     break;
                 }
                 if (ballEquip.IsStuck())
                 {
-                    actionState = ActionState.normal;
+                    ChangeActionState(ActionState.normal);
                     ballEquip.InitNormal();
                     break;
                 }
@@ -191,25 +201,25 @@ public class PlayerMB : MonoBehaviour
             case ActionState.throwCharge:
                 if (spinKey.GetKeyDown)
                 {
-                    actionState = ActionState.moveSpin;
+                    ChangeActionState(ActionState.moveSpin);
                     break;
                 }
                 if (!throwKey.GetKey)
                 {
                     if (ballEquip.ThrowAngleCorrect())
                     {
-                        actionState = ActionState.thrown;
+                        ChangeActionState(ActionState.thrown);
                         ballEquip.InitThrow();
                     }
                     else
                     {
-                        actionState = ActionState.throwPreRelease;
+                        ChangeActionState(ActionState.throwPreRelease);
                     }
                     break;
                 }
                 if (ballEquip.IsStuck())
                 {
-                    actionState = ActionState.normal;
+                    ChangeActionState(ActionState.normal);
                     ballEquip.InitNormal();
                     break;
                 }
@@ -217,7 +227,7 @@ public class PlayerMB : MonoBehaviour
             case ActionState.throwPreRelease:
                 if (ballEquip.ThrowAngleCorrect())
                 {
-                    actionState = ActionState.thrown;
+                    ChangeActionState(ActionState.thrown);
                     ballEquip.InitThrow();
                 }
                 break;
@@ -226,14 +236,14 @@ public class PlayerMB : MonoBehaviour
                 // suggestion: maybe add way to set return without button in range
                 if (throwKey.GetKeyDown || spinKey.GetKeyDown)
                 {
-                    actionState = ActionState.returning;
+                    ChangeActionState(ActionState.returning);
                     ballEquip.InitReturn();
                 }
                 break;
             case ActionState.returning:
                 if (ballEquip.AllReturned())
                 {
-                    actionState = ActionState.normal;
+                    ChangeActionState(ActionState.normal);
                     ballEquip.InitNormal();
                     break;
                 }
@@ -241,7 +251,7 @@ public class PlayerMB : MonoBehaviour
             case ActionState.knockback:
                 if ((DateTime.Now - hitTime).TotalSeconds >= knockBackDuration)
                 {
-                    actionState = ActionState.iframes;
+                    ChangeActionState(ActionState.iframes);
                     effectManager.ChangeState(PlayerEffectManagerMB.State.iframe);
                     goto case ActionState.iframes;
                 }
@@ -249,7 +259,7 @@ public class PlayerMB : MonoBehaviour
             case ActionState.iframes:
                 if ((DateTime.Now - hitTime).TotalSeconds >= iframeDuration)
                 {
-                    actionState = ActionState.normal;
+                    ChangeActionState(ActionState.normal);
                     effectManager.ChangeState(PlayerEffectManagerMB.State.normal);
                 }
                 break;
@@ -287,7 +297,7 @@ public class PlayerMB : MonoBehaviour
     public void ResetActionState()
     {
         ballEquip.ResetState();
-        actionState = ActionState.normal;
+        ChangeActionState(ActionState.normal);
     }
 
     public bool StartHit()
@@ -295,7 +305,7 @@ public class PlayerMB : MonoBehaviour
         if (actionState == ActionState.knockback) return false;
 
         ResetActionState();
-        actionState = ActionState.knockback;
+        ChangeActionState(ActionState.knockback);
         hitTime = DateTime.Now;
         return true;
     }
@@ -340,7 +350,7 @@ public class PlayerMB : MonoBehaviour
                 knockbackStartPoint = transform.position;
                 knockbackEndPoint = knockbackStartPoint + (hitDir * knockBackDist);
                 hitTime = DateTime.Now;
-                actionState = ActionState.knockback;
+                ChangeActionState(ActionState.knockback);
                 ballEquip.InitNormal();
                 effectManager.ChangeState(PlayerEffectManagerMB.State.damaged);
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Newtonsoft.Json;
 
 [Serializable]
 public class PlayerStats
@@ -57,6 +58,11 @@ public class PlayerStats
         maxHP.multInc += multInc;
         currentHP = curHP_Ratio * maxHP;
         if (currentHP > maxHP) currentHP = maxHP;
+    }
+
+    public string ToJsonString()
+    {
+        return JsonConvert.SerializeObject(this);
     }
 }
 

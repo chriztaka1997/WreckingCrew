@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class UpgradeManager
 {
@@ -35,5 +36,15 @@ public class UpgradeManager
     public void ClearUpgrades()
     {
         upgrades.Clear();
+    }
+
+    public string UpgradeStringListJson()
+    {
+        List<string> strings = new List<string>();
+        foreach (Upgrade u in upgrades)
+        {
+            strings.Add(u.name);
+        }
+        return JsonConvert.SerializeObject(strings);
     }
 }

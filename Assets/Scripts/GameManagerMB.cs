@@ -142,6 +142,8 @@ public class GameManagerMB : MonoBehaviour
 
     public void ChangeState(GameState newState)
     {
+        AnalyticsManager.GameStateChangeAnalytics(gameState, (float)(DateTime.Now - stateChangeTime).TotalSeconds);
+
         gameState = newState;
         stateChangeTime = DateTime.Now;
         uiMngr.StateChanged();
