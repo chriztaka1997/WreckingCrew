@@ -6,6 +6,11 @@ using System;
 public abstract class BallEquipMB : MonoBehaviour
 {
     protected PlayerMB player;
+    public float damageMult;
+    public float spinSpdMinMult;
+    public float spinSpdMaxMult;
+    public float spinSpdRateMult;
+    public float spinSlowFactor;
 
     protected Vector3 targetPos => player.targetPos;
     protected float throwAngleWiggle => player.throwAngleWiggle;
@@ -72,6 +77,8 @@ public abstract class BallEquipMB : MonoBehaviour
         float baseDamage = player.stats.attack;
 
         float totDamage = baseDamage + spdDamage;
+        // multiply by local multiplier
+        totDamage *= damageMult;
 
         // add ball special effect damage
 

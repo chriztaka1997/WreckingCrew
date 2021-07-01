@@ -340,6 +340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b097e2ab690be44bcbe79286d7abc4a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMult: 0.5
+  spinSpdMinMult: 1
+  spinSpdMaxMult: 1
+  spinSpdRateMult: 1
   balls:
   - {fileID: 3231378887903840190}
   - {fileID: 1646878182932181950}

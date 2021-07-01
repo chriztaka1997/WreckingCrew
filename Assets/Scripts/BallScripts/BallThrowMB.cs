@@ -84,7 +84,7 @@ public class BallThrowMB : BallMB
         return tanSpd;
     }
 
-    public float GetConservedSpinSpd(PlayerMB player)
+    public float GetConservedSpinSpd(PlayerMB player, BallEquipMB ballEquip)
     {
         Vector2 playerToBall = thisTransform.position - anchorTransform.position;
         Vector2 tangentCCW = Quaternion.AngleAxis(90, new Vector3(0, 0, 1)) * playerToBall.normalized;
@@ -93,8 +93,12 @@ public class BallThrowMB : BallMB
         float tanSpd = tanVel.magnitude;
         // Converving momentum doesnt work now
         //tanSpd *= playerToBall.magnitude / chainLengthSet; // conserve momentum to chain length
-        if (tanSpd < player.stats.minSpinSpd) tanSpd = player.stats.minSpinSpd;
-        if (tanSpd > player.stats.maxSpinSpd) tanSpd = player.stats.maxSpinSpd;
+
+        float minSpinSpd = player.stats.minSpinSpd * ballEquip.spinSpdMinMult;
+        float maxSpinSpd = player.stats.maxSpinSpd * ballEquip.spinSpdMaxMult;
+
+        if (tanSpd < minSpinSpd) tanSpd = minSpinSpd;
+        if (tanSpd > maxSpinSpd) tanSpd = maxSpinSpd;
         if (spinCcwAmount < 0) tanSpd *= -1;
 
         AnalyticsManagerMB.SpinStartAnalytics(tanSpd);
@@ -102,19 +106,22 @@ public class BallThrowMB : BallMB
         return tanSpd;
     }
 
-    public void InitSpin(float spinSpd, PlayerMB player)
+    public void InitSpin(float spinSpd, PlayerMB player, BallEquipMB ballEquip)
     {
         state = BallState.spin;
 
         this.spinSpd = spinSpd;
 
-        if (Mathf.Abs(spinSpd) < Mathf.Abs(player.stats.minSpinSpd))
+        float minSpinSpd = player.stats.minSpinSpd * ballEquip.spinSpdMinMult;
+        float maxSpinSpd = player.stats.maxSpinSpd * ballEquip.spinSpdMaxMult;
+
+        if (Mathf.Abs(spinSpd) < minSpinSpd)
         {
-            this.spinSpd = spinDirCCW ? player.stats.minSpinSpd : -player.stats.minSpinSpd;
+            this.spinSpd = spinDirCCW ? minSpinSpd : -minSpinSpd;
         }
-        if (Mathf.Abs(spinSpd) > Mathf.Abs(player.stats.maxSpinSpd))
+        if (Mathf.Abs(spinSpd) > maxSpinSpd)
         {
-            this.spinSpd = spinDirCCW ? player.stats.maxSpinSpd : -player.stats.maxSpinSpd;
+            this.spinSpd = spinDirCCW ? maxSpinSpd : -maxSpinSpd;
         }
 
         isStuck = false;
@@ -145,18 +152,23 @@ public class BallThrowMB : BallMB
         thisRigidbody.velocity = throwVec;
     }
 
-    public void SpinBall(float dt, PlayerMB player)
+    public void SpinBall(float dt, PlayerMB player, BallEquipMB ballEquip)
     {
-        if (Mathf.Abs(spinSpd) < Mathf.Abs(player.stats.maxSpinSpd))
+        float minSpinSpd = player.stats.minSpinSpd * ballEquip.spinSpdMinMult;
+        float maxSpinSpd = player.stats.maxSpinSpd * ballEquip.spinSpdMaxMult;
+
+        if (Mathf.Abs(spinSpd) < maxSpinSpd)
         {
-            spinSpd += player.stats.spinSpdRate * dt * (spinDirCCW ? 1 : -1);
-            if (Mathf.Abs(spinSpd) < Mathf.Abs(player.stats.minSpinSpd))
+            float spinSpdRate = player.stats.spinSpdRate * ballEquip.spinSpdRateMult;
+
+            spinSpd += spinSpdRate * dt * (spinDirCCW ? 1 : -1);
+            if (Mathf.Abs(spinSpd) < minSpinSpd)
             {
-                spinSpd = spinDirCCW ? player.stats.minSpinSpd : -player.stats.minSpinSpd;
+                spinSpd = spinDirCCW ? minSpinSpd : -minSpinSpd;
             }
-            if (Mathf.Abs(spinSpd) > Mathf.Abs(player.stats.maxSpinSpd))
+            if (Mathf.Abs(spinSpd) > maxSpinSpd)
             {
-                spinSpd = spinDirCCW ? player.stats.maxSpinSpd : -player.stats.maxSpinSpd;
+                spinSpd = spinDirCCW ? maxSpinSpd : -maxSpinSpd;
             }
         }
 

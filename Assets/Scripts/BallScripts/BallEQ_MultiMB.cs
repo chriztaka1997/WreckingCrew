@@ -6,7 +6,6 @@ public class BallEQ_MultiMB : BallEquipMB
 {
     public List<BallThrowMB> balls;
     public bool spread;
-    public float spinSlowFactor;
 
     public void Start()
     {
@@ -52,7 +51,7 @@ public class BallEQ_MultiMB : BallEquipMB
     {
         foreach (BallThrowMB ball in balls)
         {
-            ball.SpinBall(dt, player);
+            ball.SpinBall(dt, player, this);
         }
     }
 
@@ -71,7 +70,7 @@ public class BallEQ_MultiMB : BallEquipMB
                 {
                     ball.InitThrow(targetPos, aimTypeDirect);
                 }
-                else if (ball.state == BallThrowMB.BallState.spin) ball.SpinBall(dt, player);
+                else if (ball.state == BallThrowMB.BallState.spin) ball.SpinBall(dt, player, this);
             }
         }
     }
@@ -104,12 +103,12 @@ public class BallEQ_MultiMB : BallEquipMB
         float spinSpdAvg = 0f;
         foreach (BallThrowMB ball in balls)
         {
-            spinSpdAvg += ball.GetConservedSpinSpd(player);
+            spinSpdAvg += ball.GetConservedSpinSpd(player, this);
         }
         spinSpdAvg /= balls.Count;
         foreach (BallThrowMB ball in balls)
         {
-            ball.InitSpin(spinSpdAvg, player);
+            ball.InitSpin(spinSpdAvg, player, this);
         }
     }
 
@@ -194,12 +193,12 @@ public class BallEQ_MultiMB : BallEquipMB
         float spinSpdAvg = 0f;
         foreach (BallThrowMB ball in balls)
         {
-            spinSpdAvg += ball.GetConservedSpinSpd(player);
+            spinSpdAvg += ball.GetConservedSpinSpd(player, this);
         }
         spinSpdAvg /= balls.Count;
         foreach (BallThrowMB ball in balls)
         {
-            ball.InitSpin(spinSpdAvg * slowFactor, player);
+            ball.InitSpin(spinSpdAvg * slowFactor, player, this);
         }
     }
 }

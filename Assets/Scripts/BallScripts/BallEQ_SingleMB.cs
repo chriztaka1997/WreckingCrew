@@ -6,7 +6,6 @@ using System;
 public class BallEQ_SingleMB : BallEquipMB
 {
     public BallThrowMB ball;
-    public float spinSlowFactor;
 
     public void Start()
     {
@@ -33,13 +32,13 @@ public class BallEQ_SingleMB : BallEquipMB
 
     public override void InitSpin()
     {
-        float spinSpd = ball.GetConservedSpinSpd(player);
-        ball.InitSpin(spinSpd, player);
+        float spinSpd = ball.GetConservedSpinSpd(player, this);
+        ball.InitSpin(spinSpd, player, this);
     }
 
     public override void DoSpin(float dt)
     {
-        ball.SpinBall(dt, player);
+        ball.SpinBall(dt, player, this);
     }
 
     public override void InitThrow()
@@ -70,6 +69,6 @@ public class BallEQ_SingleMB : BallEquipMB
 
     public override void SlowBalls(float slowFactor)
     {
-        ball.InitSpin(ball.spinSpd * slowFactor, player);
+        ball.InitSpin(ball.spinSpd * slowFactor, player, this);
     }
 }

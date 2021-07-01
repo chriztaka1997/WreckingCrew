@@ -322,6 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a100d32ec2624940a563d503a540af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesProcessed: 0
 --- !u!1 &1108518239
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,6 +859,58 @@ PrefabInstance:
     - target: {fileID: 7002203067344836906, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
       propertyPath: m_Name
       value: Palette
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836907, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: ballEQ_Prefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836907, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: ballEQ_Prefabs.Array.data[3].name
+      value: BallEQ_SingleLarge
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836907, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: ballEQ_Prefabs.Array.data[3].ballEquip
+      value: 
+      objectReference: {fileID: 6951687703671008125, guid: 87a3d12f579ea47d597ac05b8a68c01e, type: 3}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[8].desc
+      value: Equips 3 smaller balls with less damage
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[8].name
+      value: balleq:triple
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[9].desc
+      value: Equips a larger, slower ball with more damage
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[9].name
+      value: balleq:single_large
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[9].title
+      value: Mega Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[9].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a9a3a9cc1b59b453385d9e3c0bfb76af, type: 3}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[9].weight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[9].data.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836911, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: upgrades.Array.data[9].data.Array.data[0].name
+      value: BallEQ_SingleLarge
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
