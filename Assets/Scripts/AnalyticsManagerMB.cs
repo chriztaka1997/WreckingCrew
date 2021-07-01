@@ -11,6 +11,7 @@ public class AnalyticsManagerMB : MonoBehaviour
     public DateTime waveStart, waveEnd;
 
     public Dictionary<string, object> waveEndDict;
+    public bool ignoreNextWaveData;
 
     public Dictionary<string, object> timeInGameState;
     public Dictionary<PlayerMB.ActionState, List<float>> timeInPlayerState;
@@ -31,6 +32,7 @@ public class AnalyticsManagerMB : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         waveEndDict = new Dictionary<string, object>();
+        ignoreNextWaveData = false;
 
         timeInGameState = new Dictionary<string, object>();
         ResetTimeInGameState();
@@ -93,6 +95,17 @@ public class AnalyticsManagerMB : MonoBehaviour
 
     public static void SendWaveEndAnalytics(string upgradeChosen)
     {
+        if (instance.ignoreNextWaveData)
+        {
+            instance.ignoreNextWaveData = false;
+            instance.ResetTimeInGameState();
+            instance.ResetTimeInPlayerState();
+            instance.ResetEnemyData();
+            Debug.Log("Wave End: Data Ignored");
+            return;
+        }
+
+
         GameManagerMB gmRef = GameManagerMB.instance;
 
         //instance.waveEndDict["player stats"] = gmRef.player.stats.ToJsonString();
@@ -191,4 +204,6 @@ public class AnalyticsManagerMB : MonoBehaviour
         }
         instance.ResetEnemyData();
     }
+
+    public static void IgnoreNextWaveAnalytics() => instance.ignoreNextWaveData = true;
 }
