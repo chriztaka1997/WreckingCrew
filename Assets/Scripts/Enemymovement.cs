@@ -30,12 +30,12 @@ public class Enemymovement : MonoBehaviour
     //This is to send to the analytics
     public Dictionary<string, object> collisionAnalytics = new Dictionary<string, object>
     {
-        {"Stage", 1 },{"BallSpin",0},{"BallThrow",0},{"BallFree",0},
+        {"BallSpin",0},{"BallThrow",0},{"BallFree",0},
         {"EnemyRecoil",0},{"EnemyDead",0}
     };
     public Dictionary<string, object> killedAnalytics = new Dictionary<string, object>
     {
-        {"Stage", 1 },{"BallSpin",0},{"BallThrow",0},{"BallFree",0},
+        {"BallSpin",0},{"BallThrow",0},{"BallFree",0},
         {"EnemyRecoil",0},{"EnemyDead",0}
     };
     public enum States
@@ -68,6 +68,8 @@ public class Enemymovement : MonoBehaviour
     {
         ObjectPooler.SharedInstance.SpawnCoin(gameObject.transform.position);
         ObjectPooler.SharedInstance.SpawnHealthPotion(gameObject.transform.position);
+
+        AnalyticsManagerMB.EnemyDeathAnalytics(collisionAnalytics, killedAnalytics);
     }
 
     void FixedUpdate()

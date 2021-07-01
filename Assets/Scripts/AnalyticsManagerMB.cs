@@ -15,6 +15,12 @@ public class AnalyticsManagerMB : MonoBehaviour
     public Dictionary<string, object> timeInGameState;
     public Dictionary<PlayerMB.ActionState, List<float>> timeInPlayerState;
 
+    public enum EnemyHitTypes {BallSpin, BallThrow, BallFree, EnemyRecoil, EnemyDead};
+
+
+    public int enemiesProcessed;
+    public Dictionary<string, object> enemyDataDict;
+
     public void Awake()
     {
         if (instance != null)
@@ -31,6 +37,9 @@ public class AnalyticsManagerMB : MonoBehaviour
 
         timeInPlayerState = new Dictionary<PlayerMB.ActionState, List<float>>();
         ResetTimeInPlayerState();
+
+        enemyDataDict = new Dictionary<string, object>();
+        ResetEnemyData();
 
 
     }
@@ -49,6 +58,16 @@ public class AnalyticsManagerMB : MonoBehaviour
         {
             if (!timeInPlayerState.ContainsKey(s)) timeInPlayerState[s] = new List<float>();
             else timeInPlayerState[s].Clear();
+        }
+    }
+
+    public void ResetEnemyData()
+    {
+        enemiesProcessed = 0;
+        foreach (string s in Enum.GetNames(typeof(EnemyHitTypes)))
+        {
+            enemyDataDict[string.Format("{0} Collision", s)] = 0.0f;
+            enemyDataDict[string.Format("{0} Killed", s)] = 0.0f;
         }
     }
 
@@ -89,14 +108,21 @@ public class AnalyticsManagerMB : MonoBehaviour
             AnalyticsResult analyticsResult = Analytics.CustomEvent("Wave End", instance.waveEndDict);
             Debug.Log("Wave End Result: " + analyticsResult);
         }
+        instance.ResetTimeInGameState();
 
         // Send Action State Time
         {
             AnalyticsResult analyticsResult = Analytics.CustomEvent("Wave End: Player State Data", instance.GetPlayerStateTimeDict());
             Debug.Log("Wave End: Player State Data Results: " + analyticsResult);
         }
+        instance.ResetTimeInPlayerState();
 
-        instance.ResetTimeInGameState();
+        // Send Action State Time
+        {
+            AnalyticsResult analyticsResult = Analytics.CustomEvent("Wave End: Enemy Data", instance.enemyDataDict);
+            Debug.Log("Wave End: Enemy Data Results: " + analyticsResult);
+        }
+        instance.ResetEnemyData();
     }
 
     public static void SpinStartAnalytics(float spinSpd)
@@ -125,5 +151,24 @@ public class AnalyticsManagerMB : MonoBehaviour
     public static void GameStateChangeAnalytics(GameManagerMB.GameState previousState, float timeInState)
     {
         instance.timeInGameState[previousState.ToString()] = (float)instance.timeInGameState[previousState.ToString()] + timeInState;
+    }
+
+    public static void EnemyDeathAnalytics(Dictionary<string, object> collisionAnalytics, Dictionary<string, object> killedAnalytics)
+        => instance.LocalEnemyDeathAnalytics(collisionAnalytics, killedAnalytics);
+    public void LocalEnemyDeathAnalytics(Dictionary<string, object> collisionAnalytics, Dictionary<string, object> killedAnalytics)
+    {
+        foreach (string s in Enum.GetNames(typeof(EnemyHitTypes)))
+        {
+            string collisionKey = string.Format("{0} Collision", s);
+            string killedKey = string.Format("{0} Killed", s);
+            enemyDataDict[collisionKey] = RunningAvg((float)enemyDataDict[collisionKey], enemiesProcessed, (int)collisionAnalytics[s]);
+            enemyDataDict[killedKey] = RunningAvg((float)enemyDataDict[killedKey], enemiesProcessed, (int)collisionAnalytics[s]);
+        }
+        enemiesProcessed++;
+    }
+
+    public static float RunningAvg(float oldAvg, int oldCount, float newVal)
+    {
+        return ((oldAvg * oldCount) + newVal) / (oldCount + 1);
     }
 }
