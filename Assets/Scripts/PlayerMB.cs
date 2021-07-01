@@ -18,7 +18,7 @@ public class PlayerMB : MonoBehaviour
 
     public Vector3 targetPos;
     public float fixedZ;
-    public float maxSpeed; // units per sec
+    //public float maxSpeed; // units per sec
 
     public ActionState actionState;
     public DateTime actionStateChangeTime;
@@ -132,7 +132,7 @@ public class PlayerMB : MonoBehaviour
 
     public void UpdatePos(float dt)
     {
-        float maxDist = maxSpeed * dt;
+        float maxDist = stats.movSpd * dt;
         if (Vector2.Distance(targetPos, thisTransform.position) <= maxDist)
         {
             thisRigidbody.MovePosition(targetPos);

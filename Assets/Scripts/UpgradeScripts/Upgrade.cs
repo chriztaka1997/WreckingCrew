@@ -72,6 +72,24 @@ public class StatUpgrade : Upgrade
             case "precision%":
                 player.stats.precision.multInc += statData.amount;
                 break;
+            case "spinDmg":
+                player.stats.spinDmg.flatInc += statData.amount;
+                break;
+            case "spinDmg%":
+                player.stats.spinDmg.multInc += statData.amount;
+                break;
+            case "throwDmg":
+                player.stats.throwDmg.flatInc += statData.amount;
+                break;
+            case "throwDmg%":
+                player.stats.throwDmg.multInc += statData.amount;
+                break;
+            case "swingDmg":
+                player.stats.swingDmg.flatInc += statData.amount;
+                break;
+            case "swingDmg%":
+                player.stats.swingDmg.multInc += statData.amount;
+                break;
             case "movSpd":
                 player.stats.movSpd.flatInc += statData.amount;
                 break;
@@ -95,6 +113,24 @@ public class StatUpgrade : Upgrade
                 break;
             case "tenacity%":
                 player.stats.tenacity.multInc += statData.amount;
+                break;
+            case "maxSpinSpd":
+                player.stats.maxSpinSpd.flatInc += statData.amount;
+                break;
+            case "maxSpinSpd%":
+                player.stats.maxSpinSpd.multInc += statData.amount;
+                break;
+            case "minSpinSpd":
+                player.stats.minSpinSpd.flatInc += statData.amount;
+                break;
+            case "minSpinSpd%":
+                player.stats.minSpinSpd.multInc += statData.amount;
+                break;
+            case "spinSpdRate":
+                player.stats.spinSpdRate.flatInc += statData.amount;
+                break;
+            case "spinSpdRate%":
+                player.stats.spinSpdRate.multInc += statData.amount;
                 break;
             default:
                 throw new Exception("No Stat Data Provided!!");
