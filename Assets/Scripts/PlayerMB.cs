@@ -180,15 +180,15 @@ public class PlayerMB : MonoBehaviour
                 }
                 break;
             case ActionState.moveSpin:
+                if (throwKey.GetKeyDown)
+                {
+                    ChangeActionState(ActionState.throwCharge);
+                    break;
+                }
                 if (!spinKey.GetKey)
                 {
                     ChangeActionState(ActionState.normal);
                     ballEquip.InitNormal();
-                    break;
-                }
-                if (throwKey.GetKeyDown)
-                {
-                    ChangeActionState(ActionState.throwCharge);
                     break;
                 }
                 if (ballEquip.IsStuck())
