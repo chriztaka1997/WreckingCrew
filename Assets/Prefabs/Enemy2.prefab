@@ -213,7 +213,7 @@ MonoBehaviour:
   currentHP: 0
   maxHP: 200
   attack: 300
-  weight: 20
+  weight: 40
   fixedDamage: 5
   hpBar: {fileID: 6542305896734947934}
   currentState: 0
