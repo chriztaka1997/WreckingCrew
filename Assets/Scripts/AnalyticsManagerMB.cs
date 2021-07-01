@@ -105,7 +105,7 @@ public class AnalyticsManagerMB : MonoBehaviour
         instance.waveEndDict["upgrade selected"] = upgradeChosen;
 
         {
-            AnalyticsResult analyticsResult = Analytics.CustomEvent("Wave End", instance.waveEndDict);
+            AnalyticsResult analyticsResult = AnalyticsEvent.LevelComplete("Wave End", instance.waveEndDict);
             Debug.Log("Wave End Result: " + analyticsResult);
         }
         instance.ResetTimeInGameState();
@@ -170,5 +170,25 @@ public class AnalyticsManagerMB : MonoBehaviour
     public static float RunningAvg(float oldAvg, int oldCount, float newVal)
     {
         return ((oldAvg * oldCount) + newVal) / (oldCount + 1);
+    }
+
+    public static void PlayerDeathAnalytics(string cause)
+    {
+        GameManagerMB gmRef = GameManagerMB.instance;
+
+        Dictionary<string, object> deadDict = new Dictionary<string, object>();
+
+        deadDict["stage name"] = gmRef.startingStage;
+        deadDict["level name"] = gmRef.stageData.currentLevel;
+        deadDict["player maxHP"] = (float)gmRef.player.stats.maxHP;
+        deadDict["death cause"] = cause;
+        deadDict["level progress"] = gmRef.enemyspawn.GetWaveProgressRatio();
+        deadDict["player state"] = gmRef.player.actionState;
+
+        {
+            AnalyticsResult analyticsResult = AnalyticsEvent.LevelFail("Player Died", deadDict);
+            Debug.Log("Player Died Results: " + analyticsResult);
+        }
+        instance.ResetEnemyData();
     }
 }

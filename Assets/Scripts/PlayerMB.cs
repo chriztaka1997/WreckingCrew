@@ -357,7 +357,10 @@ public class PlayerMB : MonoBehaviour
                 float damageTaken = enemy.attack;
                 AlterHP(-damageTaken);
 
-                CheckDeath();
+                if (CheckDeath())
+                {
+                    AnalyticsManagerMB.PlayerDeathAnalytics(enemy.name);
+                }
                 break;
         }
 
