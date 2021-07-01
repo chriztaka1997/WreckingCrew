@@ -128,8 +128,9 @@ MonoBehaviour:
   state: 0
   returnForceMag: 40
   throwChainLengthSet: 8
+  stuckDuration: 0
   lengthReturnedRatio: 2
-  minSpinSpd: 20
+  isStuck: 0
 --- !u!58 &1646878182322718265
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -274,8 +275,9 @@ MonoBehaviour:
   state: 0
   returnForceMag: 40
   throwChainLengthSet: 8
+  stuckDuration: 0
   lengthReturnedRatio: 2
-  minSpinSpd: 20
+  isStuck: 0
 --- !u!58 &1646878182932181945
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -338,6 +340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b097e2ab690be44bcbe79286d7abc4a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageMult: 0.5
+  spinSpdMinMult: 1
+  spinSpdMaxMult: 1
+  spinSpdRateMult: 1
   balls:
   - {fileID: 3231378887903840190}
   - {fileID: 1646878182932181950}
@@ -472,8 +478,9 @@ MonoBehaviour:
   state: 0
   returnForceMag: 40
   throwChainLengthSet: 8
+  stuckDuration: 0
   lengthReturnedRatio: 2
-  minSpinSpd: 20
+  isStuck: 0
 --- !u!58 &4885163024989058734
 CircleCollider2D:
   m_ObjectHideFlags: 0

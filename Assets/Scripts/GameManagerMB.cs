@@ -33,6 +33,8 @@ public class GameManagerMB : MonoBehaviour
     public float preUpgradeTime;
     private DateTime stateChangeTime;
 
+    private DateTime pauseStartTime;
+
 
     public void Awake()
     {
@@ -122,7 +124,7 @@ public class GameManagerMB : MonoBehaviour
                 {
                     ChangeState(GameState.upgrade);
                     DisplayUpgradeSelector();
-                    Time.timeScale = 0;
+                    StartPause();
                 }
                 break;
             case GameState.upgrade:
@@ -131,6 +133,18 @@ public class GameManagerMB : MonoBehaviour
                 break;
         }
     }
+
+    public void StartPause()
+    {
+        Time.timeScale = 0;
+        pauseStartTime = DateTime.Now;
+    }
+
+    public void EndPause()
+    {
+        Time.timeScale = 1.0f;
+        player.actionStateChangeTime += DateTime.Now - pauseStartTime;
+    }    
 
     public void UpdateUI()
     {
@@ -142,6 +156,8 @@ public class GameManagerMB : MonoBehaviour
 
     public void ChangeState(GameState newState)
     {
+        AnalyticsManagerMB.GameStateChangeAnalytics(gameState, (float)(DateTime.Now - stateChangeTime).TotalSeconds);
+
         gameState = newState;
         stateChangeTime = DateTime.Now;
         uiMngr.StateChanged();
@@ -207,7 +223,9 @@ public class GameManagerMB : MonoBehaviour
     {
         if (name != "") AddUpgrade(name);
         ChangeState(GameState.complete);
-        Time.timeScale = 1.0f;
+        EndPause();
+
+        AnalyticsManagerMB.SendWaveEndAnalytics(name);
     }
 
     public void DisplayUpgradeSelector()

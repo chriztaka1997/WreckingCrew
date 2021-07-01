@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Newtonsoft.Json;
 
 [Serializable]
 public class PlayerStats
@@ -10,6 +11,9 @@ public class PlayerStats
     public Stat maxHP;
     public Stat attack;
     public Stat precision;
+    public Stat spinDmg;
+    public Stat throwDmg;
+    public Stat swingDmg;
     public Stat movSpd;
     public Stat dodge;
     public Stat healTick;
@@ -29,6 +33,9 @@ public class PlayerStats
         statsList.Add(maxHP);
         statsList.Add(attack);
         statsList.Add(precision);
+        statsList.Add(spinDmg);
+        statsList.Add(throwDmg);
+        statsList.Add(swingDmg);
         statsList.Add(movSpd);
         statsList.Add(dodge);
         statsList.Add(healTick);
@@ -57,6 +64,11 @@ public class PlayerStats
         maxHP.multInc += multInc;
         currentHP = curHP_Ratio * maxHP;
         if (currentHP > maxHP) currentHP = maxHP;
+    }
+
+    public string ToJsonString()
+    {
+        return JsonConvert.SerializeObject(this);
     }
 }
 

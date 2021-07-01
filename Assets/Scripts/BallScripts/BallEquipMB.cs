@@ -6,6 +6,11 @@ using System;
 public abstract class BallEquipMB : MonoBehaviour
 {
     protected PlayerMB player;
+    public float damageMult;
+    public float spinSpdMinMult;
+    public float spinSpdMaxMult;
+    public float spinSpdRateMult;
+    public float spinSlowFactor;
 
     protected Vector3 targetPos => player.targetPos;
     protected float throwAngleWiggle => player.throwAngleWiggle;
@@ -14,11 +19,15 @@ public abstract class BallEquipMB : MonoBehaviour
     public virtual void SetEquip(PlayerMB player)
     {
         this.player = player;
+        ResetState();
+        ResetPos();
     }
 
     public abstract void SetState(BallThrowMB.BallState ballState);
 
     public virtual void ResetState() => SetState(BallThrowMB.BallState.normal);
+
+    public abstract void ResetPos();
 
     public abstract bool ThrowAngleCorrect();
 
@@ -38,7 +47,27 @@ public abstract class BallEquipMB : MonoBehaviour
 
     public abstract bool IsStuck();
 
-    public abstract void OnBallCollision(BallThrowMB ballRef, Collider2D collider);
+    public virtual void OnBallCollision(BallThrowMB ballRef, Collider2D collider)
+    {
+        string tag = collider.gameObject.tag;
+        if (tag == "Enemy")
+        {
+            Enemymovement enemymovement = collider.gameObject.GetComponent<Enemymovement>();
+            switch (ballRef.state)
+            {
+                case BallThrowMB.BallState.normal:
+                case BallThrowMB.BallState.thrown:
+                    var velocity = ballRef.thisRigidbody.velocity;
+                    ballRef.thisRigidbody.velocity = velocity * CalcSlowSpdMult(enemymovement);
+                    break;
+                case BallThrowMB.BallState.spin:
+                    SlowBalls(CalcSlowSpdMult(enemymovement));
+                    break;
+            }
+            float damage = CalcDamage(ballRef);
+            enemymovement.CollisionWithBall(ballRef, damage);
+        }
+    }
 
     public virtual float CalcDamage(BallThrowMB ballRef)
     {
@@ -47,12 +76,30 @@ public abstract class BallEquipMB : MonoBehaviour
         float spdDamage = player.stats.precision * ballSpd;
         float baseDamage = player.stats.attack;
 
+        float totDamage = baseDamage + spdDamage;
+        // multiply by local multiplier
+        totDamage *= damageMult;
+
         // add ball special effect damage
 
-        return baseDamage + spdDamage;
+        // multiply by ball state specific damage
+        switch (ballRef.state)
+        {
+            case BallThrowMB.BallState.normal:
+                totDamage *= player.stats.swingDmg;
+                break;
+            case BallThrowMB.BallState.thrown:
+                totDamage *= player.stats.throwDmg;
+                break;
+            case BallThrowMB.BallState.spin:
+                totDamage *= player.stats.spinDmg;
+                break;
+        }
+
+        return totDamage;
     }
 
-    public virtual float CalcSloSpdMult(Enemymovement enemy)
+    public virtual float CalcSlowSpdMult(Enemymovement enemy)
     {
         float baseSlow = enemy.weight / 100.0f;
         float slowResFactor = 1 / (1 + player.stats.tenacity);
@@ -61,4 +108,6 @@ public abstract class BallEquipMB : MonoBehaviour
         if (slowAmount >= 1.0f) slowAmount = 1.0f;
         return 1 - slowAmount;
     }
+
+    public abstract void SlowBalls(float slowFactor);
 }

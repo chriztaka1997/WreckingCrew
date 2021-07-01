@@ -7,11 +7,17 @@ using System.Text.RegularExpressions;
 public abstract class Upgrade
 {
     public string name;
+    public UpgradeData upgradeData;
 
     public Action<BallEquipMB, float> onBallEnemyCollision;
     public Action<PlayerMB, Enemymovement, float> onDamageTaken;
 
-    public UpgradeData upgradeData;
+
+    public Upgrade(UpgradeData upgradeData)
+    {
+        this.upgradeData = upgradeData;
+        name = upgradeData.name;
+    }
 
     public abstract void OnUpgradeGet(PlayerMB player);
 
@@ -19,8 +25,10 @@ public abstract class Upgrade
     {
         switch (upgradeData.name)
         {
-            case var _ when Regex.IsMatch(upgradeData.name, @"stat:"):
+            case var _ when Regex.IsMatch(upgradeData.name, StatUpgrade.prefix):
                 return new StatUpgrade(upgradeData);
+            case var _ when Regex.IsMatch(upgradeData.name, BallEQ_Upgrade.prefix):
+                return new BallEQ_Upgrade(upgradeData);
             default:
                 throw new Exception("No upgrade found");
         }
@@ -29,9 +37,10 @@ public abstract class Upgrade
 
 public class StatUpgrade : Upgrade
 {
-    public StatUpgrade(UpgradeData upgradeData)
+    public const string prefix = @"stat:";
+
+    public StatUpgrade(UpgradeData upgradeData) : base(upgradeData)
     {
-        this.upgradeData = upgradeData;
         if (upgradeData.data.Count == 0)
         {
             throw new Exception("No Stat Data Provided!!");
@@ -63,6 +72,24 @@ public class StatUpgrade : Upgrade
             case "precision%":
                 player.stats.precision.multInc += statData.amount;
                 break;
+            case "spinDmg":
+                player.stats.spinDmg.flatInc += statData.amount;
+                break;
+            case "spinDmg%":
+                player.stats.spinDmg.multInc += statData.amount;
+                break;
+            case "throwDmg":
+                player.stats.throwDmg.flatInc += statData.amount;
+                break;
+            case "throwDmg%":
+                player.stats.throwDmg.multInc += statData.amount;
+                break;
+            case "swingDmg":
+                player.stats.swingDmg.flatInc += statData.amount;
+                break;
+            case "swingDmg%":
+                player.stats.swingDmg.multInc += statData.amount;
+                break;
             case "movSpd":
                 player.stats.movSpd.flatInc += statData.amount;
                 break;
@@ -87,8 +114,46 @@ public class StatUpgrade : Upgrade
             case "tenacity%":
                 player.stats.tenacity.multInc += statData.amount;
                 break;
+            case "maxSpinSpd":
+                player.stats.maxSpinSpd.flatInc += statData.amount;
+                break;
+            case "maxSpinSpd%":
+                player.stats.maxSpinSpd.multInc += statData.amount;
+                break;
+            case "minSpinSpd":
+                player.stats.minSpinSpd.flatInc += statData.amount;
+                break;
+            case "minSpinSpd%":
+                player.stats.minSpinSpd.multInc += statData.amount;
+                break;
+            case "spinSpdRate":
+                player.stats.spinSpdRate.flatInc += statData.amount;
+                break;
+            case "spinSpdRate%":
+                player.stats.spinSpdRate.multInc += statData.amount;
+                break;
             default:
                 throw new Exception("No Stat Data Provided!!");
         }
+    }
+}
+
+public class BallEQ_Upgrade : Upgrade
+{
+    public const string prefix = @"balleq:";
+
+    public BallEQ_Upgrade(UpgradeData upgradeData) : base(upgradeData)
+    {
+        if (upgradeData.data.Count == 0)
+        {
+            throw new Exception("No Stat Data Provided!!");
+        }
+    }
+
+    public override void OnUpgradeGet(PlayerMB player)
+    {
+        GameManagerMB.instance.upgradeMngr.RemoveOtherBallEQ(this);
+        UpgradeData.Data statData = upgradeData.data[0];
+        player.SetEquipBall(statData.name);
     }
 }

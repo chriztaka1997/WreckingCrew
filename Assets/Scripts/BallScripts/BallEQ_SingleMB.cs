@@ -6,7 +6,6 @@ using System;
 public class BallEQ_SingleMB : BallEquipMB
 {
     public BallThrowMB ball;
-    public float spinSlowFactor;
 
     public void Start()
     {
@@ -19,6 +18,13 @@ public class BallEQ_SingleMB : BallEquipMB
         ball.SetAnchor(player.gameObject);
     }
 
+    public override void ResetPos()
+    {
+        Vector3 pos = player.transform.position + new Vector3(ball.chainLengthSet, 0, 0);
+        pos.z = ball.fixedZ;
+        ball.transform.position = pos;
+    }
+
     public override bool AllReturned()
     {
         return ball.IsReturnedDistance();
@@ -26,13 +32,13 @@ public class BallEQ_SingleMB : BallEquipMB
 
     public override void InitSpin()
     {
-        float spinSpd = ball.GetConservedSpinSpd(player);
-        ball.InitSpin(spinSpd, player);
+        float spinSpd = ball.GetConservedSpinSpd(player, this);
+        ball.InitSpin(spinSpd, player, this);
     }
 
     public override void DoSpin(float dt)
     {
-        ball.SpinBall(dt, player);
+        ball.SpinBall(dt, player, this);
     }
 
     public override void InitThrow()
@@ -56,30 +62,13 @@ public class BallEQ_SingleMB : BallEquipMB
         return ball.ThrowAngleCorrect(targetPos, throwAngleWiggle, aimTypeDirect);
     }
 
-    public override void OnBallCollision(BallThrowMB ballRef, Collider2D collider)
-    {
-        string tag = collider.gameObject.tag;
-        if (tag == "Enemy")
-        {
-            Enemymovement enemymovement = collider.gameObject.GetComponent<Enemymovement>();
-            switch (ballRef.state)
-            {
-                case BallThrowMB.BallState.normal:
-                case BallThrowMB.BallState.thrown:
-                    var velocity = ballRef.thisRigidbody.velocity;
-                    ballRef.thisRigidbody.velocity = velocity * CalcSloSpdMult(enemymovement);
-                    break;
-                case BallThrowMB.BallState.external:
-                    ballRef.InitSpin(ballRef.spinSpd * CalcSloSpdMult(enemymovement), player);
-                    break;
-            }
-            float damage = CalcDamage(ballRef);
-            enemymovement.CollisionWithBall(ballRef, damage);
-        }
-    }
-
     public override bool IsStuck()
     {
         return ball.isStuck;
+    }
+
+    public override void SlowBalls(float slowFactor)
+    {
+        ball.InitSpin(ball.spinSpd * slowFactor, player, this);
     }
 }

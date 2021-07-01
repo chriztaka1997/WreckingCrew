@@ -9,6 +9,7 @@ public class ObjectPoolItem
     public GameObject objectToPool;
     public bool shouldExpand;
     public string itemName;
+    public float zPos;
 }
 
 
@@ -82,6 +83,7 @@ public class ObjectPooler : MonoBehaviour
         if (coin != null)
         {
             coin.SetActive(true);
+            pos.z = itemsToPool.Find(item => item.itemName == "Coin").zPos;
             coin.transform.position = pos;
         }
     }
@@ -92,6 +94,7 @@ public class ObjectPooler : MonoBehaviour
         if (HP != null)
         {
             HP.SetActive(true);
+            pos.z = itemsToPool.Find(item => item.itemName == "HealthPotion").zPos;
             HP.transform.position = pos;
         }
     }

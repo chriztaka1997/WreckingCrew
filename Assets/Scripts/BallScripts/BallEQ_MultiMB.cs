@@ -6,7 +6,6 @@ public class BallEQ_MultiMB : BallEquipMB
 {
     public List<BallThrowMB> balls;
     public bool spread;
-    public float spinSlowFactor;
 
     public void Start()
     {
@@ -25,6 +24,19 @@ public class BallEQ_MultiMB : BallEquipMB
         }
     }
 
+    public override void ResetPos()
+    {
+        for (int i = 0; i < balls.Count; i++)
+        {
+            BallThrowMB ball = balls[i];
+            float angle = i * 360.0f / balls.Count;
+
+            Vector3 pos = player.transform.position + (Quaternion.Euler(0, 0, angle) * Vector3.up * ball.chainLengthSet);
+            pos.z = ball.fixedZ;
+            ball.transform.position = pos;
+        }
+    }
+
     public override bool AllReturned()
     {
         bool allReturned = true;
@@ -39,7 +51,7 @@ public class BallEQ_MultiMB : BallEquipMB
     {
         foreach (BallThrowMB ball in balls)
         {
-            ball.SpinBall(dt, player);
+            ball.SpinBall(dt, player, this);
         }
     }
 
@@ -53,12 +65,12 @@ public class BallEQ_MultiMB : BallEquipMB
         {
             foreach (BallThrowMB ball in balls)
             {
-                if (ball.state == BallThrowMB.BallState.external &&
+                if (ball.state == BallThrowMB.BallState.spin &&
                     ball.ThrowAngleCorrect(targetPos, throwAngleWiggle, aimTypeDirect))
                 {
                     ball.InitThrow(targetPos, aimTypeDirect);
                 }
-                else if (ball.state == BallThrowMB.BallState.external) ball.SpinBall(dt, player);
+                else if (ball.state == BallThrowMB.BallState.spin) ball.SpinBall(dt, player, this);
             }
         }
     }
@@ -91,12 +103,12 @@ public class BallEQ_MultiMB : BallEquipMB
         float spinSpdAvg = 0f;
         foreach (BallThrowMB ball in balls)
         {
-            spinSpdAvg += ball.GetConservedSpinSpd(player);
+            spinSpdAvg += ball.GetConservedSpinSpd(player, this);
         }
         spinSpdAvg /= balls.Count;
         foreach (BallThrowMB ball in balls)
         {
-            ball.InitSpin(spinSpdAvg, player);
+            ball.InitSpin(spinSpdAvg, player, this);
         }
     }
 
@@ -160,33 +172,6 @@ public class BallEQ_MultiMB : BallEquipMB
 
     }
 
-    public override void OnBallCollision(BallThrowMB ballRef, Collider2D collider)
-    {
-        string tag = collider.gameObject.tag;
-        if (tag == "Enemy")
-        {
-            Enemymovement enemymovement = collider.gameObject.GetComponent<Enemymovement>();
-            switch (ballRef.state)
-            {
-                case BallThrowMB.BallState.normal:
-                case BallThrowMB.BallState.thrown:
-                    var velocity = ballRef.thisRigidbody.velocity;
-                    ballRef.thisRigidbody.velocity = velocity * CalcSloSpdMult(enemymovement);
-                    break;
-                case BallThrowMB.BallState.external:
-                    // split slowing among all balls
-                    float groupSlowFactor = 1.0f - ((1.0f - CalcSloSpdMult(enemymovement)) / balls.Count);
-                    foreach (BallThrowMB ball in balls)
-                    {
-                        ball.InitSpin(ballRef.spinSpd * groupSlowFactor, player);
-                    }
-                    break;
-            }
-            float damage = CalcDamage(ballRef);
-            enemymovement.CollisionWithBall(ballRef, damage);
-        }
-    }
-
     public override bool IsStuck()
     {
         foreach (BallThrowMB ball in balls)
@@ -194,5 +179,26 @@ public class BallEQ_MultiMB : BallEquipMB
             if (ball.isStuck) return true;
         }
         return false;
+    }
+
+    public override float CalcSlowSpdMult(Enemymovement enemy)
+    {
+        float baseSlow = base.CalcSlowSpdMult(enemy);
+        // split slowing among all balls
+        return 1.0f - ((1.0f - baseSlow) / balls.Count);
+    }
+
+    public override void SlowBalls(float slowFactor)
+    {
+        float spinSpdAvg = 0f;
+        foreach (BallThrowMB ball in balls)
+        {
+            spinSpdAvg += ball.GetConservedSpinSpd(player, this);
+        }
+        spinSpdAvg /= balls.Count;
+        foreach (BallThrowMB ball in balls)
+        {
+            ball.InitSpin(spinSpdAvg * slowFactor, player, this);
+        }
     }
 }

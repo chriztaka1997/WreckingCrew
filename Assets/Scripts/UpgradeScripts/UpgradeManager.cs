@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 public class UpgradeManager
 {
@@ -35,5 +39,20 @@ public class UpgradeManager
     public void ClearUpgrades()
     {
         upgrades.Clear();
+    }
+
+    public void RemoveOtherBallEQ(BallEQ_Upgrade thisBallEQ)
+    {
+        upgrades.RemoveAll(upd => Regex.IsMatch(upd.name, BallEQ_Upgrade.prefix) && upd != thisBallEQ);
+    }
+
+    public string UpgradeStringListJson()
+    {
+        List<string> strings = new List<string>();
+        foreach (Upgrade u in upgrades)
+        {
+            strings.Add(u.name);
+        }
+        return JsonConvert.SerializeObject(strings);
     }
 }

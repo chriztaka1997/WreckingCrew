@@ -100,20 +100,10 @@ public class LevelManagerMB : MonoBehaviour
         }
     }
 
-    public PlayerMB PlacePlayerPF(GameObject playerPF)
-    {
-        string name = string.Format("PlayerUnit");
-        GameObject go = Instantiate(playerPF);
-        go.name = name;
-        go.transform.position = Vector3.zero;
-        PlayerMB player = go.GetComponentInChildren<PlayerMB>();
-        PlacePlayer(player);
-        return player;
-    }
-
     public void PlacePlayer(PlayerMB player)
     {
         player.transform.position = level.WorldLocation(playerSpawnCoords);
+        player.ballEquip?.ResetPos();
     }
 
     public void ResetLevel()
