@@ -12,7 +12,7 @@ public class Enemymovement : MonoBehaviour
     public float maxHP;
     public float attack;
     public float weight;
-    public float fixedDamage= 5; //Fixed enemy collision damage
+    public float fixedDamage = 5; //Fixed enemy collision damage
 
     public HP_BarMB hpBar;
     public States currentState;
@@ -26,6 +26,18 @@ public class Enemymovement : MonoBehaviour
     private Vector2 movement;
     private Vector3 lastFrameVelocity; //use for recoil movement
 
+
+    //This is to send to the analytics
+    public Dictionary<string, object> collisionAnalytics = new Dictionary<string, object>
+    {
+        {"Stage", 1 },{"BallSpin",0},{"BallThrow",0},{"BallFree",0},
+        {"EnemyRecoil",0},{"EnemyDead",0}
+    };
+    public Dictionary<string, object> killedAnalytics = new Dictionary<string, object>
+    {
+        {"Stage", 1 },{"BallSpin",0},{"BallThrow",0},{"BallFree",0},
+        {"EnemyRecoil",0},{"EnemyDead",0}
+    };
     public enum States
     {
         normal,
@@ -48,8 +60,8 @@ public class Enemymovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
+
+
     }
 
     private void OnDestroy()
@@ -61,7 +73,7 @@ public class Enemymovement : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 direction;
-        if ((Time.time - hitTime >= turnBack)&&(currentState ==States.recoil))
+        if ((Time.time - hitTime >= turnBack) && (currentState == States.recoil))
         {
             currentState = States.normal;
             rb.velocity = lastFrameVelocity;
@@ -109,7 +121,7 @@ public class Enemymovement : MonoBehaviour
                     (direction * moveSpeed * Time.deltaTime));
                 break;
         }
-       
+
     }
 
     public void SetHP(float hp)
@@ -135,25 +147,65 @@ public class Enemymovement : MonoBehaviour
         lastFrameVelocity = rb.velocity;
 
         //Track enemy collision with ball
-        AnalyticsResult analyticsResult = Analytics.CustomEvent("Collision", new Dictionary<string, object>
-                    {
-                        { "Stage", 1},
-                        { "Collided with", "Ball"},
-                        {"State collider", playerObject.actionState}
-                    });
-        Debug.Log("Collision with ball Result: " + analyticsResult);
+        switch (playerObject.actionState)
+        {
+            case PlayerMB.ActionState.normal:
+                collisionAnalytics["BallFree"] = (int)collisionAnalytics["BallFree"] + 1;
+                break;
+            case PlayerMB.ActionState.moveSpin:
+                collisionAnalytics["BallSpin"] = (int)collisionAnalytics["BallSpin"] + 1;
+                break;
+            case PlayerMB.ActionState.throwCharge:
+                collisionAnalytics["BallSpin"] = (int)collisionAnalytics["BallSpin"] + 1;
+                break;
+            case PlayerMB.ActionState.throwPreRelease:
+                collisionAnalytics["BallSpin"] = (int)collisionAnalytics["BallSpin"] + 1;
+                break;
+            case PlayerMB.ActionState.thrown:
+                collisionAnalytics["BallThrow"] = (int)collisionAnalytics["BallThrow"] + 1;
+                break;
+            case PlayerMB.ActionState.returning:
+                collisionAnalytics["BallFree"] = (int)collisionAnalytics["BallFree"] + 1;
+                break;
+            case PlayerMB.ActionState.iframes:
+                collisionAnalytics["BallFree"] = (int)collisionAnalytics["BallFree"] + 1;
+                break;
+            case PlayerMB.ActionState.knockback:
+                collisionAnalytics["BallFree"] = (int)collisionAnalytics["BallFree"] + 1;
+                break;
+        }
 
         if (currentHP <= 0)
         {
-            
+
             //Track the number of dead enemy based on the attack of the player
-            AnalyticsResult killAnalytics = Analytics.CustomEvent("Enemy killed", new Dictionary<string, object>
-                    {
-                        { "Stage", 1},
-                        { "Collided with", "Ball"},
-                        {"State collider", playerObject.actionState}
-                    });
-            Debug.Log("Enemy killed Result: " + killAnalytics);
+            switch (playerObject.actionState)
+            {
+                case PlayerMB.ActionState.normal:
+                    killedAnalytics["BallFree"] = (int)killedAnalytics["BallFree"] + 1;
+                    break;
+                case PlayerMB.ActionState.moveSpin:
+                    killedAnalytics["BallSpin"] = (int)killedAnalytics["BallSpin"] + 1;
+                    break;
+                case PlayerMB.ActionState.throwCharge:
+                    killedAnalytics["BallSpin"] = (int)killedAnalytics["BallSpin"] + 1;
+                    break;
+                case PlayerMB.ActionState.throwPreRelease:
+                    killedAnalytics["BallSpin"] = (int)killedAnalytics["BallSpin"] + 1;
+                    break;
+                case PlayerMB.ActionState.thrown:
+                    killedAnalytics["BallThrow"] = (int)killedAnalytics["BallThrow"] + 1;
+                    break;
+                case PlayerMB.ActionState.returning:
+                    killedAnalytics["BallFree"] = (int)killedAnalytics["BallFree"] + 1;
+                    break;
+                case PlayerMB.ActionState.iframes:
+                    killedAnalytics["BallFree"] = (int)killedAnalytics["BallFree"] + 1;
+                    break;
+                case PlayerMB.ActionState.knockback:
+                    killedAnalytics["BallFree"] = (int)killedAnalytics["BallFree"] + 1;
+                    break;
+            }
 
 
             currentState = States.dead;
@@ -163,7 +215,7 @@ public class Enemymovement : MonoBehaviour
         }
         else
         {
-            
+
 
             hitTime = Time.time;
             lastFrameVelocity = rb.velocity;
@@ -178,23 +230,25 @@ public class Enemymovement : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collision)
     {
         Enemymovement collider = collision.gameObject.GetComponent<Enemymovement>();
-        if ((collision.gameObject.tag == "Enemy")&&(collider.currentState == States.recoil || collider.currentState == States.dead))
+        if ((collision.gameObject.tag == "Enemy") && (collider.currentState == States.recoil || collider.currentState == States.dead))
         {
-            AnalyticsResult analyticsResult = Analytics.CustomEvent("Collision", new Dictionary<string, object>
-                    {
-                        { "Stage", 1},
-                        { "Collided with", "Enemy"},
-                        { "State collider", collider.currentState},
-                        { "This enemy state", currentState}
-                    });
-            Debug.Log("Collision with enemy Result: " + analyticsResult);
+            //This is for ana
+            switch (collider.currentState)
+            {
+                case States.recoil:
+                    collisionAnalytics["EnemyRecoil"] = (int)collisionAnalytics["EnemyRecoil"]+1;
+                    break;
+                case States.dead:
+                    collisionAnalytics["EnemyDead"] = (int)collisionAnalytics["EnemyDead"] + 1;
+                    break;
+            }
             switch (currentState)
             {
                 case States.dead:
                     break;
 
                 case States.normal:
-                    
+
 
                     // Collision with recoil or dead enemy will effect the hp
                     //check if the enemy hp is 0 or below zero 
@@ -205,14 +259,15 @@ public class Enemymovement : MonoBehaviour
                     {
 
                         //Track the number of dead enemy based on the attack of the player
-                        AnalyticsResult killAnalytics = Analytics.CustomEvent("Enemy killed", new Dictionary<string, object>
+                        switch (collider.currentState)
                         {
-                            { "Stage", 1},
-                            { "Collided with", "Enemy"},
-                            {"State collider", collider.currentState},
-                            { "This enemy state", currentState}
-                        });
-                        Debug.Log("Enemy killed by ricochet Result: " + killAnalytics);
+                            case States.recoil:
+                                killedAnalytics["EnemyRecoil"] = (int)killedAnalytics["EnemyRecoil"] + 1;
+                                break;
+                            case States.dead:
+                                killedAnalytics["EnemyDead"] = (int)killedAnalytics["EnemyDead"] + 1;
+                                break;
+                        }
 
 
                         currentState = States.dead;
@@ -227,7 +282,7 @@ public class Enemymovement : MonoBehaviour
                         rb.velocity = collision.relativeVelocity;
                         currentState = States.recoil;
                     }
-                    
+
                     break;
 
                 case States.recoil:
@@ -237,14 +292,16 @@ public class Enemymovement : MonoBehaviour
                     {
 
                         //Track the number of dead enemy based on the attack of the player
-                        AnalyticsResult killAnalytics = Analytics.CustomEvent("Enemy killed", new Dictionary<string, object>
+                        switch (collider.currentState)
                         {
-                            { "Stage", 1},
-                            { "Collided with", "Enemy"},
-                            {"State collider", collider.currentState},
-                            { "This enemy state", currentState}
-                        });
-                        Debug.Log("Enemy killed by ricochet Result: " + killAnalytics);
+                            case States.recoil:
+                                killedAnalytics["EnemyRecoil"] = (int)killedAnalytics["EnemyRecoil"] + 1;
+                                break;
+                            case States.dead:
+                                killedAnalytics["EnemyDead"] = (int)killedAnalytics["EnemyDead"] + 1;
+                                break;
+                        }
+
 
 
                         currentState = States.dead;
@@ -264,6 +321,4 @@ public class Enemymovement : MonoBehaviour
             }
         }
     }
-
-
 }
