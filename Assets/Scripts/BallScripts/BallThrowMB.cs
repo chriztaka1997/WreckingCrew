@@ -97,7 +97,7 @@ public class BallThrowMB : BallMB
         if (tanSpd > player.stats.maxSpinSpd) tanSpd = player.stats.maxSpinSpd;
         if (spinCcwAmount < 0) tanSpd *= -1;
 
-        AnalyticsManager.SpinStartAnalytics(tanSpd);
+        AnalyticsManagerMB.SpinStartAnalytics(tanSpd);
 
         return tanSpd;
     }
@@ -130,7 +130,7 @@ public class BallThrowMB : BallMB
         thisRigidbody.velocity = throwVec;
 
 
-        AnalyticsManager.ThrowAnalytics(spinSpd);
+        AnalyticsManagerMB.ThrowAnalytics(spinSpd);
     }
 
     public void InitThrowTangent()

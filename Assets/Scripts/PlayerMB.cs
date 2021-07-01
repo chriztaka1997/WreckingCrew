@@ -155,7 +155,7 @@ public class PlayerMB : MonoBehaviour
 
     public void ChangeActionState(ActionState newState)
     {
-        AnalyticsManager.PlayerStateChangeAnalytics(actionState, (float)(DateTime.Now - actionStateChangeTime).TotalSeconds);
+        AnalyticsManagerMB.PlayerStateChangeAnalytics(actionState, (float)(DateTime.Now - actionStateChangeTime).TotalSeconds);
 
         actionState = newState;
         actionStateChangeTime = DateTime.Now;
