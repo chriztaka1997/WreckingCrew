@@ -56,30 +56,13 @@ public class BallEQ_SingleMB : BallEquipMB
         return ball.ThrowAngleCorrect(targetPos, throwAngleWiggle, aimTypeDirect);
     }
 
-    public override void OnBallCollision(BallThrowMB ballRef, Collider2D collider)
-    {
-        string tag = collider.gameObject.tag;
-        if (tag == "Enemy")
-        {
-            Enemymovement enemymovement = collider.gameObject.GetComponent<Enemymovement>();
-            switch (ballRef.state)
-            {
-                case BallThrowMB.BallState.normal:
-                case BallThrowMB.BallState.thrown:
-                    var velocity = ballRef.thisRigidbody.velocity;
-                    ballRef.thisRigidbody.velocity = velocity * CalcSloSpdMult(enemymovement);
-                    break;
-                case BallThrowMB.BallState.external:
-                    ballRef.InitSpin(ballRef.spinSpd * CalcSloSpdMult(enemymovement), player);
-                    break;
-            }
-            float damage = CalcDamage(ballRef);
-            enemymovement.CollisionWithBall(ballRef, damage);
-        }
-    }
-
     public override bool IsStuck()
     {
         return ball.isStuck;
+    }
+
+    public override void SlowBalls(float slowFactor)
+    {
+        ball.InitSpin(ball.spinSpd * slowFactor, player);
     }
 }

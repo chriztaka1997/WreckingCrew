@@ -110,6 +110,12 @@ MonoBehaviour:
       baseStat: 20
     precision:
       baseStat: 1
+    spinDmg:
+      baseStat: 0.75
+    throwDmg:
+      baseStat: 1.5
+    swingDmg:
+      baseStat: 1
     movSpd:
       baseStat: 5
     dodge:
