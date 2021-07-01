@@ -354,7 +354,7 @@ public class PlayerMB : MonoBehaviour
                 ballEquip.InitNormal();
                 effectManager.ChangeState(PlayerEffectManagerMB.State.damaged);
 
-                float damageTaken = 40.0f; // Set from enemy later
+                float damageTaken = enemy.attack;
                 AlterHP(-damageTaken);
 
                 CheckDeath();
