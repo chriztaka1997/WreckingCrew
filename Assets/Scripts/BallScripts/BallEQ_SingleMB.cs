@@ -19,6 +19,13 @@ public class BallEQ_SingleMB : BallEquipMB
         ball.SetAnchor(player.gameObject);
     }
 
+    public override void ResetPos()
+    {
+        Vector3 pos = player.transform.position + new Vector3(ball.chainLengthSet, 0, 0);
+        pos.z = ball.fixedZ;
+        ball.transform.position = pos;
+    }
+
     public override bool AllReturned()
     {
         return ball.IsReturnedDistance();

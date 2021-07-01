@@ -14,11 +14,15 @@ public abstract class BallEquipMB : MonoBehaviour
     public virtual void SetEquip(PlayerMB player)
     {
         this.player = player;
+        ResetState();
+        ResetPos();
     }
 
     public abstract void SetState(BallThrowMB.BallState ballState);
 
     public virtual void ResetState() => SetState(BallThrowMB.BallState.normal);
+
+    public abstract void ResetPos();
 
     public abstract bool ThrowAngleCorrect();
 

@@ -25,6 +25,19 @@ public class BallEQ_MultiMB : BallEquipMB
         }
     }
 
+    public override void ResetPos()
+    {
+        for (int i = 0; i < balls.Count; i++)
+        {
+            BallThrowMB ball = balls[i];
+            float angle = i * 360.0f / balls.Count;
+
+            Vector3 pos = player.transform.position + (Quaternion.Euler(0, 0, angle) * Vector3.up * ball.chainLengthSet);
+            pos.z = ball.fixedZ;
+            ball.transform.position = pos;
+        }
+    }
+
     public override bool AllReturned()
     {
         bool allReturned = true;
