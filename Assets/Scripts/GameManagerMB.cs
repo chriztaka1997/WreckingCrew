@@ -12,6 +12,8 @@ public class GameManagerMB : MonoBehaviour
 {
     public static GameManagerMB instance;
 
+    public bool tryLoadEditorLevel;
+
     public GameState gameState;
 
     public UI_ManagerMB uiMngr;
@@ -57,6 +59,13 @@ public class GameManagerMB : MonoBehaviour
         stageData = StagePaletteMB.instance.GetStageData(startingStage);
         stageData.RandomSelect();
         ReloadStageData();
+
+#if UNITY_EDITOR
+        if (LevelEditorMB.instance.json.Length != 0 && tryLoadEditorLevel)
+        {
+            SetLevel(LevelData.Deserialize(LevelEditorMB.instance.json));
+        }
+#endif
 
         levelMngr.PlacePlayer(player);
     }
