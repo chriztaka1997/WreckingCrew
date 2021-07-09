@@ -139,7 +139,7 @@ MonoBehaviour:
   maxHP: 75
   attack: 150
   weight: 5
-  fixedDamage: 5
+  droppingRate: 0.8
   hpBar: {fileID: 5242983403088391170}
   currentState: 0
   turnBack: 0.75
