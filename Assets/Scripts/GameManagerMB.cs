@@ -12,6 +12,8 @@ public class GameManagerMB : MonoBehaviour
 {
     public static GameManagerMB instance;
 
+    public bool tryLoadEditorLevel;
+
     public GameState gameState;
 
     public UI_ManagerMB uiMngr;
@@ -58,6 +60,13 @@ public class GameManagerMB : MonoBehaviour
         stageData.RandomSelect();
         ReloadStageData();
 
+#if UNITY_EDITOR
+        if (LevelEditorMB.instance.json.Length != 0 && tryLoadEditorLevel)
+        {
+            SetLevel(LevelData.Deserialize(LevelEditorMB.instance.json));
+        }
+#endif
+
         levelMngr.PlacePlayer(player);
     }
 
@@ -71,34 +80,35 @@ public class GameManagerMB : MonoBehaviour
 
     public void KbdDebugCommands()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            player.SetEquipBall("BallEQ_Single");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            player.SetEquipBall("BallEQ_TripleSpread");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            player.SetEquipBall("BallEQ_TripleRapid");
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    player.SetEquipBall("BallEQ_Single");
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    player.SetEquipBall("BallEQ_TripleSpread");
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    player.SetEquipBall("BallEQ_TripleRapid");
+        //}
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene("Game");
         }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            PrepNextWave();
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            PrepNextStage();
-        }
+        //if (Input.GetKeyDown(KeyCode.N))
+        //{
+        //    PrepNextWave();
+        //}
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    PrepNextStage();
+        //}
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             enemyspawn.AbortWave();
             ChangeState(GameState.preupgrade);
+            AnalyticsManagerMB.IgnoreNextWaveAnalytics();
         }
     }
 

@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Newtonsoft.Json;
+using System;
 
 public class LevelEditorMB : MonoBehaviour
 {
+    public static LevelEditorMB instance { get; private set; }
     public GameManagerMB gameManager;
     public LevelData level;
 
@@ -18,13 +21,28 @@ public class LevelEditorMB : MonoBehaviour
 
     [TextArea]
     public string json;
-    private string internalJson;
+    [SerializeField]
+    [HideInInspector]
+    public string internalJson;
+
+    [TextArea]
+    public string sheetsImportJson;
 
     public EditorLabelMB editorLabelPF;
     public GameObject labelsObject;
 
     public Color EnemySpawnColor;
     public Color PlayerSpawnColor;
+
+    public void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        instance = this;
+        CleanScene();
+    }
 
 
     public void ResetLevel()
@@ -37,6 +55,15 @@ public class LevelEditorMB : MonoBehaviour
         gameManager.levelMngr.SetLevel(level);
         AddLabels();
         SerializeInternal();
+    }
+
+    public void DeserializeSheetsJson()
+    {
+        LevelTile[,] tiles = JsonConvert.DeserializeObject<LevelTile[,]>(sheetsImportJson, new SheetsLevelTileConverter());
+        Vector2 anchor = center - new Vector2(width * tileSize / 2, height * tileSize / 2) + new Vector2(tileSize / 2, tileSize / 2);
+        level = new LevelData(tiles, tileSize, anchor);
+
+        ResetLevel();
     }
 
     public void SerializeInternal()
@@ -121,14 +148,18 @@ public class LevelEditorMB : MonoBehaviour
 
     public void PrintJson()
     {
-        DeserializeInteral();
+        level = LevelData.Deserialize(internalJson);
+        if (level == null)
+        {
+            MakeNewLevel();
+        }
         json = level.ToJsonString();
     }
 
     public void CleanScene()
     {
-        Utils.TryDestroy(gameManager.levelMngr?.gameObject);
-        Utils.TryDestroy(gameManager.player?.gameObject);
+        if (gameManager.levelMngr != null)
+            Utils.TryDestroy(gameManager.levelMngr.gameObject);
         Utils.TryDestroy(labelsObject);
     }
 
@@ -176,6 +207,25 @@ public class LevelEditorMB : MonoBehaviour
                 }
             }
         }
+    }
+}
+
+public class SheetsLevelTileConverter : JsonConverter<LevelTile>
+{
+    public override void WriteJson(JsonWriter writer, LevelTile value, JsonSerializer serializer)
+    {
+        writer.WriteValue(value.ToString());
+    }
+
+    public override LevelTile ReadJson(JsonReader reader, Type objectType, LevelTile existingValue, bool hasExistingValue, JsonSerializer serializer)
+    {
+        string s = (string)reader.Value;
+        TileType tt;
+        if (!Enum.TryParse(s, out tt))
+        {
+            tt = TileType.empty;
+        }
+        return new LevelTile(tt);
     }
 }
 
@@ -230,6 +280,11 @@ public class LevelEditorMB_Editor : Editor
         if (GUILayout.Button("Change Tile Size"))
         {
             targetRef.ChangeTileSize();
+        }
+
+        if (GUILayout.Button("Load From Google Sheets Json"))
+        {
+            targetRef.DeserializeSheetsJson();
         }
 
         if (GUILayout.Button("Deserialize Json"))

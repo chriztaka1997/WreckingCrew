@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8024e36b9127e4cb3b86edcfe5de8737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tryLoadEditorLevel: 0
   gameState: 0
   uiMngr: {fileID: 701734277}
   enemyspawn: {fileID: 1108518240}
@@ -324,6 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a100d32ec2624940a563d503a540af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ignoreNextWaveData: 0
   enemiesProcessed: 0
 --- !u!1 &1108518239
 GameObject:
@@ -563,14 +565,56 @@ MonoBehaviour:
   gameManager: {fileID: 1052180517}
   level:
     levelScale: 1
-    anchor: {x: -7, y: -12}
+    anchor: {x: -1, y: -1}
   tileToAdd:
     tileType: 4
   tileSize: 1
   center: {x: 0, y: 0}
-  width: 15
-  height: 25
-  json: '{"tiles":[[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":4},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}]],"levelScale":1.0,"anchor":{"x":-7.0,"y":-12.0,"normalized":{"x":-0.503871,"y":-0.863778949,"magnitude":1.0,"sqrMagnitude":1.00000012},"magnitude":13.8924437,"sqrMagnitude":193.0},"width":15,"height":25}'
+  width: 3
+  height: 3
+  json: 
+  internalJson: '{"tiles":[[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":4},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}]],"levelScale":1.0,"anchor":{"x":-1.0,"y":-1.0,"normalized":{"x":-0.707106769,"y":-0.707106769,"magnitude":1.0,"sqrMagnitude":0.99999994},"magnitude":1.41421354,"sqrMagnitude":2.0},"width":19,"height":19}'
+  sheetsImportJson: '[
+
+    ["empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty"],
+
+    ["empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty"],
+
+    ["empty","empty","enemySpawn","empty","empty","breakWall","empty","empty","empty","empty","empty","empty","empty","breakWall","empty","empty","enemySpawn","empty","empty"],
+
+    ["empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty"],
+
+    ["empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty"],
+
+    ["breakWall","breakWall","breakWall","breakWall","empty","empty","empty","breakWall","breakWall","breakWall","breakWall","breakWall","empty","empty","empty","breakWall","breakWall","breakWall","breakWall"],
+
+    ["empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty"],
+
+    ["empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty"],
+
+    ["empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty"],
+
+    ["empty","empty","empty","empty","empty","breakWall","empty","empty","empty","playerSpawn","empty","empty","empty","breakWall","empty","empty","empty","empty","empty"],
+
+    ["empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty"],
+
+    ["empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty"],
+
+    ["empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty"],
+
+    ["breakWall","breakWall","breakWall","breakWall","empty","empty","empty","breakWall","breakWall","breakWall","breakWall","breakWall","empty","empty","empty","breakWall","breakWall","breakWall","breakWall"],
+
+    ["empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty","empty"],
+
+    ["empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty"],
+
+    ["empty","empty","enemySpawn","empty","empty","breakWall","empty","empty","empty","empty","empty","empty","empty","breakWall","empty","empty","enemySpawn","empty","empty"],
+
+    ["empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty"],
+
+    ["empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty","empty","empty","breakWall","empty","empty","empty","empty","empty"]
+
+    ]'
   editorLabelPF: {fileID: 2100363615318133126, guid: ad4ba2a5dd6104bfea345a02c6373126, type: 3}
   labelsObject: {fileID: 0}
   EnemySpawnColor: {r: 0.5, g: 0, b: 0, a: 1}
@@ -701,6 +745,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1052180517}
+    - target: {fileID: 6332983910535098420, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332983910535098420, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6332983911013427850, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
       propertyPath: gameMngr
       value: 
@@ -850,9 +902,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836905, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: jsonPairs.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836905, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: jsonPairs.Array.data[5].json
+      value: '{"tiles":[[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":4},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}]],"levelScale":1.0,"anchor":{"x":-1.0,"y":-1.0,"normalized":{"x":-0.707106769,"y":-0.707106769,"magnitude":1.0,"sqrMagnitude":0.99999994},"magnitude":1.41421354,"sqrMagnitude":2.0},"width":19,"height":19}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836905, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: jsonPairs.Array.data[5].name
+      value: grid_no_int
+      objectReference: {fileID: 0}
     - target: {fileID: 7002203067344836906, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
       propertyPath: m_Name
       value: Palette
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[0].data.levelNames.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[0].data.levelNames.Array.data[3]
+      value: grid_no_int
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
