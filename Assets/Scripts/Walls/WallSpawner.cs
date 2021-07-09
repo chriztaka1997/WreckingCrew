@@ -22,4 +22,13 @@ public static class WallSpawner
         wall.transform.localScale = new Vector3(length, width, 1.0f);
         return wall;
     }
+
+    public static GameObject SpawnWater(Vector2 pos, float length, float width, Transform parent = null)
+    {
+        GameObject wallPrefab = Resources.Load("WaterHazard") as GameObject;
+        GameObject wall = (parent == null) ? GameObject.Instantiate(wallPrefab) : GameObject.Instantiate(wallPrefab, parent);
+        wall.transform.position = new Vector3(pos.x, pos.y, 0);
+        wall.transform.localScale = new Vector3(length, width, 1.0f);
+        return wall;
+    }
 }

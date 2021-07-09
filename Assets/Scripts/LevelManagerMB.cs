@@ -87,6 +87,15 @@ public class LevelManagerMB : MonoBehaviour
                             wallsBreak.Add(go);
                         }
                         break;
+                    case TileType.waterHazard:
+                        {
+                            string name = string.Format("Water Hazard: ({0}, {1})", ix, iy);
+                            GameObject go = WallSpawner.SpawnWater(level.WorldLocation(ix, iy), level.levelScale, level.levelScale, wallBreakHolder.transform).gameObject;
+                            go.name = name;
+                            go.transform.position = level.WorldLocation(ix, iy);
+                            wallsBreak.Add(go);
+                        }
+                        break;
                     case TileType.enemySpawn:
                         enemySpawnCoords.Add(new Vector2Int(ix, iy));
                         break;

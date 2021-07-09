@@ -114,4 +114,5 @@ public enum TileType
     breakWall,
     enemySpawn,
     playerSpawn,
+    waterHazard,
 }
