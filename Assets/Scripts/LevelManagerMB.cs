@@ -17,6 +17,9 @@ public class LevelManagerMB : MonoBehaviour
     public List<GameObject> wallsBreak;
     private GameObject wallSolidHolder, wallBreakHolder;
 
+    private LevelAnalysis.Graph la_graph;
+    public List<TileType> traversable;
+
     [TextArea]
     public string jsonString;
 
@@ -115,6 +118,8 @@ public class LevelManagerMB : MonoBehaviour
                 }
             }
         }
+
+        OnTileChange();
     }
 
     public void PlacePlayer(PlayerMB player)
@@ -148,6 +153,6 @@ public class LevelManagerMB : MonoBehaviour
 
     public void OnTileChange()
     {
-        // update the grid and stuff
+        la_graph = new LevelAnalysis.Graph(currentTiles, traversable);
     }
 }
