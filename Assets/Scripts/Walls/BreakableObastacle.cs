@@ -8,6 +8,8 @@ public class BreakableObastacle : MonoBehaviour
     public GameObject m;
     private int hitPoint = 3;//After hitPoint tims collision with the ball, the obstacle will be destroied.
     private float collisionVelocityThreshold = 5.0f;
+    public Action doOnBroken;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +27,10 @@ public class BreakableObastacle : MonoBehaviour
         {
             hitPoint--;
             if (hitPoint == 0)
-                Destroy(this.gameObject);
+            {
+                doOnBroken?.Invoke();
+                Destroy(gameObject);
+            }
             else if (hitPoint == 1)
                 this.gameObject.GetComponent<Renderer>().material.color = Color.red;
             else if (hitPoint == 2)

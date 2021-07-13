@@ -8,6 +8,7 @@ public class LevelManagerMB : MonoBehaviour
     public BorderMB borderPF;
     private BorderMB border;
     public LevelData level;
+    public LevelTile[,] currentTiles;
 
     public List<Vector2Int> enemySpawnCoords;
     public Vector2Int playerSpawnCoords;
@@ -15,6 +16,9 @@ public class LevelManagerMB : MonoBehaviour
     public List<GameObject> wallsSolid;
     public List<GameObject> wallsBreak;
     private GameObject wallSolidHolder, wallBreakHolder;
+
+    public LevelAnalysis.Graph la_graph { get; private set; }
+    public List<TileType> traversable;
 
     [TextArea]
     public string jsonString;
@@ -45,6 +49,7 @@ public class LevelManagerMB : MonoBehaviour
     {
         ResetLevel();
 
+
         Utils.TryDestroy(wallSolidHolder);
         wallSolidHolder = new GameObject("WallSolidHolder");
         wallSolidHolder.transform.position = Vector3.zero;
@@ -62,10 +67,13 @@ public class LevelManagerMB : MonoBehaviour
 
         enemySpawnCoords.Clear();
 
+        currentTiles = (LevelTile[,])level.tiles.Clone();
+
         for (int ix = 0; ix < level.width; ix++)
         {
             for (int iy = 0; iy < level.height; iy++)
             {
+                currentTiles[ix, iy] = new LevelTile(level.tiles[ix, iy]);
                 switch (level.tiles[ix, iy].tileType)
                 {
                     case TileType.empty:
@@ -81,9 +89,12 @@ public class LevelManagerMB : MonoBehaviour
                     case TileType.breakWall:
                         {
                             string name = string.Format("Wall Break: ({0}, {1})", ix, iy);
-                            GameObject go = WallSpawner.SpawnObstacle(level.WorldLocation(ix, iy), level.levelScale, level.levelScale, wallBreakHolder.transform).gameObject;
+                            BreakableObastacle wall = WallSpawner.SpawnObstacle(level.WorldLocation(ix, iy), level.levelScale, level.levelScale, wallBreakHolder.transform);
+                            GameObject go = wall.gameObject;
                             go.name = name;
                             go.transform.position = level.WorldLocation(ix, iy);
+                            int _ix = ix, _iy = iy; // because c# is a janky language
+                            wall.doOnBroken += () => OnWallBreak(_ix, _iy);
                             wallsBreak.Add(go);
                         }
                         break;
@@ -107,6 +118,8 @@ public class LevelManagerMB : MonoBehaviour
                 }
             }
         }
+
+        OnTileChange();
     }
 
     public void PlacePlayer(PlayerMB player)
@@ -127,5 +140,19 @@ public class LevelManagerMB : MonoBehaviour
             Utils.TryDestroy(g);
         }
         wallsBreak.Clear();
+    }
+
+    public void OnWallBreak(int x, int y)
+    {
+        if (currentTiles[x, y].tileType == TileType.breakWall)
+        {
+            currentTiles[x, y].tileType = TileType.empty;
+            OnTileChange();
+        }
+    }
+
+    public void OnTileChange()
+    {
+        la_graph = new LevelAnalysis.Graph(currentTiles, traversable);
     }
 }
