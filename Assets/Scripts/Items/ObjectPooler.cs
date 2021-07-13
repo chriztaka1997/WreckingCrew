@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class ObjectPoolItem
@@ -17,7 +18,8 @@ public class ObjectPooler : MonoBehaviour
 {
 
     public static ObjectPooler SharedInstance;
-    public static int currentCoin;
+    private int currentCoin;
+    public Text coinText;
     public List<ObjectPoolItem> itemsToPool;
     public List<GameObject> pooledObjects;
 
@@ -42,6 +44,7 @@ public class ObjectPooler : MonoBehaviour
                 pooledObjects.Add(obj);
             }
         }
+        UpdateCoin(0);
     }
 
 
@@ -112,5 +115,11 @@ public class ObjectPooler : MonoBehaviour
         r = Random.Range(0f, 1f);
         if (r >= dropingRate)
             SharedInstance.SpawnHealthPotion(enemyLocation);
+    }
+
+    public void UpdateCoin(int coin)
+    {
+        currentCoin += coin;
+        coinText.text = currentCoin.ToString();
     }
 }

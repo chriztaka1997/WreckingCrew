@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Coin : GenericItems
 {
@@ -20,6 +21,6 @@ public class Coin : GenericItems
     protected override void ItemTriggerEvent(Collider2D collision)
     {
         base.ItemTriggerEvent(collision);
-        ObjectPooler.currentCoin += value;
+        ObjectPooler.SharedInstance.UpdateCoin(value);
     }
 }
