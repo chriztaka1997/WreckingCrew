@@ -15,6 +15,8 @@ public class Pathfinder
     public Queue<Vector2Int> nextMoves;
     public Vector2Int nextMove;
 
+    public Vector2Int targetLastPos;
+
     public Pathfinder(GameObject source, GameObject target, float radius)
     {
         this.source = source;
@@ -24,6 +26,7 @@ public class Pathfinder
         parentMap = null;
         nextMoves = new Queue<Vector2Int>();
         nextMove = new Vector2Int(-1, -1); // force update when chekced
+        targetLastPos = new Vector2Int(-1, -1); // force update when chekced
     }
 
     public bool CanSeeTarget()
@@ -69,31 +72,30 @@ public class Pathfinder
             Debug.Log("Source position not found in grid");
             return Vector2.zero;
         }
-
         Vector2Int currentPos = new Vector2Int(x, y);
 
-        if (nextMoves.Count == 0 || (currentPos - nextMove).magnitude > 1.1f)
+        (int tx, int ty) = levelMngr.level.GridLocation(target.transform.position) ?? (-1, -1);
+        if (tx < 0 || ty < 0)
         {
-            (int tx, int ty) = levelMngr.level.GridLocation(target.transform.position) ?? (-1, -1);
-            if (tx < 0 || ty < 0)
-            {
-                Debug.Log("Target position not found in grid");
-                return Vector2.zero;
-            }
+            Debug.Log("Target position not found in grid");
+            return Vector2.zero;
+        }
+        Vector2Int targetPos = new Vector2Int(tx, ty);
+
+        if (nextMoves.Count == 0 || (currentPos - nextMove).magnitude > 1.1f || targetPos != targetLastPos)
+        {
             nextMoves.Clear();
             foreach (Vector2Int v in LevelAnalysis.PathToPlayer(levelMngr.la_graph, new LevelAnalysis.Node(x, y), new LevelAnalysis.Node(tx, ty)) ?? new List<Vector2Int>())
             {
                 nextMoves.Enqueue(v);
             }
             if (nextMoves.Count != 0) nextMove = nextMoves.Dequeue();
-            Debug.Log("newpath");
+            targetLastPos = targetPos;
         }
 
         if (currentPos == nextMove)
         {
             if (nextMoves.Count != 0) nextMove = nextMoves.Dequeue();
-            Debug.Log("moved");
-            Debug.Log(string.Format("{0}, {1}", currentPos, nextMove));
         }
         if (nextMoves.Count == 0) return Vector2.zero; // kinda causes a 1 frame delay after reaching end of nextMoves
         else return (levelMngr.level.WorldLocation(nextMove) - (Vector2)source.transform.position).normalized;
