@@ -17,7 +17,7 @@ public class LevelManagerMB : MonoBehaviour
     public List<GameObject> wallsBreak;
     private GameObject wallSolidHolder, wallBreakHolder;
 
-    private LevelAnalysis.Graph la_graph;
+    public LevelAnalysis.Graph la_graph { get; private set; }
     public List<TileType> traversable;
 
     [TextArea]

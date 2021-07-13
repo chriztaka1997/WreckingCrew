@@ -4,21 +4,19 @@ using UnityEngine;
 
 public static class LevelAnalysis
 {
-    public static List<(int dx, int dy)> PathToPlayer(Graph graph, Node start, Node end)
+    public static List<Vector2Int> PathToPlayer(Graph graph, Node start, Node end)
     {
         var parentMap = BFS.GetParentMap(start, graph);
         var shortestPath = BFS.ShortestPath(parentMap, end);
 
         if (shortestPath == null) return null;
 
-        var retVal = new List<(int dx, int dy)>();
+        var retVal = new List<Vector2Int>();
 
-        for (int i = 0; i < shortestPath.Count - 1; i++)
+        // start from 1 since shouldnt path to own node
+        for (int i = 1; i < shortestPath.Count; i++)
         {
-            retVal.Add((
-                shortestPath[i + 1].x - shortestPath[i].x,
-                shortestPath[i + 1].y - shortestPath[i].y
-                ));
+            retVal.Add(new Vector2Int(shortestPath[i].x, shortestPath[i].y));
         }
 
         return retVal;
@@ -45,6 +43,11 @@ public static class LevelAnalysis
         {
             return x + (y * 0x50745202);
         }
+
+        public override string ToString()
+        {
+            return string.Format("x: {0}, y: {1}", x, y);
+        }
     }
 
     public class Graph : BFS.Graph<Node>
@@ -70,7 +73,7 @@ public static class LevelAnalysis
                             // dont do for corners or center from (ix,iy)
                             if (ox - ix == oy - iy)
                             {
-                                break;
+                                continue;
                             }
 
                             if (traversable.Contains(levelTiles[ix, iy].tileType) &&

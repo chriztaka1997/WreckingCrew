@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 1100964642381741906}
   m_Layer: 10
   m_Name: WaterHazard
-  m_TagString: Wall
+  m_TagString: WaterHazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

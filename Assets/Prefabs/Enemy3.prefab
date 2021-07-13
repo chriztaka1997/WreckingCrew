@@ -145,6 +145,7 @@ MonoBehaviour:
   turnBack: 0.75
   deathTime: 1
   knockBackSpeed: 8
+  radius: 0.25
   rb: {fileID: 0}
 --- !u!1 &1672281954848767892
 GameObject:

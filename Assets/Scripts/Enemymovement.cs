@@ -20,11 +20,14 @@ public class Enemymovement : MonoBehaviour
     public float deathTime = 1f;
     public float knockBackSpeed = 6f;
 
+    public float radius;
+
     [SerializeField]
     private Rigidbody2D rb;
     private float hitTime;
-    private Vector2 movement;
     private Vector3 lastFrameVelocity; //use for recoil movement
+
+    public Pathfinder pathfinder;
 
     public enum States
     {
@@ -43,6 +46,8 @@ public class Enemymovement : MonoBehaviour
         hpBar.InitHP(maxHP);
         currentState = States.normal;
         playerObject = player.GetComponent<PlayerMB>();
+
+        pathfinder = new Pathfinder(gameObject, playerObject.gameObject, radius);
     }
 
     // Update is called once per frame
@@ -58,7 +63,6 @@ public class Enemymovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 direction;
         if ((Time.time - hitTime >= turnBack)&&(currentState ==States.recoil))
         {
             currentState = States.normal;
@@ -71,11 +75,10 @@ public class Enemymovement : MonoBehaviour
                 //direction = Vector3.zero;
                 break;
             case States.normal:
-                direction = player.position - transform.position;
-                direction.Normalize();
-                movement = direction;
-
-                moveEnemy(movement);
+                // direction = player.position - transform.position;
+                // direction.Normalize();
+                
+                moveEnemy(pathfinder.GetMoveDir());
                 break;
 
             case States.recoil:
