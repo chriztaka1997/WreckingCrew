@@ -10,6 +10,7 @@ TagManager:
   - Coin
   - HealthPotion
   - WaterHazard
+  - Bullet
   layers:
   - Default
   - TransparentFX
