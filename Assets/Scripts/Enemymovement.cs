@@ -56,7 +56,12 @@ public class Enemymovement : MonoBehaviour
 
     }
 
-    private void OnDestroy()
+    public void OnDestroy()
+    {
+        killed();
+    }
+
+    public virtual void killed()
     {
         ObjectPooler.SharedInstance.DropByEnemy(gameObject.transform.position, droppingRate);
     }
