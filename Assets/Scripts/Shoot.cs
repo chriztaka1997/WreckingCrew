@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shoot : MonoBehaviour
+public class Shoot : Enemymovement
 {
     public Bullet bullet;
     public float fireDelay = 0.5f;
     public float nextFireTime;
-    public PlayerMB player;
+    //public PlayerMB player;
 
     // Start is called before the first frame update
     void Start()
     {
         nextFireTime = Time.time;
-        player = GameManagerMB.instance.player;
+        //player = GameManagerMB.instance.player;
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class Shoot : MonoBehaviour
                 a.transform.position = transform.position;
                 Rigidbody2D rb = a.GetComponent<Rigidbody2D>();
                 Bullet b = a.GetComponent<Bullet>();
-                rb.velocity = (player.transform.position - transform.position).normalized * b.moveSpeed;
+                rb.velocity = (playerObject.transform.position - transform.position).normalized * b.moveSpeed;
             }
             nextFireTime = Time.time + fireDelay;
         }
