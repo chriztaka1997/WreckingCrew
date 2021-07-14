@@ -65,6 +65,16 @@ public class BallThrowMB : BallMB
 
     public void AddReturnForce() => AddForceTowardsAnchor(returnForceMag);
 
+    public Vector2 GetThrowSourcePos(Vector3 targetPos, bool aimTypeDirect)
+    {
+        if (!aimTypeDirect) return anchorTransform.position;
+        float currentRad = ((Vector2)(anchorTransform.position - transform.position)).magnitude;
+        Vector2 toTarget = targetPos - anchorTransform.position;
+        float targetAng = spinDirCCW ? 90.0f : -90.0f;
+        Vector2 perpvec = Quaternion.Euler(0, 0, targetAng) * toTarget;
+        return (Vector2)anchor.transform.position + perpvec.normalized * currentRad;
+    }
+
     public bool ThrowAngleCorrect(Vector3 targetPos, float throwAngleWiggle, bool aimTypeDirect)
     {
         float targetAng = spinDirCCW ? 90.0f : -90.0f;
