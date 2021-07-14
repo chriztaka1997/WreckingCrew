@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5258127766194556508}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +132,6 @@ MonoBehaviour:
       baseStat: 10
   targetPos: {x: 0, y: 0, z: 0}
   fixedZ: 0
-  maxSpeed: 5
   actionState: 0
   moveType: 0
   aimTypeDirect: 1
