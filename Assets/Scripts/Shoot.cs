@@ -21,8 +21,15 @@ public class Shoot : MonoBehaviour
     {
         if(Time.time >= nextFireTime)
         {
-            Bullet a = Instantiate(bullet, transform);
-            a.player = player;
+            GameObject a = ObjectPooler.SharedInstance.GetPooledObject("Bullet");
+            if(a != null)
+            {
+                a.SetActive(true);
+                a.transform.position = transform.position;
+                Rigidbody2D rb = a.GetComponent<Rigidbody2D>();
+                Bullet b = a.GetComponent<Bullet>();
+                rb.velocity = (player.transform.position - transform.position).normalized * b.moveSpeed;
+            }
             nextFireTime = Time.time + fireDelay;
         }
     }

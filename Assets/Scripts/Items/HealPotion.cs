@@ -20,10 +20,7 @@ public class HealPotion : GenericItems
     protected override void ItemTriggerEvent(Collider2D collision)
     {
         base.ItemTriggerEvent(collision);
-        if (collision.gameObject.name == "Player")
-        {
-            collision.gameObject.GetComponent<PlayerMB>().AlterHP(heal);
-        }
+        collision.gameObject.GetComponent<PlayerMB>().AlterHP(heal);
     }
 
 }
