@@ -110,10 +110,10 @@ public class ObjectPooler : MonoBehaviour
     public void DropByEnemy(Vector3 enemyLocation, float dropingRate)
     {
         float r = Random.Range(0f, 1f);
-        if(r >= dropingRate)
+        if(r <= dropingRate)
             SharedInstance.SpawnCoin(enemyLocation);
         r = Random.Range(0f, 1f);
-        if (r >= dropingRate)
+        if (r <= dropingRate)
             SharedInstance.SpawnHealthPotion(enemyLocation);
     }
 
