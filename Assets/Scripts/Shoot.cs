@@ -10,8 +10,9 @@ public class Shoot : Enemymovement
     //public PlayerMB player;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        base.Start();
         nextFireTime = Time.time;
         //player = GameManagerMB.instance.player;
     }

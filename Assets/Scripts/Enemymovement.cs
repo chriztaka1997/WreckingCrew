@@ -20,8 +20,6 @@ public class Enemymovement : MonoBehaviour
     public float deathTime = 1f;
     public float knockBackSpeed = 6f;
 
-    public float keepDistanceFromPlayer = 5;
-
     public float radius;
 
     [SerializeField]
@@ -40,7 +38,7 @@ public class Enemymovement : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
 
@@ -77,17 +75,10 @@ public class Enemymovement : MonoBehaviour
                 //direction = Vector3.zero;
                 break;
             case States.normal:
-                Vector3 direction =  transform.position - player.position;
-
-                if (Mathf.Abs(direction.magnitude) <keepDistanceFromPlayer && GetComponent<Shoot>()!= null)
-                {
-                    direction.Normalize();
-                    moveEnemy(direction);
-                }
-                else
-                {
-                    moveEnemy(pathfinder.GetMoveDir());
-                }
+                // direction = player.position - transform.position;
+                // direction.Normalize();
+                
+                moveEnemy(pathfinder.GetMoveDir());
                 break;
 
             case States.recoil:
