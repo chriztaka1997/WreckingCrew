@@ -394,7 +394,7 @@ public class PlayerMB : MonoBehaviour
 
                     print("bullet damage");
 
-                    Destroy(collision.gameObject);
+                    bullet.gameObject.SetActive(false);
 
                     break;
                 }

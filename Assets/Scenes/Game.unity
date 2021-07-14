@@ -1455,9 +1455,17 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[0].data.enemySpawns.Array.data[0].enemyTypes.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
       propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[0].data.enemySpawns.Array.data[0].enemyTypes.Array.data[3].enemyPF
+      value: 
+      objectReference: {fileID: 5568497302059988919, guid: d300e348d665ec944aeb0c84ff830f2b, type: 3}
     - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
       propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[0].enemyPF
       value: 
@@ -1470,6 +1478,14 @@ PrefabInstance:
       propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[2].enemyPF
       value: 
       objectReference: {fileID: 3264225433481082328, guid: ff3807e32adc3a946b8c62332155be0a, type: 3}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[0].data.enemySpawns.Array.data[0].enemyTypes.Array.data[0].totalEnemies
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[0].data.enemySpawns.Array.data[0].enemyTypes.Array.data[3].totalEnemies
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
       propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[0].totalEnemies
       value: 1
