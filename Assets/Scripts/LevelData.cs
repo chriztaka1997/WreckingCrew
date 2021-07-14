@@ -16,6 +16,8 @@ public class LevelData
     [JsonIgnore]
     public Vector2 bottomLeft => anchor - new Vector2(levelScale / 2, levelScale / 2);
     [JsonIgnore]
+    public Vector2 topRight => bottomLeft + new Vector2(levelScale * width, levelScale * height);
+    [JsonIgnore]
     public Vector2 center => bottomLeft + new Vector2(width * levelScale / 2, height * levelScale / 2);
 
     [JsonConstructor]
