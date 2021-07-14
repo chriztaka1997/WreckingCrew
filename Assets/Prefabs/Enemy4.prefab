@@ -784,7 +784,6 @@ GameObject:
   - component: {fileID: 229748443692602001}
   - component: {fileID: 609924255784164607}
   - component: {fileID: 1688341593481417042}
-  - component: {fileID: 5568497302059988919}
   - component: {fileID: 585620822762102457}
   m_Layer: 7
   m_Name: Enemy4
@@ -896,7 +895,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &5568497302059988919
+--- !u!114 &585620822762102457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -905,7 +904,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7451837911164601870}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0da015206d3fa249a913574c5a60009, type: 3}
+  m_Script: {fileID: 11500000, guid: 61de4cb9ab130f94c8ecca2c43ed5cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
@@ -924,22 +923,9 @@ MonoBehaviour:
   keepDistanceFromPlayer: 5
   radius: 0.5
   rb: {fileID: 0}
---- !u!114 &585620822762102457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7451837911164601870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61de4cb9ab130f94c8ecca2c43ed5cce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   bullet: {fileID: 2749228375348308859, guid: 6491e4428eb3a8d4394f487ba3b8e1aa, type: 3}
   fireDelay: 1
   nextFireTime: 0
-  player: {fileID: 0}
 --- !u!1 &8592515027014041083
 GameObject:
   m_ObjectHideFlags: 0
