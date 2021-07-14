@@ -7,7 +7,7 @@ public class Shoot : Enemymovement
     public Bullet bullet;
     public float fireDelay = 0.5f;
     public float nextFireTime;
-    //public PlayerMB player;
+    public float numBallOnDeath = 7f;
 
     // Start is called before the first frame update
     public override void Start()
@@ -36,4 +36,22 @@ public class Shoot : Enemymovement
     }
 
 
+    public override void killed()
+    {
+        base.killed();
+        for (int i = 0; i <numBallOnDeath; i++)
+        {
+            Debug.Log("Init bullet on death #######################");
+            float angle = i*360f/numBallOnDeath ;
+            GameObject temp = ObjectPooler.SharedInstance.GetPooledObject("Bullet");
+            temp.SetActive(true);
+
+            Vector3 direction = (Quaternion.Euler(0, 0, angle) * Vector3.up);
+            direction.Normalize();
+
+            Rigidbody2D rb = temp.GetComponent<Rigidbody2D>();
+            Bullet tempBull = temp.GetComponent<Bullet>();
+            rb.velocity = direction * tempBull.moveSpeed;
+        }
+    }
 }
