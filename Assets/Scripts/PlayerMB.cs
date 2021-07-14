@@ -345,25 +345,60 @@ public class PlayerMB : MonoBehaviour
         switch (tag)
         {
             case "Enemy":
-                if (actionState == ActionState.knockback || actionState == ActionState.iframes) break;
-                Enemymovement enemy = collision.gameObject.GetComponent<Enemymovement>();
-                knockbackStartPoint = transform.position;
-                knockbackEndPoint = knockbackStartPoint + (hitDir * knockBackDist);
-                hitTime = DateTime.Now;
-                ChangeActionState(ActionState.knockback);
-                ballEquip.InitNormal();
-                effectManager.ChangeState(PlayerEffectManagerMB.State.damaged);
-
-                float damageTaken = enemy.attack;
-                AlterHP(-damageTaken);
-
-                if (CheckDeath())
                 {
-                    AnalyticsManagerMB.PlayerDeathAnalytics(enemy.name);
-                }
-                break;
-        }
+                    if (actionState == ActionState.knockback || actionState == ActionState.iframes) break;
+                    Enemymovement enemy = collision.gameObject.GetComponent<Enemymovement>();
+                    knockbackStartPoint = transform.position;
+                    knockbackEndPoint = knockbackStartPoint + (hitDir * knockBackDist);
+                    hitTime = DateTime.Now;
+                    ChangeActionState(ActionState.knockback);
+                    ballEquip.InitNormal();
+                    effectManager.ChangeState(PlayerEffectManagerMB.State.damaged);
 
+                    float damageTaken = enemy.attack;
+                    AlterHP(-damageTaken);
+
+                    if (CheckDeath())
+                    {
+                        AnalyticsManagerMB.PlayerDeathAnalytics(enemy.name);
+                    }
+                    break;
+                }
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        string tag = collision.gameObject.tag;
+        Vector2 hitDir = (transform.position - collision.transform.position).normalized;
+        switch (tag)
+        {
+            case "Bullet":
+                {
+                    if (actionState == ActionState.knockback || actionState == ActionState.iframes) break;
+                    Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+                    knockbackStartPoint = transform.position;
+                    knockbackEndPoint = knockbackStartPoint + (hitDir * knockBackDist);
+                    hitTime = DateTime.Now;
+                    ChangeActionState(ActionState.knockback);
+                    ballEquip.InitNormal();
+                    effectManager.ChangeState(PlayerEffectManagerMB.State.damaged);
+
+                    float damageTaken = bullet.attack;
+                    AlterHP(-damageTaken);
+
+                    if (CheckDeath())
+                    {
+                        AnalyticsManagerMB.PlayerDeathAnalytics(collision.gameObject.name);
+                    }
+
+                    print("bullet damage");
+
+                    Destroy(collision.gameObject);
+
+                    break;
+                }
+        }
     }
 
 
