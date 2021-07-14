@@ -38,7 +38,7 @@ public class Bullet : GenericItems
     private new void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        if ((collision.gameObject.tag != "Enemy" && collision.gameObject.tag != "Player") || Time.time>=timeToDie)
+        if ((collision.gameObject.tag =="Wall") || Time.time>=timeToDie)
         {
             gameObject.SetActive(false);
         }
