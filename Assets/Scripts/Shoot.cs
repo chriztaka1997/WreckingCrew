@@ -8,7 +8,7 @@ public class Shoot : Enemymovement
     public float fireDelay = 0.5f;
     public float nextFireTime;
     public float numBallOnDeath;
-    public float bulletDeathTime;
+    //public float bulletDeathTime=0.5f;
 
     // Start is called before the first frame update
     public override void Start()
@@ -17,8 +17,6 @@ public class Shoot : Enemymovement
         nextFireTime = Time.time;
         numBallOnDeath = 7f;
         deathTime = 0f;
-        bulletDeathTime = 1f;
-        //player = GameManagerMB.instance.player;
     }
 
     // Update is called once per frame
@@ -33,7 +31,6 @@ public class Shoot : Enemymovement
                 a.transform.position = transform.position;
                 Rigidbody2D rb = a.GetComponent<Rigidbody2D>();
                 Bullet b = a.GetComponent<Bullet>();
-                b.deathTime = bulletDeathTime;
                 rb.velocity = (playerObject.transform.position - transform.position).normalized * b.moveSpeed;
             }
             nextFireTime = Time.time + fireDelay;
@@ -56,7 +53,6 @@ public class Shoot : Enemymovement
 
             Rigidbody2D rb = temp.GetComponent<Rigidbody2D>();
             Bullet tempBull = temp.GetComponent<Bullet>();
-            tempBull.deathTime = bulletDeathTime;
             rb.velocity = direction * tempBull.moveSpeed;
         }
     }
