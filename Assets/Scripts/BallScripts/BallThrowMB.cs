@@ -65,20 +65,35 @@ public class BallThrowMB : BallMB
 
     public void AddReturnForce() => AddForceTowardsAnchor(returnForceMag);
 
-    public Vector2 GetThrowSourcePos(Vector3 targetPos, bool aimTypeDirect)
+    public (Vector2 source, Vector2 direction) GetThrowSource(Vector3 targetPos, bool aimTypeDirect)
     {
-        if (!aimTypeDirect) return anchorTransform.position;
         float currentRad = ((Vector2)(anchorTransform.position - transform.position)).magnitude;
         Vector2 toTarget = targetPos - anchorTransform.position;
         float targetAng = spinDirCCW ? -90.0f : 90.0f;
         Vector2 perpvec = Quaternion.Euler(0, 0, targetAng) * toTarget;
-        return (Vector2)anchor.transform.position + perpvec.normalized * currentRad;
+        Vector2 source = (Vector2)anchor.transform.position + perpvec.normalized * currentRad;
+
+        Vector2 direction;
+        if (aimTypeDirect &&
+            (targetPos - anchorTransform.position).magnitude >= currentRad)
+            direction = (Vector2)targetPos - source;
+        else direction = targetPos - anchorTransform.position;
+
+        return (source, direction.normalized);
+    }
+
+    public Vector2 GetThrowTrajectory(Vector3 targetPos, bool aimTypeDirect)
+    {
+        if (aimTypeDirect &&
+            (targetPos - anchorTransform.position).magnitude >= (thisTransform.position - anchorTransform.position).magnitude)
+            return targetPos - thisTransform.position;
+        else return targetPos - anchorTransform.position;
     }
 
     public bool ThrowAngleCorrect(Vector3 targetPos, float throwAngleWiggle, bool aimTypeDirect)
     {
         float targetAng = spinDirCCW ? 90.0f : -90.0f;
-        Vector2 throwTrajectory = aimTypeDirect ? targetPos - thisTransform.position : targetPos - anchorTransform.position;
+        Vector2 throwTrajectory = GetThrowTrajectory(targetPos, aimTypeDirect);
         float angle = targetAng - Vector2.SignedAngle(thisTransform.position - anchorTransform.position, throwTrajectory);
         return Mathf.Abs(angle) <= throwAngleWiggle;
     }
@@ -142,7 +157,7 @@ public class BallThrowMB : BallMB
     {
         state = BallState.thrown;
 
-        Vector2 throwTrajectory = aimTypeDirect ? targetPos - thisTransform.position : targetPos - anchorTransform.position;
+        Vector2 throwTrajectory = GetThrowTrajectory(targetPos, aimTypeDirect);
         Vector2 throwVec = throwTrajectory.normalized * Mathf.Abs(spinSpd);
         thisRigidbody.velocity = throwVec;
 

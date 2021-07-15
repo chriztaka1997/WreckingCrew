@@ -62,9 +62,9 @@ public class BallEQ_SingleMB : BallEquipMB
         return ball.ThrowAngleCorrect(targetPos, throwAngleWiggle, aimTypeDirect);
     }
 
-    public override Vector2 GetThrowSourcePos()
+    public override (Vector2 source, Vector2 direction) GetThrowSource()
     {
-        return ball.GetThrowSourcePos(targetPos, aimTypeDirect);
+        return ball.GetThrowSource(targetPos, aimTypeDirect);
     }
 
     public override bool IsStuck()

@@ -146,9 +146,9 @@ public class BallEQ_MultiMB : BallEquipMB
         }
     }
 
-    public override Vector2 GetThrowSourcePos()
+    public override (Vector2 source, Vector2 direction) GetThrowSource()
     {
-        return balls[0].GetThrowSourcePos(targetPos, aimTypeDirect);
+        return balls[0].GetThrowSource(targetPos, aimTypeDirect);
     }
 
     public BallThrowMB GetPrimaryBall()

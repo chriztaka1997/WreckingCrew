@@ -41,6 +41,8 @@ public class PlayerMB : MonoBehaviour
     private Vector2 knockbackStartPoint;
     private Vector2 knockbackEndPoint;
 
+    public float throwIndicatorLength;
+
     public Rigidbody2D  thisRigidbody { get; protected set; }
     public CircleCollider2D thisCollider { get; protected set; }
     const float kbdDist = 1.0f;
@@ -302,8 +304,8 @@ public class PlayerMB : MonoBehaviour
         {
             if (!throwIndicator.gameObject.activeSelf) throwIndicator.gameObject.SetActive(true);
 
-            Vector2 from = ballEquip.GetThrowSourcePos();
-            throwIndicator.SetPos(targetPos, from);
+            (Vector2 source, Vector2 direction) = ballEquip.GetThrowSource();
+            throwIndicator.SetPos(source + direction * throwIndicatorLength, source);
         }
         else
         {
