@@ -31,6 +31,8 @@ public abstract class BallEquipMB : MonoBehaviour
 
     public abstract bool ThrowAngleCorrect();
 
+    public abstract Vector2 GetThrowSourcePos();
+
     public abstract void InitSpin();
 
     public abstract void InitThrow();

@@ -146,6 +146,11 @@ public class BallEQ_MultiMB : BallEquipMB
         }
     }
 
+    public override Vector2 GetThrowSourcePos()
+    {
+        return balls[0].GetThrowSourcePos(targetPos, aimTypeDirect);
+    }
+
     public BallThrowMB GetPrimaryBall()
     {
         if (balls.Count == 0) return null;

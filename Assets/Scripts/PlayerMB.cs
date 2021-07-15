@@ -11,6 +11,7 @@ public class PlayerMB : MonoBehaviour
 {
     public BallEquipMB ballEquip;
     public HP_BarMB hpBar;
+    public TwoPointSpriteMB throwIndicator;
 
     public string startBallEquipName;
 
@@ -73,6 +74,7 @@ public class PlayerMB : MonoBehaviour
         UpdateKeys();
         UpdateTargetPos();
         UpdateAction(Time.fixedDeltaTime);
+        UpdateThrowIndicator();
     }
 
     public void SetEquipBall(string name)
@@ -292,6 +294,22 @@ public class PlayerMB : MonoBehaviour
         }
 
         
+    }
+
+    public void UpdateThrowIndicator()
+    {
+        if (actionState == ActionState.throwCharge || actionState == ActionState.throwPreRelease)
+        {
+            if (!throwIndicator.gameObject.activeSelf) throwIndicator.gameObject.SetActive(true);
+
+            Vector2 from = ballEquip.GetThrowSourcePos();
+            throwIndicator.SetPos(targetPos, from);
+        }
+        else
+        {
+            if (throwIndicator.gameObject.activeSelf) throwIndicator.gameObject.SetActive(false);
+            return;
+        }
     }
 
     public void ResetActionState()

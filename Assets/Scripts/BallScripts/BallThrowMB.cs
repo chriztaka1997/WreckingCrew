@@ -70,7 +70,7 @@ public class BallThrowMB : BallMB
         if (!aimTypeDirect) return anchorTransform.position;
         float currentRad = ((Vector2)(anchorTransform.position - transform.position)).magnitude;
         Vector2 toTarget = targetPos - anchorTransform.position;
-        float targetAng = spinDirCCW ? 90.0f : -90.0f;
+        float targetAng = spinDirCCW ? -90.0f : 90.0f;
         Vector2 perpvec = Quaternion.Euler(0, 0, targetAng) * toTarget;
         return (Vector2)anchor.transform.position + perpvec.normalized * currentRad;
     }
