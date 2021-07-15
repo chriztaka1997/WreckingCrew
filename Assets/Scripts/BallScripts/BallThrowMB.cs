@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BallThrowMB : BallMB
 {
+    public TwoPointSpriteMB chainSprite;
+
     public BallState state;
     public float returnForceMag;
     public float throwChainLengthSet;
@@ -50,6 +52,13 @@ public class BallThrowMB : BallMB
                 AddReturnForce();
                 break;
         }
+    }
+
+    public override void SetAnchor(GameObject anchor)
+    {
+        base.SetAnchor(anchor);
+        chainSprite.topObj = gameObject;
+        chainSprite.botObj = anchor;
     }
 
     public void AddThrownForce()
