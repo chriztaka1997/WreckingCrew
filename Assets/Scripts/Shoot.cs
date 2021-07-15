@@ -8,6 +8,7 @@ public class Shoot : Enemymovement
     public float fireDelay = 0.5f;
     public float nextFireTime;
     public float numBallOnDeath;
+    //public float bulletDeathTime=0.5f;
 
     // Start is called before the first frame update
     public override void Start()
@@ -16,7 +17,6 @@ public class Shoot : Enemymovement
         nextFireTime = Time.time;
         numBallOnDeath = 7f;
         deathTime = 0f;
-        //player = GameManagerMB.instance.player;
     }
 
     // Update is called once per frame
