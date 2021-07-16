@@ -18,7 +18,7 @@ public class GenericItems : MonoBehaviour
     
     protected virtual void ItemTriggerEvent(Collider2D collision)
     {
-
+        TutorialMB.SignalTutorial("item");
     }
     
     protected void OnTriggerEnter2D(Collider2D collision)

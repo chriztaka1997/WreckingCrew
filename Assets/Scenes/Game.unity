@@ -233,6 +233,8 @@ MonoBehaviour:
   tryLoadEditorLevel: 1
   gameState: 0
   uiMngr: {fileID: 701734277}
+  tutorial: {fileID: 0}
+  tutorialPF: {fileID: 554339349536416359, guid: cd660766c92f040bdb170bbfb2b4797e, type: 3}
   enemyspawn: {fileID: 1108518240}
   playerPF: {fileID: 3126958323139317929, guid: 21e8ad3095f3f431894e49849a4dc2dd, type: 3}
   borderPF: {fileID: 4538974536096834458, guid: ea2ca1ec02f0249ccabc97b2314b39ba, type: 3}
@@ -571,8 +573,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1052180517}
   level:
-    levelScale: 2
-    anchor: {x: -18, y: -18}
+    levelScale: 1
+    anchor: {x: -9, y: -9}
   tileToAdd:
     tileType: 5
   tileSize: 2
@@ -580,7 +582,7 @@ MonoBehaviour:
   width: 19
   height: 19
   json: 
-  internalJson: '{"tiles":[[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":4},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}]],"levelScale":2.0,"anchor":{"x":-18.0,"y":-18.0,"normalized":{"x":-0.707106769,"y":-0.707106769,"magnitude":1.0,"sqrMagnitude":0.99999994},"magnitude":25.4558449,"sqrMagnitude":648.0},"width":19,"height":19}'
+  internalJson: '{"tiles":[[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2}],[{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2}],[{"tileType":2},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":2}],[{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2}],[{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}]],"levelScale":1.0,"anchor":{"x":-9.0,"y":-9.0,"normalized":{"x":-0.707106769,"y":-0.707106769,"magnitude":1.0,"sqrMagnitude":0.99999994},"magnitude":12.7279224,"sqrMagnitude":162.0},"width":19,"height":19}'
   sheetsImportJson: '[
 
     ["breakWall","breakWall","breakWall","breakWall","breakWall","breakWall","breakWall","breakWall","breakWall","solidWall","empty","empty","empty","empty","empty","empty","empty","empty","empty"],
@@ -961,8 +963,24 @@ PrefabInstance:
       value: Palette
       objectReference: {fileID: 0}
     - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].name
+      value: tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
       propertyPath: stagePairs.Array.data[0].data.levelNames.Array.size
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
       propertyPath: stagePairs.Array.data[0].data.levelNames.Array.data[5]
@@ -981,8 +999,88 @@ PrefabInstance:
       value: maze
       objectReference: {fileID: 0}
     - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[0]
+      value: circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[1]
+      value: 4_plus
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[2]
+      value: long_room_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[3]
+      value: grid_no_int
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[4]
+      value: water_vertical
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[5]
+      value: acz
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[6]
+      value: room
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[7]
+      value: hard_level
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[8]
+      value: maze
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].timeSpawn
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].maxEnemies
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
       propertyPath: stagePairs.Array.data[0].data.enemySpawns.Array.data[0].enemyTypes.Array.data[3].enemyPF
       value: 
       objectReference: {fileID: 585620822762102457, guid: d300e348d665ec944aeb0c84ff830f2b, type: 3}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[0].enemyPF
+      value: 
+      objectReference: {fileID: 1829448405230497336, guid: 785868d0820480d47a40c9115e029d7d, type: 3}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[1].enemyPF
+      value: 
+      objectReference: {fileID: 4559044220125520772, guid: a921e804b13451343bdfdb504f5e0222, type: 3}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[2].enemyPF
+      value: 
+      objectReference: {fileID: 3264225433481082328, guid: ff3807e32adc3a946b8c62332155be0a, type: 3}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[3].enemyPF
+      value: 
+      objectReference: {fileID: 585620822762102457, guid: d300e348d665ec944aeb0c84ff830f2b, type: 3}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[0].totalEnemies
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[1].totalEnemies
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[2].totalEnemies
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
+      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[3].totalEnemies
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dde024632a50047f5816de5162f2e9e1, type: 3}

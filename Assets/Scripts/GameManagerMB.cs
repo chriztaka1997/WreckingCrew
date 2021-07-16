@@ -18,6 +18,9 @@ public class GameManagerMB : MonoBehaviour
 
     public UI_ManagerMB uiMngr;
 
+    public TutorialMB tutorial;
+    public TutorialMB tutorialPF;
+
     public PlayerMB player { get; private set; }
     public Enemyspawn enemyspawn;
     public GameObject playerPF;
@@ -56,18 +59,15 @@ public class GameManagerMB : MonoBehaviour
 
     public void Start()
     {
-        stageData = StagePaletteMB.instance.GetStageData(startingStage);
-        stageData.RandomSelect();
-        ReloadStageData();
+        SetStage(startingStage);
 
 #if UNITY_EDITOR
         if (LevelEditorMB.instance.json.Length != 0 && tryLoadEditorLevel)
         {
             SetLevel(LevelData.Deserialize(LevelEditorMB.instance.json));
+            levelMngr.PlacePlayer(player);
         }
 #endif
-
-        levelMngr.PlacePlayer(player);
     }
 
     public void Update()
@@ -76,6 +76,14 @@ public class GameManagerMB : MonoBehaviour
 
         UpdateState();
         UpdateUI();
+    }
+
+    public void SetStage(string stageName)
+    {
+        stageData = StagePaletteMB.instance.GetStageData(stageName);
+        stageData.RandomSelect();
+        ReloadStageData();
+        levelMngr.PlacePlayer(player);
     }
 
     public void KbdDebugCommands()
@@ -110,6 +118,10 @@ public class GameManagerMB : MonoBehaviour
             ChangeState(GameState.preupgrade);
             AnalyticsManagerMB.IgnoreNextWaveAnalytics();
         }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            StartTutorial();
+        }
     }
 
     public void UpdateState()
@@ -127,6 +139,7 @@ public class GameManagerMB : MonoBehaviour
                 if (!enemyspawn.IsWave())
                 {
                     ChangeState(GameState.preupgrade);
+                    TutorialMB.SignalTutorial("wave");
                 }
                 break;
             case GameState.preupgrade:
@@ -182,6 +195,18 @@ public class GameManagerMB : MonoBehaviour
         player = go.GetComponentInChildren<PlayerMB>();
     }
 
+    public void ResetPlayer()
+    {
+        //if (player != null)
+        //{
+        //    Destroy(player.transform.parent.gameObject);
+        //}
+
+        //InstantiatePlayer();
+        upgradeMngr.ResetUpgrades(player);
+        upgradeMngr.ClearUpgrades();
+    }
+
     public void SetLevel(LevelData level)
     {
         levelMngr.SetLevel(level);
@@ -190,7 +215,7 @@ public class GameManagerMB : MonoBehaviour
 
     public void ResetLevel()
     {
-        levelMngr.ResetLevel();
+        levelMngr.SetLevel(levelMngr.level);
         levelMngr.PlacePlayer(player);
     }
 
@@ -209,6 +234,7 @@ public class GameManagerMB : MonoBehaviour
     public void PrepNextWave()
     {
         if (gameState != GameState.complete) return;
+        TutorialMB.SignalTutorial("next", false);
 
         ChangeState(GameState.countdown);
         enemyspawn.AbortWave();
@@ -217,6 +243,7 @@ public class GameManagerMB : MonoBehaviour
     public void PrepNextStage()
     {
         if (gameState != GameState.complete) return;
+        TutorialMB.SignalTutorial("next", false);
 
         stageData.RandomSelect();
         ReloadStageData();
@@ -249,6 +276,15 @@ public class GameManagerMB : MonoBehaviour
         uiMngr.DisplayUpgradeSelector(upgrades);
     }
 
+    public void StartTutorial()
+    {
+        if (tutorial == null)
+        {
+            tutorial = Instantiate(tutorialPF);
+        }
+        tutorial.StartTutorial();
+    }
+
     public enum GameState
     {
         countdown,
@@ -256,6 +292,7 @@ public class GameManagerMB : MonoBehaviour
         preupgrade,
         upgrade,
         complete,
+        tutorial,
     }
     
 }

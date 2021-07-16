@@ -148,6 +148,7 @@ public class LevelManagerMB : MonoBehaviour
         {
             currentTiles[x, y].tileType = TileType.empty;
             OnTileChange();
+            TutorialMB.SignalTutorial("wall");
         }
     }
 

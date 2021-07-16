@@ -37,6 +37,9 @@ public class UI_ManagerMB : MonoBehaviour
                 nextButtonArea.SetActive(true);
                 waveProgress.SetState(WaveProgressBarMB.State.done);
                 break;
+            case GameManagerMB.GameState.tutorial:
+                waveProgress.SetState(WaveProgressBarMB.State.done);
+                break;
         }
     }
 

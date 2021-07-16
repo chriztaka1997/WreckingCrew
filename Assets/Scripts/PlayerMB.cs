@@ -174,6 +174,7 @@ public class PlayerMB : MonoBehaviour
                 {
                     ChangeActionState(ActionState.moveSpin);
                     ballEquip.InitSpin();
+                    TutorialMB.SignalTutorial("spin");
                     break;
                 }
                 if (throwKey.GetKeyDown)
@@ -214,6 +215,7 @@ public class PlayerMB : MonoBehaviour
                     {
                         ChangeActionState(ActionState.thrown);
                         ballEquip.InitThrow();
+                        TutorialMB.SignalTutorial("throw");
                     }
                     else
                     {
@@ -233,6 +235,7 @@ public class PlayerMB : MonoBehaviour
                 {
                     ChangeActionState(ActionState.thrown);
                     ballEquip.InitThrow();
+                    TutorialMB.SignalTutorial("throw");
                 }
                 break;
 
