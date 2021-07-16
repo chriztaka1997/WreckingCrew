@@ -26,7 +26,10 @@ public class Bullet : GenericItems
     // Update is called once per frame
     void Update()
     {
-        
+        if (Time.time >= timeToDie)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     protected override void ItemTriggerEvent(Collider2D collision)
@@ -38,7 +41,7 @@ public class Bullet : GenericItems
     private new void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        if ((collision.gameObject.tag =="Wall") || (collision.gameObject.tag == "Ball") || Time.time>=timeToDie)
+        if ((collision.gameObject.tag =="Wall") || (collision.gameObject.tag == "Ball") )
         {
             gameObject.SetActive(false);
         }
