@@ -11,6 +11,8 @@ public class UI_ManagerMB : MonoBehaviour
     public GameObject nextButtonArea;
     public UpgradeSelectorMB upgradeSelector;
 
+    public PauseManagerMB pausePF;
+
 
     void Start()
     {
@@ -64,6 +66,14 @@ public class UI_ManagerMB : MonoBehaviour
     {
         upgradeSelector.gameObject.SetActive(false);
         gameMngr.UpgradeSelected(name);
+    }
+
+    public void OnPausePress()
+    {
+        if (PauseManagerMB.instance != null) return;
+
+        GameManagerMB.instance.StartPause();
+        Instantiate(pausePF);
     }
 
     
