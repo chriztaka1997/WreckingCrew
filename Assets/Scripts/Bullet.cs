@@ -26,7 +26,8 @@ public class Bullet : GenericItems
     // Update is called once per frame
     void Update()
     {
-        
+        if (Time.time >= timeToDie)
+            gameObject.SetActive(false);
     }
 
     protected override void ItemTriggerEvent(Collider2D collision)
