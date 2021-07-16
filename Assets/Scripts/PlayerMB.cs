@@ -266,6 +266,19 @@ public class PlayerMB : MonoBehaviour
             case ActionState.iframes:
                 if ((DateTime.Now - hitTime).TotalSeconds >= iframeDuration)
                 {
+                    if (spinKey.GetKey)
+                    {
+                        ChangeActionState(ActionState.moveSpin);
+                        ballEquip.InitSpin();
+                        TutorialMB.SignalTutorial("spin");
+                        break;
+                    }
+                    if (throwKey.GetKey)
+                    {
+                        ChangeActionState(ActionState.throwCharge);
+                        ballEquip.InitSpin();
+                        break;
+                    }
                     ChangeActionState(ActionState.normal);
                     effectManager.ChangeState(PlayerEffectManagerMB.State.normal);
                 }

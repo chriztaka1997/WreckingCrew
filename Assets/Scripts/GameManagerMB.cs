@@ -59,6 +59,12 @@ public class GameManagerMB : MonoBehaviour
 
     public void Start()
     {
+        if (PersistentObjMB.IsStartInTutorial())
+        {
+            StartTutorial();
+            return;
+        }
+
         SetStage(startingStage);
 
 #if UNITY_EDITOR
@@ -118,10 +124,10 @@ public class GameManagerMB : MonoBehaviour
             ChangeState(GameState.preupgrade);
             AnalyticsManagerMB.IgnoreNextWaveAnalytics();
         }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            StartTutorial();
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    StartTutorial();
+        //}
     }
 
     public void UpdateState()
