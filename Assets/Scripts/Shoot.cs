@@ -43,7 +43,6 @@ public class Shoot : Enemymovement
         base.killed();
         for (int i = 0; i <numBallOnDeath; i++)
         {
-            Debug.Log("Init bullet on death #######################");
             float angle = i*360f/numBallOnDeath ;
             GameObject temp = ObjectPooler.SharedInstance.GetPooledObject("Bullet");
             temp.SetActive(true);

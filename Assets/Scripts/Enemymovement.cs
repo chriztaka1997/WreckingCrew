@@ -19,6 +19,7 @@ public class Enemymovement : MonoBehaviour
     public float turnBack = 1f;
     public float deathTime = 1f;
     public float knockBackSpeed = 6f;
+    public float keepEnemyDistance = 5f;
 
     public float radius;
 
@@ -80,10 +81,18 @@ public class Enemymovement : MonoBehaviour
                 //direction = Vector3.zero;
                 break;
             case States.normal:
-                // direction = player.position - transform.position;
-                // direction.Normalize();
+                Vector3 direction = transform.position- player.position;
                 
-                moveEnemy(pathfinder.GetMoveDir());
+
+                if (GetComponent<Shoot>() && Mathf.Abs(direction.magnitude)< keepEnemyDistance)
+                {
+                    direction.Normalize();
+                    moveEnemy(direction);
+                }
+                else
+                {
+                    moveEnemy(pathfinder.GetMoveDir());
+                }
                 break;
 
             case States.recoil:
