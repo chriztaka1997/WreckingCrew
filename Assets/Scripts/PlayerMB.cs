@@ -271,12 +271,14 @@ public class PlayerMB : MonoBehaviour
                         ChangeActionState(ActionState.moveSpin);
                         ballEquip.InitSpin();
                         TutorialMB.SignalTutorial("spin");
+                        effectManager.ChangeState(PlayerEffectManagerMB.State.normal);
                         break;
                     }
                     if (throwKey.GetKey)
                     {
                         ChangeActionState(ActionState.throwCharge);
                         ballEquip.InitSpin();
+                        effectManager.ChangeState(PlayerEffectManagerMB.State.normal);
                         break;
                     }
                     ChangeActionState(ActionState.normal);
