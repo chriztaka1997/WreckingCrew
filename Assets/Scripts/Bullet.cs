@@ -15,7 +15,7 @@ public class Bullet : GenericItems
     void Start()
     {
         /*Destroy(gameObject, deathTime);*/
-        
+        timeToDie = Time.time + deathTime;
     }
 
     private void OnEnable()
@@ -26,7 +26,7 @@ public class Bullet : GenericItems
     // Update is called once per frame
     void Update()
     {
-        timeToDie = Time.time + deathTime;
+        
     }
 
     protected override void ItemTriggerEvent(Collider2D collision)
