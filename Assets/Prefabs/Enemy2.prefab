@@ -220,8 +220,16 @@ MonoBehaviour:
   turnBack: 2
   deathTime: 1
   knockBackSpeed: 2
+  keepEnemyDistance: 5
   radius: 1
   rb: {fileID: 0}
+  respawnTime: 1
+  changeToNormalState: 0
+  colorToBe: {r: 0, g: 0, b: 0, a: 0}
+  whereRender: {fileID: 6202736161997517843}
+  rend: {fileID: 0}
+  whereTrigger: {fileID: 1375231195814632151}
+  trigger: {fileID: 0}
 --- !u!1 &3577772725920303143
 GameObject:
   m_ObjectHideFlags: 0

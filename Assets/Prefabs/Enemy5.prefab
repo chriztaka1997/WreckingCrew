@@ -876,6 +876,13 @@ MonoBehaviour:
   keepEnemyDistance: 5
   radius: 0.5
   rb: {fileID: 0}
+  respawnTime: 1
+  changeToNormalState: 0
+  colorToBe: {r: 0, g: 0, b: 0, a: 0}
+  whereRender: {fileID: 7033302394247938896}
+  rend: {fileID: 0}
+  whereTrigger: {fileID: 7486954543968504762}
+  trigger: {fileID: 0}
   numBallOnDeath: 7
 --- !u!1 &7486954543968504762
 GameObject:

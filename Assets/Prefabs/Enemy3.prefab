@@ -145,8 +145,16 @@ MonoBehaviour:
   turnBack: 0.75
   deathTime: 1
   knockBackSpeed: 8
+  keepEnemyDistance: 5
   radius: 0.25
   rb: {fileID: 0}
+  respawnTime: 1
+  changeToNormalState: 0
+  colorToBe: {r: 0, g: 0, b: 0, a: 0}
+  whereRender: {fileID: 4907985167133090383}
+  rend: {fileID: 0}
+  whereTrigger: {fileID: 80480200933985419}
+  trigger: {fileID: 0}
 --- !u!1 &1672281954848767892
 GameObject:
   m_ObjectHideFlags: 0

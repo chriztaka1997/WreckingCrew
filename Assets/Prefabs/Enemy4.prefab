@@ -920,12 +920,20 @@ MonoBehaviour:
   turnBack: 1
   deathTime: 1
   knockBackSpeed: 6
-  keepDistanceFromPlayer: 5
+  keepEnemyDistance: 5
   radius: 0.5
   rb: {fileID: 0}
+  respawnTime: 1
+  changeToNormalState: 0
+  colorToBe: {r: 0, g: 0, b: 0, a: 0}
+  whereRender: {fileID: 7451837911164601870}
+  rend: {fileID: 0}
+  whereTrigger: {fileID: 6995903484817149668}
+  trigger: {fileID: 0}
   bullet: {fileID: 2749228375348308859, guid: 6491e4428eb3a8d4394f487ba3b8e1aa, type: 3}
   fireDelay: 1
   nextFireTime: 0
+  numBallOnDeath: 0
 --- !u!1 &8592515027014041083
 GameObject:
   m_ObjectHideFlags: 0

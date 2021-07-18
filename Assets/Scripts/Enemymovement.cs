@@ -30,6 +30,14 @@ public class Enemymovement : MonoBehaviour
 
     public Pathfinder pathfinder;
 
+    public float respawnTime = 1f;
+    public float changeToNormalState;
+    public Color colorToBe;
+    public GameObject whereRender;
+    public MeshRenderer rend;
+    public GameObject whereTrigger;
+    public CircleCollider2D trigger;
+
     public enum States
     {
         normal,
@@ -45,10 +53,17 @@ public class Enemymovement : MonoBehaviour
 
         currentHP = maxHP;
         hpBar.InitHP(maxHP);
-        currentState = States.normal;
+        currentState = States.respawn;
         playerObject = player.GetComponent<PlayerMB>();
 
         pathfinder = new Pathfinder(gameObject, playerObject.gameObject, radius);
+        changeToNormalState = Time.time + respawnTime;
+
+        rend = whereRender.GetComponent<MeshRenderer>();
+        colorToBe = rend.material.color;
+        //Turn the physics off by turning the on trigger on
+        trigger = whereTrigger.GetComponentInChildren<CircleCollider2D>();
+        trigger.isTrigger = true;
     }
 
     // Update is called once per frame
@@ -69,6 +84,15 @@ public class Enemymovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(Time.time >= changeToNormalState && currentState == States.respawn)
+        {
+            currentState = States.normal;
+            //Turn trigger off to turn the physics back on
+            trigger.isTrigger = false;
+
+        }
+
+
         if ((Time.time - hitTime >= turnBack)&&(currentState ==States.recoil))
         {
             currentState = States.normal;
@@ -78,8 +102,10 @@ public class Enemymovement : MonoBehaviour
         switch (currentState)
         {
             case States.respawn:
-                //direction = Vector3.zero;
+                //Fade in the color to the screen
+                rend.material.color =  Color.Lerp(Color.clear,colorToBe, Mathf.PingPong(Time.time, respawnTime)/respawnTime);
                 break;
+
             case States.normal:
                 Vector3 direction = transform.position- player.position;
                 
@@ -146,48 +172,50 @@ public class Enemymovement : MonoBehaviour
         //the motion will be perpendicular to the ball motion
         //if the health is zero then the enemy will drift along with collision off
 
-        AlterHP(-damage);
-        lastFrameVelocity = rb.velocity;
-
-        //Track enemy collision with ball
-        AnalyticsResult analyticsResult = Analytics.CustomEvent("Collision", new Dictionary<string, object>
-                    {
-                        { "Stage", 1},
-                        { "Collided with", "Ball"},
-                        {"State", playerObject.actionState}
-                    });
-        Debug.Log("Collision with ball Result: " + analyticsResult);
-
-        if (currentHP <= 0)
+        if (currentState != States.respawn)
         {
-            
-            //Track the number of dead enemy based on the attack of the player
-            AnalyticsResult killAnalytics = Analytics.CustomEvent("Enemy killed", new Dictionary<string, object>
-                    {
-                        { "Stage", 1},
-                        { "Collided with", "Ball"},
-                        {"State", playerObject.actionState}
-                    });
-            Debug.Log("Enemy killed Result: " + killAnalytics);
-
-
-            currentState = States.dead;
-            Vector3 direction = transform.position - player.position;
-            moveEnemy(direction);
-            Destroy(gameObject, deathTime);
-        }
-        else
-        {
-            
-
-            hitTime = Time.time;
+            AlterHP(-damage);
             lastFrameVelocity = rb.velocity;
-            currentState = States.recoil;
-            Vector3 direction = transform.position - player.position;
-            moveEnemy(direction);
+
+            //Track enemy collision with ball
+            AnalyticsResult analyticsResult = Analytics.CustomEvent("Collision", new Dictionary<string, object>
+                    {
+                        { "Stage", 1},
+                        { "Collided with", "Ball"},
+                        {"State", playerObject.actionState}
+                    });
+            Debug.Log("Collision with ball Result: " + analyticsResult);
+
+            if (currentHP <= 0)
+            {
+
+                //Track the number of dead enemy based on the attack of the player
+                AnalyticsResult killAnalytics = Analytics.CustomEvent("Enemy killed", new Dictionary<string, object>
+                    {
+                        { "Stage", 1},
+                        { "Collided with", "Ball"},
+                        {"State", playerObject.actionState}
+                    });
+                Debug.Log("Enemy killed Result: " + killAnalytics);
+
+
+                currentState = States.dead;
+                Vector3 direction = transform.position - player.position;
+                moveEnemy(direction);
+                Destroy(gameObject, deathTime);
+            }
+            else
+            {
+
+
+                hitTime = Time.time;
+                lastFrameVelocity = rb.velocity;
+                currentState = States.recoil;
+                Vector3 direction = transform.position - player.position;
+                moveEnemy(direction);
+            }
+
         }
-
-
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
