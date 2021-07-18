@@ -14,7 +14,7 @@ public class Shoot : Enemymovement
     public override void Start()
     {
         base.Start();
-        nextFireTime = Time.time;
+        nextFireTime = changeToNormalState;
         numBallOnDeath = 7f;
         deathTime = 0f;
     }
