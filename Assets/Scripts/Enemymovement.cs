@@ -31,6 +31,7 @@ public class Enemymovement : MonoBehaviour
     public Pathfinder pathfinder;
 
     public float respawnTime = 1f;
+    public float startTime;
     public float changeToNormalState;
     public Color colorToBe;
     public GameObject whereRender;
@@ -61,9 +62,10 @@ public class Enemymovement : MonoBehaviour
 
         rend = whereRender.GetComponent<MeshRenderer>();
         colorToBe = rend.material.color;
+        startTime = Time.time;
         //Turn the physics off by turning the on trigger on
         trigger = whereTrigger.GetComponentInChildren<CircleCollider2D>();
-        trigger.isTrigger = true;
+        trigger.enabled = false;
     }
 
     // Update is called once per frame
@@ -88,7 +90,7 @@ public class Enemymovement : MonoBehaviour
         {
             currentState = States.normal;
             //Turn trigger off to turn the physics back on
-            trigger.isTrigger = false;
+            trigger.enabled = true;
 
         }
 
@@ -103,7 +105,7 @@ public class Enemymovement : MonoBehaviour
         {
             case States.respawn:
                 //Fade in the color to the screen
-                rend.material.color =  Color.Lerp(Color.clear,colorToBe, Mathf.PingPong(Time.time, respawnTime)/respawnTime);
+                rend.material.color =  Color.Lerp(Color.white,colorToBe, ((Time.time-startTime)/respawnTime));
                 break;
 
             case States.normal:
