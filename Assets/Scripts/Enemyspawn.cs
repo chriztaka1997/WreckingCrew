@@ -145,6 +145,7 @@ public class Enemyspawn : MonoBehaviour
         Enemymovement a = Instantiate(prefab, EnemyHolder.transform);
         a.transform.position = levelMngr.level.WorldLocation(spawnLocation);
         a.player = player.transform;
+        GameManagerMB.instance.difficulty.ScaleEnemy(a);
         spawnedEnemies.Add(a);
     }
 

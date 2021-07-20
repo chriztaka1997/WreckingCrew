@@ -6,7 +6,9 @@ public class Bullet : GenericItems
 {
 
     public float moveSpeed = 7f;
-    public float attack = 5f;
+    public float baseAttack = 5f;
+    private float attInc;
+    public float attack => baseAttack * attInc;
     public float deathTime = 0.5f;
     public float timeToDie;
     
@@ -16,6 +18,8 @@ public class Bullet : GenericItems
     {
         /*Destroy(gameObject, deathTime);*/
         timeToDie = Time.time + deathTime;
+
+        ScaleAttack(0);
     }
 
     private void OnEnable()
@@ -31,6 +35,8 @@ public class Bullet : GenericItems
             gameObject.SetActive(false);
         }
     }
+
+    public void ScaleAttack(float scale) => attInc = scale;
 
     protected override void ItemTriggerEvent(Collider2D collision)
     {

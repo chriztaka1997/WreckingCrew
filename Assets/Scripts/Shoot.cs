@@ -32,6 +32,7 @@ public class Shoot : Enemymovement
                 Rigidbody2D rb = a.GetComponent<Rigidbody2D>();
                 Bullet b = a.GetComponent<Bullet>();
                 rb.velocity = (playerObject.transform.position - transform.position).normalized * b.moveSpeed;
+                GameManagerMB.instance.difficulty.ScaleBullet(b);
             }
             nextFireTime = Time.time + fireDelay;
         }

@@ -232,6 +232,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tryLoadEditorLevel: 1
   gameState: 0
+  difficulty:
+    diffScale: 0.2
   uiMngr: {fileID: 701734277}
   tutorial: {fileID: 0}
   tutorialPF: {fileID: 554339349536416359, guid: cd660766c92f040bdb170bbfb2b4797e, type: 3}

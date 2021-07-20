@@ -329,9 +329,11 @@ public class PlayerMB : MonoBehaviour
                 ballEquip.DoSpin(dt);
                 break;
             case ActionState.throwCharge:
+                thisRigidbody.velocity = Vector2.zero;
                 ballEquip.DoSpin(dt);
                 break;
             case ActionState.throwPreRelease:
+                thisRigidbody.velocity = Vector2.zero;
                 ballEquip.DoThrowPreRelease(dt);
                 break;
             case ActionState.thrown:
