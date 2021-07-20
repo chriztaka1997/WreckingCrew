@@ -43,8 +43,7 @@ public class PlayerMB : MonoBehaviour
 
     public float throwIndicatorLength;
 
-    public bool hasSpdBuff;
-    public bool hasPowerBuff;
+    public PlayerSpeedBuff speedBuff;
 
     public Rigidbody2D  thisRigidbody { get; protected set; }
     public CircleCollider2D thisCollider { get; protected set; }
@@ -73,8 +72,7 @@ public class PlayerMB : MonoBehaviour
         actionState = ActionState.normal;
         actionStateChangeTime = DateTime.Now;
 
-        SetSpdBuff(false);
-        hasPowerBuff = false;
+        speedBuff.Init();
     }
 
     public void FixedUpdate()
@@ -177,19 +175,17 @@ public class PlayerMB : MonoBehaviour
                 ballEquip.InitNormal();
                 break;
             case ActionState.moveSpin:
-                if (hasSpdBuff)
+                if (speedBuff.SpinStart())
                 {
                     ballEquip.InitSpinMax();
-                    SetSpdBuff(false);
                 }
                 else ballEquip.InitSpin();
                 TutorialMB.SignalTutorial("spin");
                 break;
             case ActionState.throwCharge:
-                if (hasSpdBuff)
+                if (speedBuff.SpinStart())
                 {
                     ballEquip.InitSpinMax();
-                    SetSpdBuff(false);
                 }
                 else ballEquip.InitSpin();
                 break;
@@ -212,6 +208,8 @@ public class PlayerMB : MonoBehaviour
 
     public void UpdateAction(float dt)
     {
+        speedBuff.Update();
+
         // change actionState
         switch (actionState)
         {
@@ -383,6 +381,14 @@ public class PlayerMB : MonoBehaviour
         return true;
     }
 
+    public void GainSpdBuff()
+    {
+        if (speedBuff.GetBuff(actionState))
+        {
+            ballEquip.InitSpinMax();
+        }
+    }
+
     public void OnMaxHPChange()
     {
         hpBar.SetMaxHP(stats.maxHP);
@@ -393,23 +399,6 @@ public class PlayerMB : MonoBehaviour
     {
         stats.currentHP = (hp <= stats.maxHP) ? hp : stats.maxHP;
         hpBar.SetHP(stats.currentHP);
-    }
-
-    public void SetSpdBuff(bool set = true)
-    {
-        hasSpdBuff = set;
-        if (set)
-        {
-            switch (actionState)
-            {
-                case ActionState.moveSpin:
-                case ActionState.throwCharge:
-                    ballEquip.InitSpinMax();
-                    hasSpdBuff = false;
-                    break;
-            }
-        }
-        effectManager.SetSpdBuff(hasSpdBuff);
     }
 
     public void ResetHP() => SetHP(stats.maxHP);

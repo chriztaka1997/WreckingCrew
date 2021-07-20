@@ -65,7 +65,10 @@ public abstract class BallEquipMB : MonoBehaviour
                     ballRef.thisRigidbody.velocity = velocity * CalcSlowSpdMult(enemymovement);
                     break;
                 case BallThrowMB.BallState.spin:
-                    SlowBalls(CalcSlowSpdMult(enemymovement));
+                    if (!player.speedBuff.isActive)
+                    {
+                        SlowBalls(CalcSlowSpdMult(enemymovement));
+                    }
                     break;
             }
             float damage = CalcDamage(ballRef);
