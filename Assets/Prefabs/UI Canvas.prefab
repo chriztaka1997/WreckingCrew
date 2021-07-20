@@ -221,7 +221,6 @@ GameObject:
   - component: {fileID: 537803323}
   - component: {fileID: 537803322}
   - component: {fileID: 537803321}
-  - component: {fileID: 537803324}
   m_Layer: 5
   m_Name: btn_round_back
   m_TagString: Untagged
@@ -277,8 +276,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: df9be07827def45438516120da142677, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 42fc6c01ddb6b344fb13c0c2ae01d60a, type: 3}
+  m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -306,7 +305,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 2
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -330,20 +329,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 537803322}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &537803324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537803319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7641a6ce995d10245aeaa767f5bc7187, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: start_sc
+      m_Calls:
+      - m_Target: {fileID: 6332983911013427850}
+        m_TargetAssemblyTypeName: UI_ManagerMB, Assembly-CSharp
+        m_MethodName: OnPausePress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &712016602
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &917211400
 RectTransform:
   m_ObjectHideFlags: 0
@@ -446,7 +444,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a659cdf07744db04786ca6d3824f3ce0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 42fc6c01ddb6b344fb13c0c2ae01d60a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1766,6 +1764,7 @@ MonoBehaviour:
   waveProgress: {fileID: 6332983910785452547}
   nextButtonArea: {fileID: 6332983910564790196}
   upgradeSelector: {fileID: 4368470145241297572}
+  pausePF: {fileID: 6208845040016568821, guid: 164bbce8b0db54a679626483cc5a062a, type: 3}
 --- !u!1 &6332983911073180481
 GameObject:
   m_ObjectHideFlags: 0

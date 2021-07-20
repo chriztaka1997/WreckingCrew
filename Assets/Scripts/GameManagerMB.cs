@@ -43,9 +43,12 @@ public class GameManagerMB : MonoBehaviour
 
     public void Awake()
     {
+        Time.timeScale = 1.0f; // just in case
+
         if (instance != null)
         {
             Destroy(gameObject);
+            return;
         }
         instance = this;
 

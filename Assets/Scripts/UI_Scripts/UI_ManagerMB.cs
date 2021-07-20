@@ -70,10 +70,15 @@ public class UI_ManagerMB : MonoBehaviour
 
     public void OnPausePress()
     {
-        if (PauseManagerMB.instance != null) return;
-
-        GameManagerMB.instance.StartPause();
-        Instantiate(pausePF);
+        if (PauseManagerMB.instance != null)
+        {
+            PauseManagerMB.instance.OnUnpausePress();
+        }
+        else
+        {
+            GameManagerMB.instance.StartPause();
+            Instantiate(pausePF);
+        }
     }
 
     

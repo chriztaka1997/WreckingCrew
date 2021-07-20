@@ -13,15 +13,20 @@ public class PauseManagerMB : MonoBehaviour
     public float camSizeMin;
     public float camSizeMax;
 
+    public Button resetLevelButton;
+
     public void Awake()
     {
         if (instance != null)
         {
             Destroy(gameObject);
+            return;
         }
         instance = this;
 
         camSizeSlider.value = Mathf.InverseLerp(camSizeMin, camSizeMax, Camera.main.orthographicSize);
+
+        resetLevelButton.interactable = TutorialMB.instance == null;
     }
 
     public void OnCamSizeSliderChange()

@@ -29,6 +29,7 @@ public class TutorialMB : MonoBehaviour
         if (instance != null)
         {
             Destroy(gameObject);
+            return;
         }
         instance = this;
 
@@ -93,6 +94,7 @@ public class TutorialMB : MonoBehaviour
         {
             QuitTutorial();
             Destroy(gameObject);
+            return;
         }
         else
         {

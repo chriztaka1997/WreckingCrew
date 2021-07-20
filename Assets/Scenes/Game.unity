@@ -761,50 +761,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 537803321, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 537803321, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 537803321, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 701734277}
-    - target: {fileID: 537803321, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 537803321, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnPausePress
-      objectReference: {fileID: 0}
-    - target: {fileID: 537803321, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI_ManagerMB, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 537803321, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 537803322, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 537803322, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 42fc6c01ddb6b344fb13c0c2ae01d60a, type: 3}
-    - target: {fileID: 917211399, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 917211401, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 42fc6c01ddb6b344fb13c0c2ae01d60a, type: 3}
     - target: {fileID: 6332983910067610150, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -817,10 +773,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6332983911013427850, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
-      propertyPath: pausePF
-      value: 
-      objectReference: {fileID: 6208845040016568821, guid: 164bbce8b0db54a679626483cc5a062a, type: 3}
     - target: {fileID: 6332983911013427850, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
       propertyPath: gameMngr
       value: 
@@ -917,8 +869,7 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1052180517}
-    m_RemovedComponents:
-    - {fileID: 537803324, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
 --- !u!1001 &7002203066966153842
 PrefabInstance:
@@ -971,165 +922,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836905, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: jsonPairs.Array.size
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836905, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: jsonPairs.Array.data[7].json
-      value: '{"tiles":[[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":4},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":5},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":0},{"tileType":5},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":5},{"tileType":0},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":5},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":5},{"tileType":5},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}]],"levelScale":1.0,"anchor":{"x":-9.0,"y":-9.0,"normalized":{"x":-0.707106769,"y":-0.707106769,"magnitude":1.0,"sqrMagnitude":0.99999994},"magnitude":12.7279224,"sqrMagnitude":162.0},"width":19,"height":19}'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836905, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: jsonPairs.Array.data[7].name
-      value: acz
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836905, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: jsonPairs.Array.data[8].json
-      value: '{"tiles":[[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":1},{"tileType":1}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":4},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":1},{"tileType":1}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}]],"levelScale":1.0,"anchor":{"x":-9.0,"y":-9.0,"normalized":{"x":-0.707106769,"y":-0.707106769,"magnitude":1.0,"sqrMagnitude":0.99999994},"magnitude":12.7279224,"sqrMagnitude":162.0},"width":19,"height":19}'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836905, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: jsonPairs.Array.data[8].name
-      value: room
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836905, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: jsonPairs.Array.data[9].json
-      value: '{"tiles":[[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":4},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}],[{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":2}]],"levelScale":2.0,"anchor":{"x":-18.0,"y":-18.0,"normalized":{"x":-0.707106769,"y":-0.707106769,"magnitude":1.0,"sqrMagnitude":0.99999994},"magnitude":25.4558449,"sqrMagnitude":648.0},"width":19,"height":19}'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836905, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: jsonPairs.Array.data[9].name
-      value: hard_level
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836905, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: jsonPairs.Array.data[10].json
-      value: '{"tiles":[[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":4},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":1},{"tileType":2},{"tileType":2},{"tileType":2},{"tileType":1}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":3},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":2},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}],[{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":1},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0},{"tileType":0}]],"levelScale":2.0,"anchor":{"x":-18.0,"y":-18.0,"normalized":{"x":-0.707106769,"y":-0.707106769,"magnitude":1.0,"sqrMagnitude":0.99999994},"magnitude":25.4558449,"sqrMagnitude":648.0},"width":19,"height":19}'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836905, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: jsonPairs.Array.data[10].name
-      value: maze
-      objectReference: {fileID: 0}
     - target: {fileID: 7002203067344836906, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
       propertyPath: m_Name
       value: Palette
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].name
-      value: tutorial
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[0].data.levelNames.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[0].data.levelNames.Array.data[5]
-      value: acz
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[0].data.levelNames.Array.data[6]
-      value: room
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[0].data.levelNames.Array.data[7]
-      value: hard_level
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[0].data.levelNames.Array.data[8]
-      value: maze
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[0]
-      value: circle
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[1]
-      value: 4_plus
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[2]
-      value: long_room_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[3]
-      value: grid_no_int
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[4]
-      value: water_vertical
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[5]
-      value: acz
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[6]
-      value: room
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[7]
-      value: hard_level
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.levelNames.Array.data[8]
-      value: maze
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].timeSpawn
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].maxEnemies
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[0].data.enemySpawns.Array.data[0].enemyTypes.Array.data[3].enemyPF
-      value: 
-      objectReference: {fileID: 585620822762102457, guid: d300e348d665ec944aeb0c84ff830f2b, type: 3}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[0].enemyPF
-      value: 
-      objectReference: {fileID: 1829448405230497336, guid: 785868d0820480d47a40c9115e029d7d, type: 3}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[1].enemyPF
-      value: 
-      objectReference: {fileID: 4559044220125520772, guid: a921e804b13451343bdfdb504f5e0222, type: 3}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[2].enemyPF
-      value: 
-      objectReference: {fileID: 3264225433481082328, guid: ff3807e32adc3a946b8c62332155be0a, type: 3}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[3].enemyPF
-      value: 
-      objectReference: {fileID: 585620822762102457, guid: d300e348d665ec944aeb0c84ff830f2b, type: 3}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[0].totalEnemies
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[1].totalEnemies
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[2].totalEnemies
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7002203067344836910, guid: dde024632a50047f5816de5162f2e9e1, type: 3}
-      propertyPath: stagePairs.Array.data[1].data.enemySpawns.Array.data[0].enemyTypes.Array.data[3].totalEnemies
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dde024632a50047f5816de5162f2e9e1, type: 3}

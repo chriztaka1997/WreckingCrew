@@ -15,6 +15,7 @@ public class LevelPaletteMB : MonoBehaviour
         if (instance != null)
         {
             Destroy(gameObject);
+            return;
         }
         instance = this;
         DontDestroyOnLoad(gameObject);
