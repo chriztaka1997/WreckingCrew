@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UI_ManagerMB : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class UI_ManagerMB : MonoBehaviour
     public UpgradeSelectorMB upgradeSelector;
 
     public PauseManagerMB pausePF;
+
+    public TextMeshProUGUI stagesText;
 
 
     void Start()
@@ -43,6 +46,8 @@ public class UI_ManagerMB : MonoBehaviour
                 waveProgress.SetState(WaveProgressBarMB.State.done);
                 break;
         }
+
+        UpdateStagesText();
     }
 
     public void DeactivateTogglable()
@@ -60,6 +65,11 @@ public class UI_ManagerMB : MonoBehaviour
     {
         upgradeSelector.gameObject.SetActive(true);
         upgradeSelector.SetButtons(upgrades);
+    }
+
+    public void UpdateStagesText()
+    {
+        stagesText.text = string.Format("Stages Cleared:\n{0}", gameMngr.difficulty.stagesCompleted);
     }
 
     public void OnUpgradeSelected(string name)

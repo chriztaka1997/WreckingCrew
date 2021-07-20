@@ -151,7 +151,6 @@ public class GameManagerMB : MonoBehaviour
                 {
                     ChangeState(GameState.preupgrade);
                     TutorialMB.SignalTutorial("wave");
-                    difficulty.OnStageComplete();
                 }
                 break;
             case GameState.preupgrade:
@@ -261,6 +260,9 @@ public class GameManagerMB : MonoBehaviour
         ReloadStageData();
 
         PrepNextWave();
+
+        difficulty.OnStageComplete();
+        uiMngr.UpdateStagesText();
     }
 
     public void AddUpgrade(string name)
