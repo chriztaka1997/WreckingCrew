@@ -6,6 +6,7 @@ using System;
 public class PlayerEffectManagerMB : MonoBehaviour
 {
     public Material damageMat, iframeMat;
+    public GameObject speedPrt;
     private Material normalMat;
 
     public float iframeFlashPeriod; // in seconds
@@ -21,6 +22,8 @@ public class PlayerEffectManagerMB : MonoBehaviour
         mRenderer = meshRenderer;
         normalMat = mRenderer.material;
         state = State.normal;
+
+        SetSpdBuff(false);
     }
 
     public void Update()
@@ -55,6 +58,13 @@ public class PlayerEffectManagerMB : MonoBehaviour
                 mRenderer.material = iframeMat;
                 break;
         }
+
+        
+    }
+
+    public void SetSpdBuff(bool set)
+    {
+        speedPrt.SetActive(set);
     }
 
     public enum State

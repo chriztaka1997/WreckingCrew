@@ -35,6 +35,8 @@ public abstract class BallEquipMB : MonoBehaviour
 
     public abstract void InitSpin();
 
+    public abstract void InitSpinMax();
+
     public abstract void InitThrow();
 
     public abstract void DoSpin(float dt);

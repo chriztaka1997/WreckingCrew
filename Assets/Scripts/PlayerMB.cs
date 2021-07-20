@@ -43,6 +43,9 @@ public class PlayerMB : MonoBehaviour
 
     public float throwIndicatorLength;
 
+    public bool hasSpdBuff;
+    public bool hasPowerBuff;
+
     public Rigidbody2D  thisRigidbody { get; protected set; }
     public CircleCollider2D thisCollider { get; protected set; }
     const float kbdDist = 1.0f;
@@ -69,6 +72,9 @@ public class PlayerMB : MonoBehaviour
 
         actionState = ActionState.normal;
         actionStateChangeTime = DateTime.Now;
+
+        SetSpdBuff(false);
+        hasPowerBuff = false;
     }
 
     public void FixedUpdate()
@@ -163,24 +169,61 @@ public class PlayerMB : MonoBehaviour
 
         actionState = newState;
         actionStateChangeTime = DateTime.Now;
+
+        // do behaviors tied to action state
+        switch (newState)
+        {
+            case ActionState.normal:
+                ballEquip.InitNormal();
+                break;
+            case ActionState.moveSpin:
+                if (hasSpdBuff)
+                {
+                    ballEquip.InitSpinMax();
+                    SetSpdBuff(false);
+                }
+                else ballEquip.InitSpin();
+                TutorialMB.SignalTutorial("spin");
+                break;
+            case ActionState.throwCharge:
+                if (hasSpdBuff)
+                {
+                    ballEquip.InitSpinMax();
+                    SetSpdBuff(false);
+                }
+                else ballEquip.InitSpin();
+                break;
+            case ActionState.throwPreRelease:
+                break;
+            case ActionState.thrown:
+                ballEquip.InitThrow();
+                TutorialMB.SignalTutorial("throw");
+                break;
+            case ActionState.returning:
+                ballEquip.InitReturn();
+                break;
+            case ActionState.knockback:
+                ballEquip.InitNormal();
+                break;
+            case ActionState.iframes:
+                break;
+        }
     }
 
     public void UpdateAction(float dt)
     {
+        // change actionState
         switch (actionState)
         {
             case ActionState.normal:
                 if (spinKey.GetKeyDown)
                 {
                     ChangeActionState(ActionState.moveSpin);
-                    ballEquip.InitSpin();
-                    TutorialMB.SignalTutorial("spin");
                     break;
                 }
                 if (throwKey.GetKeyDown)
                 {
                     ChangeActionState(ActionState.throwCharge);
-                    ballEquip.InitSpin();
                     break;
                 }
                 break;
@@ -193,13 +236,11 @@ public class PlayerMB : MonoBehaviour
                 if (!spinKey.GetKey)
                 {
                     ChangeActionState(ActionState.normal);
-                    ballEquip.InitNormal();
                     break;
                 }
                 if (ballEquip.IsStuck())
                 {
                     ChangeActionState(ActionState.normal);
-                    ballEquip.InitNormal();
                     break;
                 }
                 break;
@@ -214,8 +255,6 @@ public class PlayerMB : MonoBehaviour
                     if (ballEquip.ThrowAngleCorrect())
                     {
                         ChangeActionState(ActionState.thrown);
-                        ballEquip.InitThrow();
-                        TutorialMB.SignalTutorial("throw");
                     }
                     else
                     {
@@ -226,7 +265,6 @@ public class PlayerMB : MonoBehaviour
                 if (ballEquip.IsStuck())
                 {
                     ChangeActionState(ActionState.normal);
-                    ballEquip.InitNormal();
                     break;
                 }
                 break;
@@ -234,8 +272,6 @@ public class PlayerMB : MonoBehaviour
                 if (ballEquip.ThrowAngleCorrect())
                 {
                     ChangeActionState(ActionState.thrown);
-                    ballEquip.InitThrow();
-                    TutorialMB.SignalTutorial("throw");
                 }
                 break;
 
@@ -244,7 +280,6 @@ public class PlayerMB : MonoBehaviour
                 if (throwKey.GetKeyDown || spinKey.GetKeyDown)
                 {
                     ChangeActionState(ActionState.returning);
-                    ballEquip.InitReturn();
                 }
                 break;
             case ActionState.returning:
@@ -269,15 +304,12 @@ public class PlayerMB : MonoBehaviour
                     if (spinKey.GetKey)
                     {
                         ChangeActionState(ActionState.moveSpin);
-                        ballEquip.InitSpin();
-                        TutorialMB.SignalTutorial("spin");
                         effectManager.ChangeState(PlayerEffectManagerMB.State.normal);
                         break;
                     }
                     if (throwKey.GetKey)
                     {
                         ChangeActionState(ActionState.throwCharge);
-                        ballEquip.InitSpin();
                         effectManager.ChangeState(PlayerEffectManagerMB.State.normal);
                         break;
                     }
@@ -286,6 +318,7 @@ public class PlayerMB : MonoBehaviour
                 }
                 break;
         }
+        // do update based on action state
         switch (actionState)
         {
             case ActionState.normal:
@@ -358,6 +391,23 @@ public class PlayerMB : MonoBehaviour
     {
         stats.currentHP = (hp <= stats.maxHP) ? hp : stats.maxHP;
         hpBar.SetHP(stats.currentHP);
+    }
+
+    public void SetSpdBuff(bool set = true)
+    {
+        hasSpdBuff = set;
+        if (set)
+        {
+            switch (actionState)
+            {
+                case ActionState.moveSpin:
+                case ActionState.throwCharge:
+                    ballEquip.InitSpinMax();
+                    hasSpdBuff = false;
+                    break;
+            }
+        }
+        effectManager.SetSpdBuff(hasSpdBuff);
     }
 
     public void ResetHP() => SetHP(stats.maxHP);

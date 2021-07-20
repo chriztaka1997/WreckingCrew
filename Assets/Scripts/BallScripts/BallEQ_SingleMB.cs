@@ -36,6 +36,13 @@ public class BallEQ_SingleMB : BallEquipMB
         ball.InitSpin(spinSpd, player, this);
     }
 
+    public override void InitSpinMax()
+    {
+        float spinSpd = ball.GetConservedSpinSpd(player, this);
+        float maxSpd = (spinSpd >= 0) ? player.stats.maxSpinSpd : -player.stats.maxSpinSpd;
+        ball.InitSpin(maxSpd, player, this);
+    }
+
     public override void DoSpin(float dt)
     {
         ball.SpinBall(dt, player, this);

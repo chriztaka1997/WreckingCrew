@@ -112,6 +112,16 @@ public class BallEQ_MultiMB : BallEquipMB
         }
     }
 
+    public override void InitSpinMax()
+    {
+        foreach (BallThrowMB ball in balls)
+        {
+            float spinSpd = ball.GetConservedSpinSpd(player, this);
+            float maxSpd = (spinSpd >= 0) ? player.stats.maxSpinSpd : -player.stats.maxSpinSpd;
+            ball.InitSpin(maxSpd, player, this);
+        }
+    }
+
     public override void SetState(BallThrowMB.BallState ballState)
     {
         foreach (BallThrowMB ball in balls)

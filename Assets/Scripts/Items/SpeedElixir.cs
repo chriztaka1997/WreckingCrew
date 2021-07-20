@@ -19,6 +19,7 @@ public class SpeedElixir : GenericItems
     protected override void ItemTriggerEvent(Collider2D collision)
     {
         base.ItemTriggerEvent(collision);
+        collision.gameObject.GetComponent<PlayerMB>().SetSpdBuff();
     }
 
 }
