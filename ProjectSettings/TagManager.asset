@@ -11,6 +11,8 @@ TagManager:
   - HealthPotion
   - WaterHazard
   - Bullet
+  - SpeedElixir
+  - StrengthElixir
   layers:
   - Default
   - TransparentFX

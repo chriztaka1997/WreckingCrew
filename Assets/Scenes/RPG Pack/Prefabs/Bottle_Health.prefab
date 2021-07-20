@@ -9792,3 +9792,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68230c2703f166547bd2a2080934a62c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasEffect: 0
+  VisualEffect: {fileID: 0}

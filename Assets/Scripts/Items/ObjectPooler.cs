@@ -102,6 +102,28 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
+    public void SpawnSpeedElixir(Vector3 pos)
+    {
+        GameObject HP = SharedInstance.GetPooledObject("SpeedElixir");
+        if (HP != null)
+        {
+            HP.SetActive(true);
+            pos.z = itemsToPool.Find(item => item.itemName == "SpeedElixir").zPos;
+            HP.transform.position = pos;
+        }
+    }
+
+    public void SpawnStrengthElixir(Vector3 pos)
+    {
+        GameObject HP = SharedInstance.GetPooledObject("StrengthElixir");
+        if (HP != null)
+        {
+            HP.SetActive(true);
+            pos.z = itemsToPool.Find(item => item.itemName == "StrengthElixir").zPos;
+            HP.transform.position = pos;
+        }
+    }
+
     public void DestroyCoin(GameObject gameObject) 
     {
         gameObject.SetActive(false);
@@ -115,6 +137,13 @@ public class ObjectPooler : MonoBehaviour
         r = Random.Range(0f, 1f);
         if (r <= dropingRate)
             SharedInstance.SpawnHealthPotion(enemyLocation);
+        r = Random.Range(0f, 1f);
+        if (r <= dropingRate)
+            SharedInstance.SpawnSpeedElixir(enemyLocation);
+        r = Random.Range(0f, 1f);
+        if (r <= dropingRate)
+            SharedInstance.SpawnStrengthElixir(enemyLocation);
+
     }
 
     public void UpdateCoin(int coin)

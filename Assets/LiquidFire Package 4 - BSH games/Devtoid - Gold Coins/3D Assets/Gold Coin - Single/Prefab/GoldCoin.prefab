@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ffb0ca29c956d41ba6702a0a825d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  VisualEffect: {fileID: 0}
   value: 1
 --- !u!58 &7098286614237368331
 CircleCollider2D:
