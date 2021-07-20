@@ -85,7 +85,10 @@ public class PlayerSpeedBuff
                 particleHold.SetActive(false);
                 return true;
             case State.active:
-                break;
+                // start spin at max speed, but dont set time
+                particleActive.SetActive(true);
+                particleHold.SetActive(false);
+                return true;
         }
         return false;
     }
