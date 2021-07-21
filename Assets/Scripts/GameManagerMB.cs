@@ -222,6 +222,7 @@ public class GameManagerMB : MonoBehaviour
     {
         levelMngr.SetLevel(level);
         levelMngr.PlacePlayer(player);
+        ObjectPooler.SharedInstance.DestroyAllPooledObjects();
     }
 
     public void ResetLevel()

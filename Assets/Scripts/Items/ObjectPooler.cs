@@ -165,4 +165,12 @@ public class ObjectPooler : MonoBehaviour
         currentCoin += coin;
         coinText.text = currentCoin.ToString();
     }
+
+    public void DestroyAllPooledObjects()
+    {
+        foreach (GameObject g in pooledObjects)
+        {
+            g.SetActive(false);
+        }
+    }
 }
