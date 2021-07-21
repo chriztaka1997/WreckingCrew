@@ -129,20 +129,34 @@ public class ObjectPooler : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public Vector2 DropLocation(Vector2 enemyLocation)
+    {
+        (int, int)? tile;
+        Vector2 dl;
+        do
+        {
+            float delta_x = Random.Range(0f, 1f);
+            float delta_y = Random.Range(0f, 1f);
+            dl = new Vector2(enemyLocation.x + delta_x, enemyLocation.y + delta_y);
+            tile = GameManagerMB.instance.levelMngr.level.GridLocation(dl);
+        } while (tile == null || GameManagerMB.instance.levelMngr.level.tiles[tile.Value.Item1,tile.Value.Item2].tileType != TileType.empty);
+        return dl;
+    }
+
     public void DropByEnemy(Vector3 enemyLocation, float dropingRate)
     {
         float r = Random.Range(0f, 1f);
         if(r <= dropingRate)
-            SharedInstance.SpawnCoin(enemyLocation);
+            SharedInstance.SpawnCoin(DropLocation(enemyLocation));
         r = Random.Range(0f, 1f);
         if (r <= dropingRate)
-            SharedInstance.SpawnHealthPotion(enemyLocation);
+            SharedInstance.SpawnHealthPotion(DropLocation(enemyLocation));
         r = Random.Range(0f, 1f);
         if (r <= dropingRate)
-            SharedInstance.SpawnSpeedElixir(enemyLocation);
-        r = Random.Range(0f, 1f);
+            SharedInstance.SpawnSpeedElixir(DropLocation(enemyLocation));
+/*        r = Random.Range(0f, 1f);
         if (r <= dropingRate)
-            SharedInstance.SpawnStrengthElixir(enemyLocation);
+            SharedInstance.SpawnStrengthElixir(enemyLocation);*/
 
     }
 
