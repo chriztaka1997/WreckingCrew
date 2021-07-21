@@ -614,8 +614,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1052180517}
   level:
-    levelScale: 2
-    anchor: {x: -18, y: -18}
+    levelScale: 0
+    anchor: {x: 0, y: 0}
   tileToAdd:
     tileType: 5
   tileSize: 2
@@ -697,7 +697,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
