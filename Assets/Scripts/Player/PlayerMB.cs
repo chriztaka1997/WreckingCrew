@@ -409,9 +409,7 @@ public class PlayerMB : MonoBehaviour
     {
         if (stats.currentHP <= 0)
         {
-            print("Died :(");
-            stats.Reset();
-            ResetHP();
+            GameManagerMB.instance.OnGameOver();
             return true;
         }
         return false;

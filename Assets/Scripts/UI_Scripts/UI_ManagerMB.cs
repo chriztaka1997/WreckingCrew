@@ -13,8 +13,13 @@ public class UI_ManagerMB : MonoBehaviour
     public UpgradeSelectorMB upgradeSelector;
 
     public PauseManagerMB pausePF;
+    public GameOverManagerMB gameOverPF;
 
     public TextMeshProUGUI stagesText;
+
+    public bool isPaused => PauseManagerMB.instance != null;
+    public bool isGameOver => GameOverManagerMB.instance != null;
+    public bool uiInteractable => !isPaused && !isGameOver;
 
 
     void Start()
@@ -78,9 +83,35 @@ public class UI_ManagerMB : MonoBehaviour
         gameMngr.UpgradeSelected(name);
     }
 
+    public void OnGameOver(int stagesComplete)
+    {
+        if (!isGameOver)
+        {
+            GameManagerMB.instance.StartPause();
+            GameOverManagerMB gom = Instantiate(gameOverPF);
+            gom.Init(stagesComplete);
+        }
+    }
+
+    public void OnNextStagePress()
+    {
+        if (uiInteractable)
+        {
+            gameMngr.PrepNextStage();
+        }
+    }
+
+    public void OnNextWavePress()
+    {
+        if (uiInteractable)
+        {
+            gameMngr.PrepNextWave();
+        }
+    }
+
     public void OnPausePress()
     {
-        if (PauseManagerMB.instance != null)
+        if (isPaused)
         {
             PauseManagerMB.instance.OnUnpausePress();
         }

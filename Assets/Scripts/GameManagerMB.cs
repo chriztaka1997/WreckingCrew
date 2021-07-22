@@ -300,6 +300,16 @@ public class GameManagerMB : MonoBehaviour
         tutorial.StartTutorial();
     }
 
+    public void OnGameOver()
+    {
+        uiMngr.OnGameOver(difficulty.stagesCompleted);
+    }
+
+    public void PlayerContinue()
+    {
+        player.ResetHP();
+    }
+
     public enum GameState
     {
         countdown,
