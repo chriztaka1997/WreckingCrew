@@ -28,6 +28,12 @@ public class DifficultyData
             Shoot shoot = (Shoot)enemy;
             shoot.numBallOnDeath *= diff;
         }
+
+        if (enemy is Explode)
+        {
+            Explode explode = (Explode)enemy;
+            explode.numBallOnDeath *= diff;
+        }
     }
 
     public void ScaleBullet(Bullet bullet)
