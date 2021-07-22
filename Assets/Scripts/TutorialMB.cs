@@ -10,6 +10,10 @@ public class TutorialMB : MonoBehaviour
     public static TutorialMB instance;
 
     public List<TutorialEntry> entries;
+
+    public Enemymovement baseEnemyPF;
+    public Enemymovement bigEnemyPF;
+
     public GameObject textObj;
     public GameObject hintObj;
 
@@ -62,11 +66,13 @@ public class TutorialMB : MonoBehaviour
     public void ShowWindow()
     {
         textObj.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void HideWindow()
     {
         textObj.SetActive(false);
+        Time.timeScale = 1.0f;
     }
 
     public static void SignalTutorial(string name, bool delay = true)
@@ -128,10 +134,31 @@ public class TutorialMB : MonoBehaviour
             case "wall":
                 GameManagerMB.instance.ResetLevel();
                 break;
+            case "enemy":
+                {
+                    Enemymovement enemy = Instantiate(baseEnemyPF);
+                    enemy.transform.position = GameManagerMB.instance.levelMngr.level.WorldLocation(9, 13);
+                    enemy.player = GameManagerMB.instance.player.transform;
+                    enemy.onDeath += () => SignalTutorial("enemy");
+                    enemy.droppingRate = 0;
+                    break;
+                }
             case "item":
                 ObjectPooler.SharedInstance.SpawnHealthPotion(GameManagerMB.instance.levelMngr.level.WorldLocation(5, 9));
                 ObjectPooler.SharedInstance.SpawnCoin(GameManagerMB.instance.levelMngr.level.WorldLocation(13, 9));
                 break;
+            case "powerup":
+                {
+                    ObjectPooler.SharedInstance.SpawnSpeedElixir(GameManagerMB.instance.levelMngr.level.WorldLocation(7, 7));
+                    ObjectPooler.SharedInstance.SpawnSpeedElixir(GameManagerMB.instance.levelMngr.level.WorldLocation(11, 11));
+
+                    Enemymovement enemy = Instantiate(bigEnemyPF);
+                    enemy.transform.position = GameManagerMB.instance.levelMngr.level.WorldLocation(9, 13);
+                    enemy.player = GameManagerMB.instance.player.transform;
+                    enemy.onDeath += () => SignalTutorial("powerup");
+                    enemy.droppingRate = 0;
+                    break;
+                }
             case "wave":
                 GameManagerMB.instance.ChangeState(GameManagerMB.GameState.countdown);
                 break;

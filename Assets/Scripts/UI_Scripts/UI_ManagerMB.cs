@@ -19,7 +19,8 @@ public class UI_ManagerMB : MonoBehaviour
 
     public bool isPaused => PauseManagerMB.instance != null;
     public bool isGameOver => GameOverManagerMB.instance != null;
-    public bool uiInteractable => !isPaused && !isGameOver;
+    public bool isTutorial => TutorialMB.instance != null && TutorialMB.instance.textObj.activeSelf;
+    public bool isUI_Interactable => !isPaused && !isGameOver && !isTutorial;
 
 
     void Start()
@@ -95,7 +96,7 @@ public class UI_ManagerMB : MonoBehaviour
 
     public void OnNextStagePress()
     {
-        if (uiInteractable)
+        if (isUI_Interactable)
         {
             gameMngr.PrepNextStage();
         }
@@ -103,7 +104,7 @@ public class UI_ManagerMB : MonoBehaviour
 
     public void OnNextWavePress()
     {
-        if (uiInteractable)
+        if (isUI_Interactable)
         {
             gameMngr.PrepNextWave();
         }
@@ -115,7 +116,7 @@ public class UI_ManagerMB : MonoBehaviour
         {
             PauseManagerMB.instance.OnUnpausePress();
         }
-        else
+        else if (isUI_Interactable)
         {
             GameManagerMB.instance.StartPause();
             Instantiate(pausePF);

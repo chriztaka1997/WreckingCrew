@@ -39,6 +39,8 @@ public class Enemymovement : MonoBehaviour
     public GameObject whereTrigger;
     public CircleCollider2D trigger;
 
+    public System.Action onDeath;
+
     public enum States
     {
         normal,
@@ -82,6 +84,7 @@ public class Enemymovement : MonoBehaviour
     public virtual void killed()
     {
         ObjectPooler.SharedInstance.DropByEnemy(gameObject.transform.position, droppingRate);
+        onDeath?.Invoke();
     }
 
     void FixedUpdate()

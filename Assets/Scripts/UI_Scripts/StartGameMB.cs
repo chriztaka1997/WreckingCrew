@@ -9,7 +9,6 @@ public class StartGameMB : MonoBehaviour
 
 	public bool startInTutorial;
 
-	// Use this for initialization
 	void Start()
 	{
 		Button b = GetComponent<Button>();
@@ -22,11 +21,5 @@ public class StartGameMB : MonoBehaviour
 				SceneManager.LoadScene(sceneName);
 			});
 		}
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
 	}
 }
