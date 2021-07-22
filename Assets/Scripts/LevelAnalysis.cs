@@ -6,6 +6,11 @@ public static class LevelAnalysis
 {
     public static List<Vector2Int> PathToPlayer(Graph graph, Node start, Node end)
     {
+        if (!graph.edges.ContainsKey(end))
+        {
+            end = FindClosestValidNode(graph, end);
+        }
+
         var parentMap = BFS.GetParentMap(start, graph);
         var shortestPath = BFS.ShortestPath(parentMap, end);
 
@@ -20,6 +25,22 @@ public static class LevelAnalysis
         }
 
         return retVal;
+    }
+
+    public static Node FindClosestValidNode(Graph graph, Node node)
+    {
+        Node closest = null;
+        float distSq = float.MaxValue;
+        foreach (Node n in graph.edges.Keys)
+        {
+            float tempdistSq = (n.x - node.x) * (n.x - node.x) + (n.y - node.y) * (n.y - node.y);
+            if (tempdistSq < distSq)
+            {
+                closest = n;
+                distSq = tempdistSq;
+            }
+        }
+        return closest ?? node;
     }
 
 
@@ -54,7 +75,7 @@ public static class LevelAnalysis
     {
         public override Dictionary<Node, HashSet<Node>> edges { get; set; }
 
-        public Graph(LevelTile[,] levelTiles, List<TileType> traversable)
+        public Graph(LevelTile[,] levelTiles, List<TileType> traversable, int minWallDist = 0)
         {
             edges = new Dictionary<Node, HashSet<Node>>();
 
@@ -85,6 +106,23 @@ public static class LevelAnalysis
                     }
                 }
             }
+
+            for (int i = 0; i < minWallDist; i++)
+            {
+                List<Node> toRemove = new List<Node>();
+                foreach (var nodepair in edges)
+                {
+
+                    if (nodepair.Value.Count < 4)
+                    {
+                        toRemove.Add(nodepair.Key);
+                    }
+                }
+                foreach (Node n in toRemove)
+                {
+                    RemoveNode(n);
+                }
+            }
         }
 
         public void AddEdge(Node node1, Node node2, bool bidir = true)
@@ -101,6 +139,41 @@ public static class LevelAnalysis
             if (bidir)
             {
                 AddEdge(node2, node1, false);
+            }
+        }
+
+        public void RemoveEdge(Node node1, Node node2, bool bidir = true)
+        {
+            if (edges.ContainsKey(node1) && edges[node1].Contains(node2))
+            {
+                edges[node1].Remove(node2);
+                if (edges[node1].Count == 0)
+                {
+                    edges.Remove(node1);
+                }
+            }
+
+            if (bidir)
+            {
+                RemoveEdge(node2, node1, false);
+            }
+        }
+
+        // will not remove directional edges to this node
+        public void RemoveNode(Node node)
+        {
+            if (edges.ContainsKey(node))
+            {
+                List<Node> toRemove = new List<Node>();
+                foreach (Node n in edges[node])
+                {
+                    toRemove.Add(n);
+                }
+                foreach (Node n in toRemove)
+                {
+                    RemoveEdge(node, n);
+                }
+                edges.Remove(node);
             }
         }
     }

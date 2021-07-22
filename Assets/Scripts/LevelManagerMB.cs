@@ -18,6 +18,7 @@ public class LevelManagerMB : MonoBehaviour
     private GameObject wallSolidHolder, wallBreakHolder;
 
     public LevelAnalysis.Graph la_graph { get; private set; }
+    public LevelAnalysis.Graph la_graph_fat { get; private set; }
     public List<TileType> traversable;
 
     [TextArea]
@@ -155,5 +156,6 @@ public class LevelManagerMB : MonoBehaviour
     public void OnTileChange()
     {
         la_graph = new LevelAnalysis.Graph(currentTiles, traversable);
+        la_graph_fat = new LevelAnalysis.Graph(currentTiles, traversable, 1);
     }
 }

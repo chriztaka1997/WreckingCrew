@@ -17,6 +17,8 @@ public class Pathfinder
 
     public Vector2Int targetLastPos;
 
+    public LevelAnalysis.Graph graph => (radius / levelMngr.level.levelScale > .51) ? levelMngr.la_graph_fat : levelMngr.la_graph;
+
     public Pathfinder(GameObject source, GameObject target, float radius)
     {
         this.source = source;
@@ -85,7 +87,7 @@ public class Pathfinder
         if (nextMoves.Count == 0 || (currentPos - nextMove).magnitude > 1.1f || targetPos != targetLastPos)
         {
             nextMoves.Clear();
-            foreach (Vector2Int v in LevelAnalysis.PathToPlayer(levelMngr.la_graph, new LevelAnalysis.Node(x, y), new LevelAnalysis.Node(tx, ty)) ?? new List<Vector2Int>())
+            foreach (Vector2Int v in LevelAnalysis.PathToPlayer(graph, new LevelAnalysis.Node(x, y), new LevelAnalysis.Node(tx, ty)) ?? new List<Vector2Int>())
             {
                 nextMoves.Enqueue(v);
             }
