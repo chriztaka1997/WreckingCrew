@@ -11,14 +11,22 @@ public class PlayerEffectManagerMB : MonoBehaviour
     public float iframeFlashPeriod; // in seconds
     public State state;
 
-    private MeshRenderer mRenderer;
-    private DateTime timeChanged;
-    public TimeSpan timeSinceChange => timeChanged - DateTime.Now;
+    public float damagedDuration;
+    public float iframeDuration;
 
-    
-    public void Init(MeshRenderer meshRenderer)
+    private MeshRenderer mRenderer;
+    private float timeIframeChanged;
+    public float timeSinceIframeChange => Time.time - timeIframeChanged;
+
+    private float timeStateChanged;
+    public float timeSinceStateChange => Time.time - timeStateChanged;
+
+
+    public void Init(MeshRenderer meshRenderer, float damagedDuration, float iframeDuration)
     {
         mRenderer = meshRenderer;
+        this.damagedDuration = damagedDuration;
+        this.iframeDuration = iframeDuration;
         normalMat = mRenderer.material;
         state = State.normal;
     }
@@ -30,11 +38,19 @@ public class PlayerEffectManagerMB : MonoBehaviour
             case State.normal:
                 break;
             case State.damaged:
+                if (timeSinceStateChange > damagedDuration)
+                {
+                    ChangeState(State.normal);
+                }
                 break;
             case State.iframe:
-                int flashNum = (int)(timeSinceChange.TotalSeconds / iframeFlashPeriod);
+                int flashNum = (int)(timeSinceIframeChange / iframeFlashPeriod);
                 bool isIframeMat = (flashNum % 2) == 0;
                 mRenderer.material = isIframeMat ? iframeMat : normalMat;
+                if (timeSinceStateChange > iframeDuration)
+                {
+                    ChangeState(State.normal);
+                }
                 break;
         }
     }
@@ -42,7 +58,8 @@ public class PlayerEffectManagerMB : MonoBehaviour
     public void ChangeState(State state)
     {
         this.state = state;
-        timeChanged = DateTime.Now;
+        timeIframeChanged = Time.time;
+        timeStateChanged = Time.time;
         switch (state)
         {
             case State.normal:

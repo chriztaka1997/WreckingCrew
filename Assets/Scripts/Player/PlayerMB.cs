@@ -67,7 +67,7 @@ public class PlayerMB : MonoBehaviour
 
         keyManagers = new List<KeyManager> { throwKey, spinKey };
 
-        effectManager.Init(gameObject.GetComponent<MeshRenderer>());
+        effectManager.Init(gameObject.GetComponent<MeshRenderer>(), knockBackDuration, iframeDuration);
 
         actionState = ActionState.normal;
         actionStateChangeTime = DateTime.Now;
@@ -415,6 +415,21 @@ public class PlayerMB : MonoBehaviour
         return false;
     }
 
+    public void OnBulletHit(Bullet bullet)
+    {
+        if (actionState == ActionState.knockback || actionState == ActionState.iframes) return;
+        effectManager.ChangeState(PlayerEffectManagerMB.State.damaged);
+
+        float damageTaken = bullet.attack;
+        AlterHP(-damageTaken);
+
+        if (CheckDeath())
+        {
+            AnalyticsManagerMB.PlayerDeathAnalytics(bullet.gameObject.name);
+        }
+        bullet.gameObject.SetActive(false);
+    }
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
         string tag = collision.gameObject.tag;
@@ -425,6 +440,11 @@ public class PlayerMB : MonoBehaviour
                 {
                     if (actionState == ActionState.knockback || actionState == ActionState.iframes) break;
                     Enemymovement enemy = collision.gameObject.GetComponent<Enemymovement>();
+                    if (enemy.currentState == Enemymovement.States.dead ||
+                        enemy.currentState == Enemymovement.States.respawn)
+                    {
+                        break;
+                    }
                     knockbackStartPoint = transform.position;
                     knockbackEndPoint = knockbackStartPoint + (hitDir * knockBackDist);
                     hitTime = DateTime.Now;
@@ -443,41 +463,6 @@ public class PlayerMB : MonoBehaviour
                 }
         }
     }
-
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        string tag = collision.gameObject.tag;
-        Vector2 hitDir = (transform.position - collision.transform.position).normalized;
-        switch (tag)
-        {
-            case "Bullet":
-                {
-                    if (actionState == ActionState.knockback || actionState == ActionState.iframes) break;
-                    Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-                    knockbackStartPoint = transform.position;
-                    knockbackEndPoint = knockbackStartPoint + (hitDir * knockBackDist);
-                    hitTime = DateTime.Now;
-                    ChangeActionState(ActionState.knockback);
-                    ballEquip.InitNormal();
-                    effectManager.ChangeState(PlayerEffectManagerMB.State.damaged);
-
-                    float damageTaken = bullet.attack;
-                    AlterHP(-damageTaken);
-
-                    if (CheckDeath())
-                    {
-                        AnalyticsManagerMB.PlayerDeathAnalytics(collision.gameObject.name);
-                    }
-
-                    print("bullet damage");
-
-                    bullet.gameObject.SetActive(false);
-
-                    break;
-                }
-        }
-    }
-
 
     public enum MoveType
     {

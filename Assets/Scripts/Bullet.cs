@@ -41,7 +41,8 @@ public class Bullet : GenericItems
     protected override void ItemTriggerEvent(Collider2D collision)
     {
         base.ItemTriggerEvent(collision);
-        collision.gameObject.GetComponent<PlayerMB>().AlterHP(attack*-1.0f);
+        collision.gameObject.GetComponent<PlayerMB>().OnBulletHit(this);
+        gameObject.SetActive(false);
     }
 
     private new void OnTriggerEnter2D(Collider2D collision)
