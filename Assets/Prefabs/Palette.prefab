@@ -221,7 +221,7 @@ MonoBehaviour:
   - name: balleq:triple
     title: Triple Ball
     desc: Equips 3 smaller balls with less damage
-    sprite: {fileID: 21300000, guid: a9a3a9cc1b59b453385d9e3c0bfb76af, type: 3}
+    sprite: {fileID: 21300000, guid: 1b8b0f545cda34cd58fc9d65325fa472, type: 3}
     data:
     - name: BallEQ_TripleRapid
       amount: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
   - name: balleq:single_large
     title: Mega Ball
     desc: Equips a larger, slower ball with more damage
-    sprite: {fileID: 21300000, guid: a9a3a9cc1b59b453385d9e3c0bfb76af, type: 3}
+    sprite: {fileID: 21300000, guid: f265e730867e34a5a8bf615babe3114a, type: 3}
     data:
     - name: BallEQ_SingleLarge
       amount: 0

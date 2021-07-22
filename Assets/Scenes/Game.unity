@@ -762,6 +762,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6332983910535098420, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332983910535098420, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6332983911013427850, guid: 2099f0a64f4ab43cd897fe25bb08be23, type: 3}
       propertyPath: gameMngr
       value: 
